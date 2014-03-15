@@ -25,7 +25,6 @@
 		4E5BC24518D3790800F7F642 /* ScoreDetector.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E5BC23818D3790800F7F642 /* ScoreDetector.m */; };
 		4E5BC24618D3790800F7F642 /* ScoreIndicators.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E5BC23A18D3790800F7F642 /* ScoreIndicators.m */; };
 		4E5BC24718D3790800F7F642 /* PegColors.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E5BC23C18D3790800F7F642 /* PegColors.m */; };
-		4E5BC24918D3790800F7F642 /* ReplayButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E5BC24018D3790800F7F642 /* ReplayButton.m */; };
 		4E5BC24A18D3790800F7F642 /* Scorezone.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E5BC24218D3790800F7F642 /* Scorezone.m */; };
 		4E5BC25118D3794500F7F642 /* MainMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E5BC24C18D3794500F7F642 /* MainMenuViewController.m */; };
 		4E5BC25218D3794500F7F642 /* MainMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E5BC24E18D3794500F7F642 /* MainMenu.m */; };
@@ -120,8 +119,6 @@
 		4E5BC23A18D3790800F7F642 /* ScoreIndicators.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScoreIndicators.m; sourceTree = "<group>"; };
 		4E5BC23B18D3790800F7F642 /* PegColors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PegColors.h; sourceTree = "<group>"; };
 		4E5BC23C18D3790800F7F642 /* PegColors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PegColors.m; sourceTree = "<group>"; };
-		4E5BC23F18D3790800F7F642 /* ReplayButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReplayButton.h; sourceTree = "<group>"; };
-		4E5BC24018D3790800F7F642 /* ReplayButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReplayButton.m; sourceTree = "<group>"; };
 		4E5BC24118D3790800F7F642 /* Scorezone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Scorezone.h; sourceTree = "<group>"; };
 		4E5BC24218D3790800F7F642 /* Scorezone.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Scorezone.m; sourceTree = "<group>"; };
 		4E5BC24B18D3794500F7F642 /* MainMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainMenuViewController.h; sourceTree = "<group>"; };
@@ -309,8 +306,6 @@
 				4E5BC23A18D3790800F7F642 /* ScoreIndicators.m */,
 				4E5BC23B18D3790800F7F642 /* PegColors.h */,
 				4E5BC23C18D3790800F7F642 /* PegColors.m */,
-				4E5BC23F18D3790800F7F642 /* ReplayButton.h */,
-				4E5BC24018D3790800F7F642 /* ReplayButton.m */,
 				4E5BC24118D3790800F7F642 /* Scorezone.h */,
 				4E5BC24218D3790800F7F642 /* Scorezone.m */,
 			);
@@ -551,7 +546,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				4E5BC24618D3790800F7F642 /* ScoreIndicators.m in Sources */,
-				4E5BC24918D3790800F7F642 /* ReplayButton.m in Sources */,
 				4E5BC24418D3790800F7F642 /* Peg.m in Sources */,
 				4E5BC27118D37A2100F7F642 /* SKButton.m in Sources */,
 				4E5BC25118D3794500F7F642 /* MainMenuViewController.m in Sources */,

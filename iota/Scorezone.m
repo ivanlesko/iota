@@ -57,22 +57,30 @@
     [newScorezone.exitButton setTouchUpInsideTarget:newScorezone action:@selector(exit)];
     [newScorezone addChild:newScorezone.exitButton];
     
+    // These two values are used to animate the replay buttons up and down.
+    newScorezone.buttonStartingY = -93;
+    newScorezone.buttonEndingY   = -202;
+    
     newScorezone.shareButton = [[SKButton alloc] initWithImageNamedNormal:@"share" selected:@"share"];
-    newScorezone.shareButton.position    = CGPointMake(-247, -202);
+    newScorezone.shareButton.position    = CGPointMake(-247, newScorezone.buttonStartingY);
+    newScorezone.shareButton.alpha       = 0.0;
+    newScorezone.shareButton.isEnabled   = NO;
     [newScorezone.shareButton setTouchUpInsideTarget:newScorezone action:@selector(share)];
-    [newScorezone addChild:newScorezone.shareButton];
     
     newScorezone.replayButton = [[SKButton alloc] initWithImageNamedNormal:@"replay" selected:@"replay"];
-    newScorezone.replayButton.position   = CGPointMake(247, -202);
+    newScorezone.replayButton.position   = CGPointMake(247, newScorezone.buttonStartingY);
+    newScorezone.replayButton.alpha      = 0.0;
+    newScorezone.replayButton.isEnabled  = NO;
     [newScorezone.replayButton setTouchUpInsideTarget:newScorezone action:@selector(replay)];
-    [newScorezone addChild:newScorezone.replayButton];
     
     newScorezone.ballLivesSprites = [NSMutableArray new];
+    [newScorezone setupBallLivesSprites];
     
     return newScorezone;
 }
 
 - (void)setupBallLivesSprites {
+    NSLog(@"setup ball lives sprites");
     for (int i = 0; i < self.gameScene.ballLives; i++) {
         SKSpriteNode *turnsBall = [Ball newBall];
         turnsBall.position = CGPointMake(-275 + (i * (turnsBall.size.width / 2.0)), -25);
@@ -85,6 +93,16 @@
 
 - (void)presentGameOverButtons {
     
+    
+    for (SKButton *button in @[self.shareButton, self.replayButton]) {
+        [self addChild:button];
+        SKAction *moveDown = [SKAction moveTo:CGPointMake(button.position.x, self.buttonEndingY) duration:0.2];
+        SKAction *fadeIn   = [SKAction fadeInWithDuration:0.2];
+        SKAction *fadeInMoveDown = [SKAction group:@[moveDown, fadeIn]];
+        [button runAction:fadeInMoveDown completion:^{
+            button.isEnabled = YES;
+        }];
+    }
 }
 
 - (void)share {
@@ -92,12 +110,22 @@
 }
 
 - (void)replay {
+    for (SKButton *button in @[self.shareButton, self.replayButton]) {
+        SKAction *moveDown = [SKAction moveTo:CGPointMake(button.position.x, self.buttonStartingY) duration:0.2];
+        SKAction *fadeIn   = [SKAction fadeOutWithDuration:0.2];
+        SKAction *fadeInMoveDown = [SKAction group:@[moveDown, fadeIn]];
+        
+        button.isEnabled = YES;
+        [button runAction:fadeInMoveDown completion:^{
+            [button removeFromParent];
+        }];
+    }
+    
     [self.gameScene resetGame];
 }
 
 - (void)toggleSound {
     NSLog(@"toggle sound");
-    self.soundToggle.isEnabled = !self.soundToggle.isEnabled;
 }
 
 - (void)exit {

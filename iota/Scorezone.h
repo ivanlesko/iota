@@ -23,6 +23,9 @@
 @property (nonatomic, strong) SKButton *replayButton;
 @property (nonatomic, strong) NSMutableArray *ballLivesSprites;
 
+@property (nonatomic) CGFloat buttonEndingY;
+@property (nonatomic) CGFloat buttonStartingY;
+
 /// The game scene the score zone belongs to.
 @property (nonatomic, strong) IotaGameScene *gameScene;
 
