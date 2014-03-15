@@ -79,6 +79,7 @@
 		4E5BC2B918D389B300F7F642 /* G4_dly.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 4E5BC29518D389B300F7F642 /* G4_dly.mp3 */; };
 		4E5BC2BA18D389B300F7F642 /* G5_dly.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 4E5BC29618D389B300F7F642 /* G5_dly.mp3 */; };
 		4E5BC2BB18D389B300F7F642 /* G6_dly.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 4E5BC29718D389B300F7F642 /* G6_dly.mp3 */; };
+		4E5BC2BD18D4068B00F7F642 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E5BC2BC18D4068B00F7F642 /* CoreMotion.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -184,6 +185,7 @@
 		4E5BC29518D389B300F7F642 /* G4_dly.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = G4_dly.mp3; sourceTree = "<group>"; };
 		4E5BC29618D389B300F7F642 /* G5_dly.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = G5_dly.mp3; sourceTree = "<group>"; };
 		4E5BC29718D389B300F7F642 /* G6_dly.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = G6_dly.mp3; sourceTree = "<group>"; };
+		4E5BC2BC18D4068B00F7F642 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -191,6 +193,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4E5BC2BD18D4068B00F7F642 /* CoreMotion.framework in Frameworks */,
 				4E5BC26618D379B100F7F642 /* iAd.framework in Frameworks */,
 				4E5BC26418D379AD00F7F642 /* GameKit.framework in Frameworks */,
 				4E5BC1F618D376F300F7F642 /* CoreGraphics.framework in Frameworks */,
@@ -239,6 +242,7 @@
 		4E5BC1F218D376F300F7F642 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				4E5BC2BC18D4068B00F7F642 /* CoreMotion.framework */,
 				4E5BC26518D379B100F7F642 /* iAd.framework */,
 				4E5BC26318D379AC00F7F642 /* GameKit.framework */,
 				4E5BC1F318D376F300F7F642 /* Foundation.framework */,

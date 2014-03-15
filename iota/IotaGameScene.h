@@ -13,12 +13,17 @@
 
 #import "GameCenterManager.h"
 #import "AppSpecificValues.h"
+#import <CoreMotion/CoreMotion.h>
 
-@interface IotaGameScene : SKScene <SKPhysicsContactDelegate, GameCenterManagerDelegate>
+
+@interface IotaGameScene : SKScene <SKPhysicsContactDelegate, GameCenterManagerDelegate, UIAccelerometerDelegate>
 
 @property (nonatomic, strong) MainMenuViewController *mainMenuViewController;
 @property (nonatomic) BOOL contentCreated;
 @property (nonatomic) int ballLives;
+
+@property (nonatomic) CMMotionManager *motionManager;
+@property (nonatomic) CADisplayLink *motionDisplayLink;
 
 - (void)createContent;
 - (void)resetGame;

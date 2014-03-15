@@ -65,6 +65,30 @@
     [self setupScoreDetectors];
     [self setupScorezone];
     [self setupPointAmountLabels];
+//    [self setupMotionManager];
+}
+
+- (void)setupMotionManager {
+    self.motionManager = [[CMMotionManager alloc] init];
+    self.motionManager.deviceMotionUpdateInterval = 0.02;  // 50 Hz
+    
+    self.motionDisplayLink = [CADisplayLink displayLinkWithTarget:self selector:@selector(motionRefresh:)];
+    [self.motionDisplayLink addToRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
+    
+    if ([self.motionManager isDeviceMotionAvailable]) {
+        // to avoid using more CPU than necessary we use `CMAttitudeReferenceFrameXArbitraryZVertical`
+        [self.motionManager startDeviceMotionUpdatesUsingReferenceFrame:CMAttitudeReferenceFrameXArbitraryZVertical];
+    }
+}
+
+- (void)motionRefresh:(id)sender {
+    CMQuaternion quat = self.motionManager.deviceMotion.attitude.quaternion;
+    double yaw = -(asin(2*(quat.x*quat.z - quat.w*quat.y)));
+    
+    [self enumerateChildNodesWithName:@"ball" usingBlock:^(SKNode *node, BOOL *stop) {
+        SKAction *moveByX = [SKAction moveByX:yaw * 7 y:0 duration:0.01];
+        [node runAction:moveByX];
+    }];
 }
 
 - (void)willMoveFromView:(SKView *)view {
@@ -84,7 +108,6 @@
     [self setupPhysicsWorld];
     [self setupPegs];
     [self presentTheFinger];
-    
     
     self.ballIsOnScreen = NO;
     self.ballLives = STARTING_BALL_LIVES;
@@ -106,7 +129,7 @@
 #pragma mark - Physics World
 
 - (void)setupPhysicsWorld {
-    self.physicsWorld.gravity = CGVectorMake(skRand(-0.02, 0.02), -19.0);
+    self.physicsWorld.gravity = CGVectorMake(skRand(-0.02, 0.02), -14.0);
     self.physicsWorld.contactDelegate = self;
 }
 
@@ -165,8 +188,18 @@
 }
 
 - (void)updateScoreLabel {
+    NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
+    [numberFormatter setGroupingSeparator:@","];
+    [numberFormatter setGroupingSize:3];
+    [numberFormatter setUsesGroupingSeparator:YES];
+    [numberFormatter setDecimalSeparator:@"."];
+    [numberFormatter setNumberStyle:NSNumberFormatterNoStyle];
+    [numberFormatter setMaximumFractionDigits:2];
+    NSString *totalScoreString = [numberFormatter stringFromNumber:[NSNumber numberWithInt:abs(score * [self.multiplier floatValue])]];
+    
     scorezone.score.text = [NSString stringWithFormat:@"%d x %d",[self.multiplier intValue], score];
-    scorezone.totalScore.text = [NSString stringWithFormat:@"%d", abs(score * [self.multiplier floatValue])];
+    scorezone.totalScore.text = totalScoreString;
+    
 }
 
 - (void)presentPointsEarnedLabelWithPointValue:(int)value {
