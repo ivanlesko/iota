@@ -83,6 +83,10 @@
     }
 }
 
+- (void)presentGameOverButtons {
+    
+}
+
 - (void)share {
     NSLog(@"sharing");
 }

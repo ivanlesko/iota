@@ -34,5 +34,6 @@
 - (void)exit;
 
 - (void)setupBallLivesSprites;
+- (void)presentGameOverButtons;
 
 @end

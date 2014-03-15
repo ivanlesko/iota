@@ -129,7 +129,7 @@
 #pragma mark - Physics World
 
 - (void)setupPhysicsWorld {
-    self.physicsWorld.gravity = CGVectorMake(skRand(-0.02, 0.02), -14.0);
+    self.physicsWorld.gravity = CGVectorMake(skRand(-0.02, 0.02), -19.0);
     self.physicsWorld.contactDelegate = self;
 }
 
@@ -143,7 +143,24 @@
     SKSpriteNode *finger = [SKSpriteNode spriteNodeWithImageNamed:@"finger.png"];
     finger.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame) * 1.5);
     finger.name = @"finger";
-    finger.zRotation = 30 * M_PI / 180;
+    finger.zRotation = 45 * M_PI / 180;
+    finger.alpha = 0.0;
+    
+    SKAction *waitShort = [SKAction waitForDuration:0.12];
+    SKAction *waitLong  = [SKAction waitForDuration:0.35];
+    
+    SKAction *fingerUp  = [SKAction setTexture:[SKTexture textureWithImageNamed:@"finger"]];
+    SKAction *fingerDown = [SKAction setTexture:[SKTexture textureWithImageNamed:@"finger_pressed"]];
+    
+    SKAction *anim = [SKAction sequence:@[waitShort, fingerDown, waitShort, fingerUp, waitShort, fingerDown, waitShort, fingerUp, waitLong]];
+    SKAction *repeatAnim = [SKAction repeatActionForever:anim];
+    
+    SKAction *fadeInMoveDown = [SKAction group:@[
+                                                 [SKAction moveByX:0 y:-30 duration:0.2],
+                                                 [SKAction fadeInWithDuration:0.2]
+                                                 ]];
+    
+    [finger runAction:[SKAction sequence:@[fadeInMoveDown, repeatAnim]]];
     
     return finger;
 }
@@ -397,7 +414,13 @@
             [iotaSE reset];
             
             [self enumerateChildNodesWithName:@"finger" usingBlock:^(SKNode *node, BOOL *stop) {
-                [node removeFromParent];
+                SKAction *fadeOutMoveUp  = [SKAction group:@[
+                                                             [SKAction moveByX:0 y:30 duration:0.1],
+                                                             [SKAction fadeOutWithDuration:0.1]
+                                                             ]];
+                [node runAction:fadeOutMoveUp completion:^{
+                    [node removeFromParent];
+                }];
             }];
         }
     }
@@ -502,11 +525,16 @@
                     
                     [self updateScoreLabel];
                     
-                    
                     // Turn off the multiplier after itis been hit.
                     if (peg.multiplier == FALSE) {
                         self.multiplier = [self.multiplier decimalNumberByAdding:[NSDecimalNumber decimalNumberWithString:@"1.0"]];
                         peg.multiplier = TRUE;
+                        
+                        SKAction *scaleUp = [SKAction scaleBy:1.2 duration:0.03];
+                        [scorezone.score runAction:[SKAction sequence:@[
+                                                                        scaleUp,
+                                                                        [scaleUp reversedAction]
+                                                                        ]]];
                 }
                 
                 Ball *ball = (Ball *)secondBody.node;
@@ -528,6 +556,8 @@
     self.multiplier = [NSDecimalNumber decimalNumberWithString:@"0"];
     [scorezone setupBallLivesSprites];
     [self updateScoreLabel];
+    
+    [self presentTheFinger];
     
     [self enumerateChildNodesWithName:@"peg" usingBlock:^(SKNode *node, BOOL *stop) {
         Peg *peg = (Peg *)node;
