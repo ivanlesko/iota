@@ -523,7 +523,7 @@
                 if (!peg.wasHitThisRound) {
                     [iotaSE playHit];
                     
-                    [self updateScoreLabel];
+                    [self updateScoreLabel		];
                     
                     // Turn off the multiplier after itis been hit.
                     if (peg.multiplier == FALSE) {

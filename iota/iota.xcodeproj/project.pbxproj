@@ -14,7 +14,6 @@
 		4E5BC20018D376F300F7F642 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4E5BC1FE18D376F300F7F642 /* InfoPlist.strings */; };
 		4E5BC20218D376F300F7F642 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E5BC20118D376F300F7F642 /* main.m */; };
 		4E5BC20618D376F300F7F642 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E5BC20518D376F300F7F642 /* AppDelegate.m */; };
-		4E5BC20918D376F300F7F642 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4E5BC20718D376F300F7F642 /* Main.storyboard */; };
 		4E5BC21318D376F300F7F642 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4E5BC21218D376F300F7F642 /* Images.xcassets */; };
 		4E5BC21A18D376F400F7F642 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E5BC21918D376F400F7F642 /* XCTest.framework */; };
 		4E5BC21B18D376F400F7F642 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E5BC1F318D376F300F7F642 /* Foundation.framework */; };
@@ -80,6 +79,7 @@
 		4E5BC2BA18D389B300F7F642 /* G5_dly.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 4E5BC29618D389B300F7F642 /* G5_dly.mp3 */; };
 		4E5BC2BB18D389B300F7F642 /* G6_dly.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 4E5BC29718D389B300F7F642 /* G6_dly.mp3 */; };
 		4E5BC2BD18D4068B00F7F642 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E5BC2BC18D4068B00F7F642 /* CoreMotion.framework */; };
+		4ECC177418D4E9660046134D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4ECC177318D4E9660046134D /* Main.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -104,7 +104,6 @@
 		4E5BC20318D376F300F7F642 /* iota-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "iota-Prefix.pch"; sourceTree = "<group>"; };
 		4E5BC20418D376F300F7F642 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		4E5BC20518D376F300F7F642 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		4E5BC20818D376F300F7F642 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		4E5BC21218D376F300F7F642 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		4E5BC21818D376F400F7F642 /* iotaTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = iotaTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4E5BC21918D376F400F7F642 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
@@ -186,6 +185,7 @@
 		4E5BC29618D389B300F7F642 /* G5_dly.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = G5_dly.mp3; sourceTree = "<group>"; };
 		4E5BC29718D389B300F7F642 /* G6_dly.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = G6_dly.mp3; sourceTree = "<group>"; };
 		4E5BC2BC18D4068B00F7F642 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
+		4ECC177318D4E9660046134D /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -260,7 +260,7 @@
 				4E5BC27218D37AC800F7F642 /* iPad */,
 				4E5BC20418D376F300F7F642 /* AppDelegate.h */,
 				4E5BC20518D376F300F7F642 /* AppDelegate.m */,
-				4E5BC20718D376F300F7F642 /* Main.storyboard */,
+				4ECC177318D4E9660046134D /* Main.storyboard */,
 				4E5BC21218D376F300F7F642 /* Images.xcassets */,
 				4E5BC1FC18D376F300F7F642 /* Supporting Files */,
 			);
@@ -493,6 +493,7 @@
 				4E5BC29918D389B300F7F642 /* A3_dly.mp3 in Resources */,
 				4E5BC29D18D389B300F7F642 /* B2_dly.mp3 in Resources */,
 				4E5BC2AB18D389B300F7F642 /* D5_dly.mp3 in Resources */,
+				4ECC177418D4E9660046134D /* Main.storyboard in Resources */,
 				4E5BC2B018D389B300F7F642 /* E5_dly.mp3 in Resources */,
 				4E5BC2A518D389B300F7F642 /* C5_dly.mp3 in Resources */,
 				4E5BC20018D376F300F7F642 /* InfoPlist.strings in Resources */,
@@ -520,7 +521,6 @@
 				4E5BC26018D3795100F7F642 /* Loose_.mp3 in Resources */,
 				4E5BC2B318D389B300F7F642 /* F3_dly.mp3 in Resources */,
 				4E5BC2A218D389B300F7F642 /* C2_dly.mp3 in Resources */,
-				4E5BC20918D376F300F7F642 /* Main.storyboard in Resources */,
 				4E5BC2B818D389B300F7F642 /* G3_dly.mp3 in Resources */,
 				4E5BC2A418D389B300F7F642 /* C4_dly.mp3 in Resources */,
 				4E5BC2AF18D389B300F7F642 /* E4_dly.mp3 in Resources */,
@@ -594,14 +594,6 @@
 				4E5BC1FF18D376F300F7F642 /* en */,
 			);
 			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-		4E5BC20718D376F300F7F642 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				4E5BC20818D376F300F7F642 /* Base */,
-			);
-			name = Main.storyboard;
 			sourceTree = "<group>";
 		};
 		4E5BC22218D376F400F7F642 /* InfoPlist.strings */ = {
@@ -780,6 +772,7 @@
 				4E5BC22B18D376F400F7F642 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		4E5BC22C18D376F400F7F642 /* Build configuration list for PBXNativeTarget "iotaTests" */ = {
 			isa = XCConfigurationList;
@@ -788,6 +781,7 @@
 				4E5BC22E18D376F400F7F642 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
