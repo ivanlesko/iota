@@ -23,11 +23,21 @@
     newScorezone.score.horizontalAlignmentMode = SKLabelHorizontalAlignmentModeCenter;
     [newScorezone addChild:newScorezone.score];
     
+    newScorezone.shareButton = [[SKButton alloc] initWithImageNamedNormal:@"share" selected:@"share"];
+    newScorezone.replayButton = [[SKButton alloc] initWithImageNamedNormal:@"replay" selected:@"replay"];
+    
+    // These two values are used to animate the replay buttons up and down.
+    newScorezone.buttonStartingY        = -(93  + newScorezone.replayButton.size.height / 2.0);
+    newScorezone.buttonEndingY          = -202;
+    newScorezone.totalScoreStartingY    = -77;
+    
     newScorezone.totalScore = [SKLabelNode labelNodeWithFontNamed:@"helveticaNeue-Bold"];
-    newScorezone.totalScore.position    = CGPointMake(0, -77);
+    newScorezone.totalScore.position    = CGPointMake(0, newScorezone.totalScoreStartingY);
     newScorezone.totalScore.text        = @"";
     newScorezone.totalScore.fontColor   = [UIColor whiteColor];
-    newScorezone.totalScore.fontSize    = 47.0f;
+    newScorezone.totalScore.fontSize    = 94.0f;
+    newScorezone.totalScore.xScale      = 0.5;
+    newScorezone.totalScore.yScale      = 0.5;
     newScorezone.totalScore.horizontalAlignmentMode = SKLabelHorizontalAlignmentModeCenter;
     [newScorezone addChild:newScorezone.totalScore];
     
@@ -57,21 +67,17 @@
     [newScorezone.exitButton setTouchUpInsideTarget:newScorezone action:@selector(exit)];
     [newScorezone addChild:newScorezone.exitButton];
     
-    // These two values are used to animate the replay buttons up and down.
-    newScorezone.buttonStartingY = -93;
-    newScorezone.buttonEndingY   = -202;
-    
-    newScorezone.shareButton = [[SKButton alloc] initWithImageNamedNormal:@"share" selected:@"share"];
     newScorezone.shareButton.position    = CGPointMake(-247, newScorezone.buttonStartingY);
     newScorezone.shareButton.alpha       = 0.0;
     newScorezone.shareButton.isEnabled   = NO;
     [newScorezone.shareButton setTouchUpInsideTarget:newScorezone action:@selector(share)];
-    
-    newScorezone.replayButton = [[SKButton alloc] initWithImageNamedNormal:@"replay" selected:@"replay"];
+
     newScorezone.replayButton.position   = CGPointMake(247, newScorezone.buttonStartingY);
     newScorezone.replayButton.alpha      = 0.0;
     newScorezone.replayButton.isEnabled  = NO;
     [newScorezone.replayButton setTouchUpInsideTarget:newScorezone action:@selector(replay)];
+    
+    newScorezone.totalScoreEndingY      = newScorezone.buttonEndingY - newScorezone.replayButton.size.height / 2.0;
     
     newScorezone.ballLivesSprites = [NSMutableArray new];
     [newScorezone setupBallLivesSprites];
@@ -80,7 +86,6 @@
 }
 
 - (void)setupBallLivesSprites {
-    NSLog(@"setup ball lives sprites");
     for (int i = 0; i < self.gameScene.ballLives; i++) {
         SKSpriteNode *turnsBall = [Ball newBall];
         turnsBall.position = CGPointMake(-275 + (i * (turnsBall.size.width / 2.0)), -25);
@@ -92,17 +97,24 @@
 }
 
 - (void)presentGameOverButtons {
+    SKAction *moveDown = [SKAction moveTo:CGPointMake(self.totalScore.position.x, self.totalScoreEndingY) duration:0.15];
+    SKAction *scaleUp  = [SKAction scaleBy:2 duration:0.2];
+    SKAction *moveDownScaleUp = [SKAction sequence:@[moveDown, scaleUp]];
+    moveDownScaleUp.timingMode = SKActionTimingEaseOut;
     
+    [self runAction:[SKAction playSoundFileNamed:@"swoosh.mp3" waitForCompletion:NO]];
     
-    for (SKButton *button in @[self.shareButton, self.replayButton]) {
-        [self addChild:button];
-        SKAction *moveDown = [SKAction moveTo:CGPointMake(button.position.x, self.buttonEndingY) duration:0.2];
-        SKAction *fadeIn   = [SKAction fadeInWithDuration:0.2];
-        SKAction *fadeInMoveDown = [SKAction group:@[moveDown, fadeIn]];
-        [button runAction:fadeInMoveDown completion:^{
-            button.isEnabled = YES;
-        }];
-    }
+    [self.totalScore runAction:moveDownScaleUp completion:^{
+        for (SKButton *button in @[self.shareButton, self.replayButton]) {
+            [self addChild:button];
+            SKAction *moveDown = [SKAction moveTo:CGPointMake(button.position.x, self.buttonEndingY) duration:0.2];
+            SKAction *fadeIn   = [SKAction fadeInWithDuration:0.2];
+            SKAction *fadeInMoveDown = [SKAction group:@[moveDown, fadeIn]];
+            [button runAction:fadeInMoveDown completion:^{
+                button.isEnabled = YES;
+            }];
+        }
+    }];
 }
 
 - (void)share {
@@ -110,10 +122,19 @@
 }
 
 - (void)replay {
-    for (SKButton *button in @[self.shareButton, self.replayButton]) {
+    SKAction *moveUp    = [SKAction moveTo:CGPointMake(self.totalScore.position.x, self.totalScoreStartingY) duration:0.15];
+    SKAction *scaleDown = [SKAction scaleBy:.5 duration:0.2];
+    SKAction *swoosh    = [SKAction playSoundFileNamed:@"swoosh.mp3" waitForCompletion:NO];
+    SKAction *moveUpScaleDown = [SKAction sequence:@[scaleDown, swoosh, moveUp]];
+    moveUpScaleDown.timingMode = SKActionTimingEaseOut;
+    
+    SKAction *fadeIn    = [SKAction fadeOutWithDuration:0.2];
+    SKAction *wait      = [SKAction waitForDuration:0.25];
+    
+    for (SKButton *button in @[self.shareButton]) {
         SKAction *moveDown = [SKAction moveTo:CGPointMake(button.position.x, self.buttonStartingY) duration:0.2];
-        SKAction *fadeIn   = [SKAction fadeOutWithDuration:0.2];
-        SKAction *fadeInMoveDown = [SKAction group:@[moveDown, fadeIn]];
+        SKAction *fadeInMoveDown = [SKAction group:@[moveDown, fadeIn, wait]];
+        fadeInMoveDown.timingMode = SKActionTimingEaseOut;
         
         button.isEnabled = YES;
         [button runAction:fadeInMoveDown completion:^{
@@ -121,7 +142,20 @@
         }];
     }
     
-    [self.gameScene resetGame];
+    for (SKButton *button in @[self.replayButton]) {
+        SKAction *moveDown = [SKAction moveTo:CGPointMake(button.position.x, self.buttonStartingY) duration:0.2];
+        SKAction *fadeInMoveDown = [SKAction group:@[moveDown,fadeIn, wait]];
+        fadeInMoveDown.timingMode = SKActionTimingEaseOut;
+        
+        button.isEnabled = YES;
+        [button runAction:fadeInMoveDown completion:^{
+            [button removeFromParent];
+            
+            [self.totalScore runAction:moveUpScaleDown completion:^{
+                [self.gameScene resetGame];
+            }];
+        }];
+    }
 }
 
 - (void)toggleSound {

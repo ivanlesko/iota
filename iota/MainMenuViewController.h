@@ -17,5 +17,6 @@
 
 @property (weak, nonatomic) IBOutlet ADBannerView *adView;
 @property (nonatomic) IotaGameScene *iotaGameScene;
+@property (nonatomic) BOOL bannerIsVisible;
 
 @end

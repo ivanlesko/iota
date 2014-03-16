@@ -306,7 +306,7 @@
     scoreValues = [NSMutableArray new];
     
     // Scores for each divider
-    scoreValues = [NSMutableArray arrayWithArray:@[@50, @5, @25, @0, @100, @0, @25, @5, @50]];
+    scoreValues = [NSMutableArray arrayWithArray:@[@75, @5, @25, @0, @100, @0, @25, @5, @75]];
 }
 
 - (void)setupScoreDetectors {
@@ -468,7 +468,7 @@
                             [iotaSE playEvent:YSIotaSEEvent25];
                             break;
                             
-                        case 50:
+                        case 75:
                             [iotaSE playEvent:YSIotaSEEvent50];
                             break;
                             
@@ -486,10 +486,12 @@
                 
                 NSUInteger detectorIndex = [scoreDetectors indexOfObject:scoreDetector];
                 if (detectorIndex < 9) {
-                    [scoreIndicators insertIndicatorAtIndex:detectorIndex withColor:[[PegColors iOSColorValues] objectAtIndex:self.ballLives]];
+                    [scoreIndicators insertIndicatorAtIndex:detectorIndex withColor:[[PegColors iOSColorValues] objectAtIndex:ball.currentColor -1]];
                 }
                 
-                [self presentPointsEarnedLabelWithPointValue:scoreDetector.value];
+                if (self.ballLives > 0) {
+                    [self presentPointsEarnedLabelWithPointValue:scoreDetector.value];
+                }
             }
             
             [self enumerateChildNodesWithName:@"peg" usingBlock:^(SKNode *node, BOOL *stop) {
@@ -524,7 +526,7 @@
                 if (!peg.wasHitThisRound) {
                     [iotaSE playHit];
                     
-                    [self updateScoreLabel		];
+                    [self updateScoreLabel];
                     
                     // Turn off the multiplier after itis been hit.
                     if (peg.multiplier == FALSE) {

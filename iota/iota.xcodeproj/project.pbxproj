@@ -79,6 +79,7 @@
 		4E5BC2BB18D389B300F7F642 /* G6_dly.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 4E5BC29718D389B300F7F642 /* G6_dly.mp3 */; };
 		4E5BC2BD18D4068B00F7F642 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E5BC2BC18D4068B00F7F642 /* CoreMotion.framework */; };
 		4ECC177418D4E9660046134D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4ECC177318D4E9660046134D /* Main.storyboard */; };
+		4ECC177818D51F1E0046134D /* swoosh.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 4ECC177718D51F1E0046134D /* swoosh.mp3 */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -183,6 +184,7 @@
 		4E5BC29718D389B300F7F642 /* G6_dly.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = G6_dly.mp3; sourceTree = "<group>"; };
 		4E5BC2BC18D4068B00F7F642 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
 		4ECC177318D4E9660046134D /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		4ECC177718D51F1E0046134D /* swoosh.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = swoosh.mp3; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -328,6 +330,7 @@
 		4E5BC23118D378DA00F7F642 /* Sound Engine */ = {
 			isa = PBXGroup;
 			children = (
+				4ECC177718D51F1E0046134D /* swoosh.mp3 */,
 				4E5BC25418D3795100F7F642 /* 5Points__dly.mp3 */,
 				4E5BC25518D3795100F7F642 /* 25Points__dly.mp3 */,
 				4E5BC25618D3795100F7F642 /* 50Points__dly.mp3 */,
@@ -501,6 +504,7 @@
 				4E5BC2BB18D389B300F7F642 /* G6_dly.mp3 in Resources */,
 				4E5BC29F18D389B300F7F642 /* B4_dly.mp3 in Resources */,
 				4E5BC29818D389B300F7F642 /* A2_dly.mp3 in Resources */,
+				4ECC177818D51F1E0046134D /* swoosh.mp3 in Resources */,
 				4E5BC2A718D389B300F7F642 /* C7_dly.mp3 in Resources */,
 				4E5BC29C18D389B300F7F642 /* A6_dly.mp3 in Resources */,
 				4E5BC29A18D389B300F7F642 /* A4_dly.mp3 in Resources */,
