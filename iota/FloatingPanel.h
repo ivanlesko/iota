@@ -8,8 +8,8 @@
 
 #import <SpriteKit/SpriteKit.h>
 
-@interface FloatingPanel : SKSpriteNode
+@interface FloatingPanel : SKNode
 
-+ (FloatingPanel *)createFloatingPanelAtYPosition:(CGPoint)point;
+- (id)init;
 
 @end

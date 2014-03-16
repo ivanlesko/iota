@@ -10,19 +10,35 @@
 
 @implementation FloatingPanel
 
-+ (FloatingPanel *)createFloatingPanelAtYPosition:(CGPoint)point {
-    FloatingPanel *newPanel = [FloatingPanel spriteNodeWithImageNamed:@"floatingPanel"];
-    newPanel.position    = point;
-    newPanel.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:newPanel.size];
-    newPanel.physicsBody.affectedByGravity = NO;
-    newPanel.physicsBody.dynamic = NO;
-    newPanel.physicsBody.restitution = 0.4;
-    newPanel.physicsBody.friction    = 0.1;
-    newPanel.physicsBody.categoryBitMask = kPKFloatingPanel;
-    newPanel.physicsBody.collisionBitMask = kPKPegCategory;
-    newPanel.physicsBody.contactTestBitMask = 0;
+- (id)init {
+    self = [super init];
+    if (self) {
+        
+        SKShapeNode *node = [[SKShapeNode alloc] init];
+        
+        UIBezierPath *triangle = [UIBezierPath bezierPath];
+        [triangle moveToPoint:CGPointZero];
+        [triangle moveToPoint:CGPointMake(100, 0)];
+        [triangle moveToPoint:CGPointMake(50, 100)];
+        [triangle closePath];
+        
+        node.path        = triangle.CGPath;
+        node.physicsBody = [SKPhysicsBody bodyWithPolygonFromPath:triangle.CGPath];
+        node.fillColor   = [SKColor redColor];
+        node.strokeColor = [SKColor blueColor];
+        node.lineWidth   = 2;
+        node.physicsBody.affectedByGravity = NO;
+        node.physicsBody.dynamic = NO;
+        node.physicsBody.restitution = 0.4;
+        node.physicsBody.friction    = 0.1;
+        node.physicsBody.categoryBitMask = kPKFloatingPanel;
+        node.physicsBody.collisionBitMask = kPKPegCategory;
+        node.physicsBody.contactTestBitMask = 0;
+        
+        [self addChild:node];
+    }
     
-    return newPanel;
+    return self;
 }
 
 @end
