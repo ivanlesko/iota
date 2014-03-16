@@ -55,7 +55,6 @@
     [self setupScoreIndicators];
     [self setupDividerBars];
     [self setupScoreDetectors];
-    [self setupScorezone];
     [self setupPointAmountLabels];
 //    [self setupMotionManager];
     [self setupFloatingPanel];
@@ -101,6 +100,7 @@
     [self setupPhysicsWorld];
     [self setupPegs];
     [self presentTheFinger];
+    [self setupScorezone];
     
     self.ballIsOnScreen = NO;
     self.ballLives = STARTING_BALL_LIVES;
