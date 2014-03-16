@@ -14,7 +14,6 @@
 		4E5BC20018D376F300F7F642 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4E5BC1FE18D376F300F7F642 /* InfoPlist.strings */; };
 		4E5BC20218D376F300F7F642 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E5BC20118D376F300F7F642 /* main.m */; };
 		4E5BC20618D376F300F7F642 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E5BC20518D376F300F7F642 /* AppDelegate.m */; };
-		4E5BC20918D376F300F7F642 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4E5BC20718D376F300F7F642 /* Main.storyboard */; };
 		4E5BC21318D376F300F7F642 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4E5BC21218D376F300F7F642 /* Images.xcassets */; };
 		4E5BC21A18D376F400F7F642 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E5BC21918D376F400F7F642 /* XCTest.framework */; };
 		4E5BC21B18D376F400F7F642 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E5BC1F318D376F300F7F642 /* Foundation.framework */; };
@@ -26,7 +25,6 @@
 		4E5BC24518D3790800F7F642 /* ScoreDetector.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E5BC23818D3790800F7F642 /* ScoreDetector.m */; };
 		4E5BC24618D3790800F7F642 /* ScoreIndicators.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E5BC23A18D3790800F7F642 /* ScoreIndicators.m */; };
 		4E5BC24718D3790800F7F642 /* PegColors.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E5BC23C18D3790800F7F642 /* PegColors.m */; };
-		4E5BC24918D3790800F7F642 /* ReplayButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E5BC24018D3790800F7F642 /* ReplayButton.m */; };
 		4E5BC24A18D3790800F7F642 /* Scorezone.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E5BC24218D3790800F7F642 /* Scorezone.m */; };
 		4E5BC25118D3794500F7F642 /* MainMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E5BC24C18D3794500F7F642 /* MainMenuViewController.m */; };
 		4E5BC25218D3794500F7F642 /* MainMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E5BC24E18D3794500F7F642 /* MainMenu.m */; };
@@ -80,6 +78,8 @@
 		4E5BC2BA18D389B300F7F642 /* G5_dly.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 4E5BC29618D389B300F7F642 /* G5_dly.mp3 */; };
 		4E5BC2BB18D389B300F7F642 /* G6_dly.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 4E5BC29718D389B300F7F642 /* G6_dly.mp3 */; };
 		4E5BC2BD18D4068B00F7F642 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E5BC2BC18D4068B00F7F642 /* CoreMotion.framework */; };
+		4ECC177418D4E9660046134D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4ECC177318D4E9660046134D /* Main.storyboard */; };
+		4ECC177818D51F1E0046134D /* swoosh.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 4ECC177718D51F1E0046134D /* swoosh.mp3 */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -104,7 +104,6 @@
 		4E5BC20318D376F300F7F642 /* iota-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "iota-Prefix.pch"; sourceTree = "<group>"; };
 		4E5BC20418D376F300F7F642 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		4E5BC20518D376F300F7F642 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		4E5BC20818D376F300F7F642 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		4E5BC21218D376F300F7F642 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		4E5BC21818D376F400F7F642 /* iotaTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = iotaTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4E5BC21918D376F400F7F642 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
@@ -121,8 +120,6 @@
 		4E5BC23A18D3790800F7F642 /* ScoreIndicators.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScoreIndicators.m; sourceTree = "<group>"; };
 		4E5BC23B18D3790800F7F642 /* PegColors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PegColors.h; sourceTree = "<group>"; };
 		4E5BC23C18D3790800F7F642 /* PegColors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PegColors.m; sourceTree = "<group>"; };
-		4E5BC23F18D3790800F7F642 /* ReplayButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReplayButton.h; sourceTree = "<group>"; };
-		4E5BC24018D3790800F7F642 /* ReplayButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReplayButton.m; sourceTree = "<group>"; };
 		4E5BC24118D3790800F7F642 /* Scorezone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Scorezone.h; sourceTree = "<group>"; };
 		4E5BC24218D3790800F7F642 /* Scorezone.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Scorezone.m; sourceTree = "<group>"; };
 		4E5BC24B18D3794500F7F642 /* MainMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainMenuViewController.h; sourceTree = "<group>"; };
@@ -186,6 +183,8 @@
 		4E5BC29618D389B300F7F642 /* G5_dly.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = G5_dly.mp3; sourceTree = "<group>"; };
 		4E5BC29718D389B300F7F642 /* G6_dly.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = G6_dly.mp3; sourceTree = "<group>"; };
 		4E5BC2BC18D4068B00F7F642 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
+		4ECC177318D4E9660046134D /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		4ECC177718D51F1E0046134D /* swoosh.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = swoosh.mp3; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -260,7 +259,7 @@
 				4E5BC27218D37AC800F7F642 /* iPad */,
 				4E5BC20418D376F300F7F642 /* AppDelegate.h */,
 				4E5BC20518D376F300F7F642 /* AppDelegate.m */,
-				4E5BC20718D376F300F7F642 /* Main.storyboard */,
+				4ECC177318D4E9660046134D /* Main.storyboard */,
 				4E5BC21218D376F300F7F642 /* Images.xcassets */,
 				4E5BC1FC18D376F300F7F642 /* Supporting Files */,
 			);
@@ -309,8 +308,6 @@
 				4E5BC23A18D3790800F7F642 /* ScoreIndicators.m */,
 				4E5BC23B18D3790800F7F642 /* PegColors.h */,
 				4E5BC23C18D3790800F7F642 /* PegColors.m */,
-				4E5BC23F18D3790800F7F642 /* ReplayButton.h */,
-				4E5BC24018D3790800F7F642 /* ReplayButton.m */,
 				4E5BC24118D3790800F7F642 /* Scorezone.h */,
 				4E5BC24218D3790800F7F642 /* Scorezone.m */,
 			);
@@ -333,6 +330,7 @@
 		4E5BC23118D378DA00F7F642 /* Sound Engine */ = {
 			isa = PBXGroup;
 			children = (
+				4ECC177718D51F1E0046134D /* swoosh.mp3 */,
 				4E5BC25418D3795100F7F642 /* 5Points__dly.mp3 */,
 				4E5BC25518D3795100F7F642 /* 25Points__dly.mp3 */,
 				4E5BC25618D3795100F7F642 /* 50Points__dly.mp3 */,
@@ -493,6 +491,7 @@
 				4E5BC29918D389B300F7F642 /* A3_dly.mp3 in Resources */,
 				4E5BC29D18D389B300F7F642 /* B2_dly.mp3 in Resources */,
 				4E5BC2AB18D389B300F7F642 /* D5_dly.mp3 in Resources */,
+				4ECC177418D4E9660046134D /* Main.storyboard in Resources */,
 				4E5BC2B018D389B300F7F642 /* E5_dly.mp3 in Resources */,
 				4E5BC2A518D389B300F7F642 /* C5_dly.mp3 in Resources */,
 				4E5BC20018D376F300F7F642 /* InfoPlist.strings in Resources */,
@@ -505,6 +504,7 @@
 				4E5BC2BB18D389B300F7F642 /* G6_dly.mp3 in Resources */,
 				4E5BC29F18D389B300F7F642 /* B4_dly.mp3 in Resources */,
 				4E5BC29818D389B300F7F642 /* A2_dly.mp3 in Resources */,
+				4ECC177818D51F1E0046134D /* swoosh.mp3 in Resources */,
 				4E5BC2A718D389B300F7F642 /* C7_dly.mp3 in Resources */,
 				4E5BC29C18D389B300F7F642 /* A6_dly.mp3 in Resources */,
 				4E5BC29A18D389B300F7F642 /* A4_dly.mp3 in Resources */,
@@ -520,7 +520,6 @@
 				4E5BC26018D3795100F7F642 /* Loose_.mp3 in Resources */,
 				4E5BC2B318D389B300F7F642 /* F3_dly.mp3 in Resources */,
 				4E5BC2A218D389B300F7F642 /* C2_dly.mp3 in Resources */,
-				4E5BC20918D376F300F7F642 /* Main.storyboard in Resources */,
 				4E5BC2B818D389B300F7F642 /* G3_dly.mp3 in Resources */,
 				4E5BC2A418D389B300F7F642 /* C4_dly.mp3 in Resources */,
 				4E5BC2AF18D389B300F7F642 /* E4_dly.mp3 in Resources */,
@@ -551,7 +550,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				4E5BC24618D3790800F7F642 /* ScoreIndicators.m in Sources */,
-				4E5BC24918D3790800F7F642 /* ReplayButton.m in Sources */,
 				4E5BC24418D3790800F7F642 /* Peg.m in Sources */,
 				4E5BC27118D37A2100F7F642 /* SKButton.m in Sources */,
 				4E5BC25118D3794500F7F642 /* MainMenuViewController.m in Sources */,
@@ -594,14 +592,6 @@
 				4E5BC1FF18D376F300F7F642 /* en */,
 			);
 			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-		4E5BC20718D376F300F7F642 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				4E5BC20818D376F300F7F642 /* Base */,
-			);
-			name = Main.storyboard;
 			sourceTree = "<group>";
 		};
 		4E5BC22218D376F400F7F642 /* InfoPlist.strings */ = {
@@ -780,6 +770,7 @@
 				4E5BC22B18D376F400F7F642 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		4E5BC22C18D376F400F7F642 /* Build configuration list for PBXNativeTarget "iotaTests" */ = {
 			isa = XCConfigurationList;
@@ -788,6 +779,7 @@
 				4E5BC22E18D376F400F7F642 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

@@ -26,8 +26,6 @@
     
     [spriteView presentScene:mainMenu];
     
-    self.adView.hidden = YES;
-    
     self.iotaGameScene = [[IotaGameScene alloc] initWithSize:CGSizeMake(self.view.frame.size.width, self.view.frame.size.height)];
     self.iotaGameScene.mainMenuViewController = self;
     [self.iotaGameScene createContent];
@@ -65,23 +63,21 @@
 #pragma mark - iAD Delegate Methods
 
 - (void)bannerViewDidLoadAd:(ADBannerView *)banner{
-    [UIView animateWithDuration:0.4f
-                     animations:^{
-                         banner.alpha = 1.0f;
-                     }
-                     completion:^(BOOL finished) {
-                         banner.hidden = NO;
-                     }];
+    if (!self.bannerIsVisible) {
+        [UIView beginAnimations:@"animateAdBannerOn" context:NULL];
+        banner.frame = CGRectOffset(banner.frame, 0, 66);
+        [UIView commitAnimations];
+        self.bannerIsVisible = YES;
+    }
 }
 
 - (void)bannerView:(ADBannerView *)banner didFailToReceiveAdWithError:(NSError *)error {
-    [UIView animateWithDuration:0.4f
-                     animations:^{
-                         banner.alpha = 0.0f;
-                     }
-                     completion:^(BOOL finished) {
-                         banner.hidden = YES;
-                     }];
+    if (self.bannerIsVisible) {
+        [UIView beginAnimations:@"animateAdBannerOff" context:NULL];
+        banner.frame = CGRectOffset(banner.frame, 0, -66);
+        [UIView commitAnimations];
+        self.bannerIsVisible = NO;
+    }
 }
 
 @end

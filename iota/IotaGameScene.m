@@ -141,7 +141,7 @@
 
 - (SKSpriteNode *)theFinger {
     SKSpriteNode *finger = [SKSpriteNode spriteNodeWithImageNamed:@"finger.png"];
-    finger.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame) * 1.5);
+    finger.position = CGPointMake(CGRectGetMidX(self.frame) + 55, CGRectGetMidY(self.frame) * 1.5);
     finger.name = @"finger";
     finger.zRotation = 45 * M_PI / 180;
     finger.alpha = 0.0;
@@ -199,7 +199,6 @@
     scorezone = [Scorezone createNewScoreZoneAtPosition:CGPointMake(CGRectGetMidX(self.frame), 956) withGameScene:self];
     scorezone.score.text = [NSString stringWithFormat:@"%d x %d",[self.multiplier intValue], score];
     scorezone.totalScore.text = [NSString stringWithFormat:@"%d", abs(score * [self.multiplier floatValue])];
-    [scorezone setupBallLivesSprites];
     
     [self addChild:scorezone];
 }
@@ -307,7 +306,7 @@
     scoreValues = [NSMutableArray new];
     
     // Scores for each divider
-    scoreValues = [NSMutableArray arrayWithArray:@[@50, @5, @25, @0, @100, @0, @25, @5, @50]];
+    scoreValues = [NSMutableArray arrayWithArray:@[@75, @5, @25, @0, @100, @0, @25, @5, @75]];
 }
 
 - (void)setupScoreDetectors {
@@ -396,7 +395,7 @@
             }
         }
     } else {
-        if (self.ballIsOnScreen == NO /** && touchPos.y <= 340 **/) {
+        if (self.ballIsOnScreen == NO && touchPos.y <= 340) {
             Ball *ball = [Ball newBall];
             ball.position = CGPointMake(touchPos.x, self.view.frame.size.height - touchPos.y);
             ball.currentColor = self.ballLives;
@@ -469,7 +468,7 @@
                             [iotaSE playEvent:YSIotaSEEvent25];
                             break;
                             
-                        case 50:
+                        case 75:
                             [iotaSE playEvent:YSIotaSEEvent50];
                             break;
                             
@@ -487,10 +486,12 @@
                 
                 NSUInteger detectorIndex = [scoreDetectors indexOfObject:scoreDetector];
                 if (detectorIndex < 9) {
-                    [scoreIndicators insertIndicatorAtIndex:detectorIndex withColor:[[PegColors iOSColorValues] objectAtIndex:self.ballLives]];
+                    [scoreIndicators insertIndicatorAtIndex:detectorIndex withColor:[[PegColors iOSColorValues] objectAtIndex:ball.currentColor -1]];
                 }
                 
-                [self presentPointsEarnedLabelWithPointValue:scoreDetector.value];
+                if (self.ballLives > 0) {
+                    [self presentPointsEarnedLabelWithPointValue:scoreDetector.value];
+                }
             }
             
             [self enumerateChildNodesWithName:@"peg" usingBlock:^(SKNode *node, BOOL *stop) {
@@ -500,6 +501,8 @@
             
             // Ran out of lives, game over.
             if (self.ballLives == 0) {
+                [scorezone presentGameOverButtons];
+                
                 finalScore = abs(score * [self.multiplier intValue]);
                 // Report the score to game center.
                 if (finalScore > 0) {
@@ -554,10 +557,10 @@
     self.ballLives = STARTING_BALL_LIVES;
     gameOver = NO;
     self.multiplier = [NSDecimalNumber decimalNumberWithString:@"0"];
-    [scorezone setupBallLivesSprites];
     [self updateScoreLabel];
-    
     [self presentTheFinger];
+    
+    [scorezone setupBallLivesSprites];
     
     [self enumerateChildNodesWithName:@"peg" usingBlock:^(SKNode *node, BOOL *stop) {
         Peg *peg = (Peg *)node;
