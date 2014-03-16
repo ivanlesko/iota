@@ -306,7 +306,7 @@
     scoreValues = [NSMutableArray new];
     
     // Scores for each divider
-    scoreValues = [NSMutableArray arrayWithArray:@[@75, @5, @25, @0, @100, @0, @25, @5, @75]];
+    scoreValues = [NSMutableArray arrayWithArray:@[@75, @25, @50, @0, @250, @0, @50, @25, @75]];
 }
 
 - (void)setupScoreDetectors {
@@ -395,7 +395,7 @@
             }
         }
     } else {
-        if (self.ballIsOnScreen == NO && touchPos.y <= 340) {
+        if (self.ballIsOnScreen == NO  /** && touchPos.y <= 340 **/) {
             Ball *ball = [Ball newBall];
             ball.position = CGPointMake(touchPos.x, self.view.frame.size.height - touchPos.y);
             ball.currentColor = self.ballLives;
@@ -464,7 +464,7 @@
                     [iotaSE playEvent:YSIotaSEEventLoose];
                 } else {
                     switch (scoreDetector.value) {
-                        case 25:
+                        case 50:
                             [iotaSE playEvent:YSIotaSEEvent25];
                             break;
                             
@@ -472,11 +472,11 @@
                             [iotaSE playEvent:YSIotaSEEvent50];
                             break;
                             
-                        case 100:
+                        case 250:
                             [iotaSE playEvent:YSIotaSEEvent100];
                             break;
                             
-                        case 5:
+                        case 25:
                             [iotaSE playEvent:YSIotaSEEvent5];
                             
                         default:
@@ -541,7 +541,6 @@
                 }
                 
                 Ball *ball = (Ball *)secondBody.node;
-                    
                 peg.wasHitThisRound = YES;
                 peg.colorCount = ball.currentColor;
             }
