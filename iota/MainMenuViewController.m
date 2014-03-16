@@ -66,6 +66,7 @@
     if (!self.bannerIsVisible) {
         [UIView beginAnimations:@"animateAdBannerOn" context:NULL];
         banner.frame = CGRectOffset(banner.frame, 0, 66);
+        self.iotaGameScene.scorezone.position = CGPointMake(self.iotaGameScene.scorezone.position.x, self.iotaGameScene.scorezone.position.y - 66);
         [UIView commitAnimations];
         self.bannerIsVisible = YES;
     }
@@ -75,6 +76,7 @@
     if (self.bannerIsVisible) {
         [UIView beginAnimations:@"animateAdBannerOff" context:NULL];
         banner.frame = CGRectOffset(banner.frame, 0, -66);
+        self.iotaGameScene.scorezone.position = CGPointMake(self.iotaGameScene.scorezone.position.x, self.iotaGameScene.scorezone.position.y + 66);
         [UIView commitAnimations];
         self.bannerIsVisible = NO;
     }

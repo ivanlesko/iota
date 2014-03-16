@@ -15,6 +15,7 @@
 #import "AppSpecificValues.h"
 #import <CoreMotion/CoreMotion.h>
 
+#import "Scorezone.h"
 
 @interface IotaGameScene : SKScene <SKPhysicsContactDelegate, GameCenterManagerDelegate, UIAccelerometerDelegate>
 
@@ -24,6 +25,7 @@
 
 @property (nonatomic) CMMotionManager *motionManager;
 @property (nonatomic) CADisplayLink *motionDisplayLink;
+@property (nonatomic, strong) Scorezone *scorezone;
 
 - (void)createContent;
 - (void)resetGame;

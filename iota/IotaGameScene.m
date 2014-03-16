@@ -32,11 +32,6 @@
     NSMutableArray  *pegs;
     NSMutableArray  *dividerBars;
     
-    /*
-     * scorezone contains all of the info about the state of the game (score, lives, and all buttons)
-     */
-    Scorezone       *scorezone;
-    
     GameCenterManager *gameCenterManager;
     int64_t finalScore;
     
@@ -199,11 +194,11 @@
 #pragma mark - Score Zone
 
 - (void)setupScorezone {
-    scorezone = [Scorezone createNewScoreZoneAtPosition:CGPointMake(CGRectGetMidX(self.frame), 956) withGameScene:self];
-    scorezone.score.text = [NSString stringWithFormat:@"%d x %d",[self.multiplier intValue], score];
-    scorezone.totalScore.text = [NSString stringWithFormat:@"%d", abs(score * [self.multiplier floatValue])];
+    self.scorezone = [Scorezone createNewScoreZoneAtPosition:CGPointMake(CGRectGetMidX(self.frame), CGRectGetMaxY(self.frame)) withGameScene:self];
+    self.scorezone.score.text = [NSString stringWithFormat:@"%d x %d",[self.multiplier intValue], score];
+    self.scorezone.totalScore.text = [NSString stringWithFormat:@"%d", abs(score * [self.multiplier floatValue])];
     
-    [self addChild:scorezone];
+    [self addChild:self.scorezone];
 }
 
 - (void)updateScoreLabel {
@@ -216,8 +211,8 @@
     [numberFormatter setMaximumFractionDigits:2];
     NSString *totalScoreString = [numberFormatter stringFromNumber:[NSNumber numberWithInt:abs(score * [self.multiplier floatValue])]];
     
-    scorezone.score.text = [NSString stringWithFormat:@"%d x %d",[self.multiplier intValue], score];
-    scorezone.totalScore.text = totalScoreString;
+    self.scorezone.score.text = [NSString stringWithFormat:@"%d x %d",[self.multiplier intValue], score];
+    self.scorezone.totalScore.text = totalScoreString;
     
 }
 
@@ -409,9 +404,9 @@
             self.ballLives--;
             
             // Remove the last ball from the ball lives in the top left corner.
-            SKSpriteNode *turnsBall = [scorezone.ballLivesSprites lastObject];
+            SKSpriteNode *turnsBall = [self.scorezone.ballLivesSprites lastObject];
             [turnsBall removeFromParent];
-            [scorezone.ballLivesSprites removeLastObject];
+            [self.scorezone.ballLivesSprites removeLastObject];
             
             [iotaSE reset];
             
@@ -504,7 +499,7 @@
             
             // Ran out of lives, game over.
             if (self.ballLives == 0) {
-                [scorezone presentGameOverButtons];
+                [self.scorezone presentGameOverButtons];
                 
                 finalScore = abs(score * [self.multiplier intValue]);
                 // Report the score to game center.
@@ -537,7 +532,7 @@
                         peg.multiplier = TRUE;
                         
                         SKAction *scaleUp = [SKAction scaleBy:1.2 duration:0.03];
-                        [scorezone.score runAction:[SKAction sequence:@[
+                        [self.scorezone.score runAction:[SKAction sequence:@[
                                                                         scaleUp,
                                                                         [scaleUp reversedAction]
                                                                         ]]];
@@ -562,7 +557,7 @@
     [self updateScoreLabel];
     [self presentTheFinger];
     
-    [scorezone setupBallLivesSprites];
+    [self.scorezone setupBallLivesSprites];
     
     [self enumerateChildNodesWithName:@"peg" usingBlock:^(SKNode *node, BOOL *stop) {
         Peg *peg = (Peg *)node;
