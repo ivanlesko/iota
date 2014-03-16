@@ -28,6 +28,7 @@
     dispatch_once(&pred, ^{
         shared = [[YSIotaSE alloc] init];
         // Handle AudioSession
+        shared.canPlaySound = YES;
  
         if ([[AVAudioSession sharedInstance] isOtherAudioPlaying]) {
             [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback withOptions:AVAudioSessionCategoryOptionMixWithOthers error:nil];
@@ -50,12 +51,13 @@
 
 - (void) playHit
 {
-    AVAudioPlayer * player = [self.players objectForKey:self.notes[self.index]];
-    [player setVolume:1.0];
-    [player play];
-    self.index ++;
-    if (self.index == self.notes.count) self.index -= 7;
-    
+    if (self.canPlaySound) {
+        AVAudioPlayer * player = [self.players objectForKey:self.notes[self.index]];
+        [player setVolume:1.0];
+        [player play];
+        self.index ++;
+        if (self.index == self.notes.count) self.index -= 7;
+    }
 }
 
 - (NSMutableDictionary *) players
@@ -85,33 +87,35 @@
 }
 
 - (void) playEvent:(YSIotaSEEvent) event {
-    NSString * eventKey;
-    switch (event) {
-        case YSIotaSEEventLoose:
-            eventKey = @"Loose";
-            break;
-        case YSIotaSEEvent5:
-            eventKey = @"5Points";
-            break;
-        case YSIotaSEEvent25:
-            eventKey = @"25Points";
-            break;
-        case YSIotaSEEvent50:
-            eventKey = @"50Points";
-            break;
-        case YSIotaSEEvent100:
-            eventKey = @"100Points";
-            break;
-        case YSIotaSEEventPowerUp:
-            eventKey = @"PowerUp";
-            break;
-        default:
-            break;
+    if (self.canPlaySound) {
+        NSString * eventKey;
+        switch (event) {
+            case YSIotaSEEventLoose:
+                eventKey = @"Loose";
+                break;
+            case YSIotaSEEvent5:
+                eventKey = @"5Points";
+                break;
+            case YSIotaSEEvent25:
+                eventKey = @"25Points";
+                break;
+            case YSIotaSEEvent50:
+                eventKey = @"50Points";
+                break;
+            case YSIotaSEEvent100:
+                eventKey = @"100Points";
+                break;
+            case YSIotaSEEventPowerUp:
+                eventKey = @"PowerUp";
+                break;
+            default:
+                break;
+        }
+        
+        AVPlayer * player = [self.players objectForKey:eventKey];
+        [player setVolume:1.0];
+        [player play];
     }
-
-    AVPlayer * player = [self.players objectForKey:eventKey];
-    [player setVolume:1.0];
-    [player play];
 }
 
 - (void) playPLayer: (AVAudioPlayer*) player

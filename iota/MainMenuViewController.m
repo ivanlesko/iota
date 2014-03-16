@@ -64,21 +64,27 @@
 
 - (void)bannerViewDidLoadAd:(ADBannerView *)banner{
     if (!self.bannerIsVisible) {
-        [UIView beginAnimations:@"animateAdBannerOn" context:NULL];
-        banner.frame = CGRectOffset(banner.frame, 0, 66);
-        self.iotaGameScene.scorezone.position = CGPointMake(self.iotaGameScene.scorezone.position.x, self.iotaGameScene.scorezone.position.y - 66);
-        [UIView commitAnimations];
-        self.bannerIsVisible = YES;
+        [UIView animateWithDuration:0.4
+                         animations:^{
+                             banner.frame = CGRectOffset(banner.frame, 0, 66);
+                             self.iotaGameScene.scorezone.position = CGPointMake(self.iotaGameScene.scorezone.position.x, self.iotaGameScene.scorezone.position.y - 66);
+                         }
+                         completion:^(BOOL finished) {
+                             self.bannerIsVisible = YES;
+                         }];
     }
 }
 
 - (void)bannerView:(ADBannerView *)banner didFailToReceiveAdWithError:(NSError *)error {
     if (self.bannerIsVisible) {
-        [UIView beginAnimations:@"animateAdBannerOff" context:NULL];
-        banner.frame = CGRectOffset(banner.frame, 0, -66);
-        self.iotaGameScene.scorezone.position = CGPointMake(self.iotaGameScene.scorezone.position.x, self.iotaGameScene.scorezone.position.y + 66);
-        [UIView commitAnimations];
-        self.bannerIsVisible = NO;
+        [UIView animateWithDuration:0.4
+                         animations:^{
+                             banner.frame = CGRectOffset(banner.frame, 0, -66);
+                             self.iotaGameScene.scorezone.position = CGPointMake(self.iotaGameScene.scorezone.position.x, self.iotaGameScene.scorezone.position.y + 66);
+                         }
+                         completion:^(BOOL finished) {
+                             self.bannerIsVisible = NO;
+                         }];
     }
 }
 

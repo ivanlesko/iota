@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <AVFoundation/AVFoundation.h>
+
 typedef enum YSIotaSEEvent {
     YSIotaSEEventLoose = 0,
     YSIotaSEEvent5,
@@ -18,6 +19,8 @@ typedef enum YSIotaSEEvent {
 } YSIotaSEEvent;
 
 @interface YSIotaSE : NSObject
+
+@property (nonatomic) BOOL canPlaySound;
 
 + (YSIotaSE *) sharedSE;
 

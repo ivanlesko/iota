@@ -8,6 +8,8 @@
 
 #import "Scorezone.h"
 
+#import "YSIotaSE.h"
+
 @implementation Scorezone
 
 + (Scorezone *)createNewScoreZoneAtPosition:(CGPoint)position withGameScene:(IotaGameScene *)gameScene {
@@ -55,9 +57,10 @@
     divider.position      = CGPointMake(0, -93);
     [newScorezone addChild:divider];
     
-    newScorezone.soundToggle = [[SKButton alloc] initWithImageNamedNormal:@"sound_on" selected:@"sound_on" disabled:@"sound_off"];
+    newScorezone.soundToggle = [[SKButton alloc] initWithImageNamedNormal:@"sound_on" selected:@"sound_on"];
     newScorezone.soundToggle.anchorPoint = CGPointMake(1, 1);
     newScorezone.soundToggle.position    = CGPointMake(-333, -15);
+    newScorezone.soundToggle.name        = @"sound_on";
     [newScorezone.soundToggle setTouchUpInsideTarget:newScorezone action:@selector(toggleSound)];
     [newScorezone addChild:newScorezone.soundToggle];
     
@@ -102,7 +105,9 @@
     SKAction *moveDownScaleUp = [SKAction sequence:@[moveDown, scaleUp]];
     moveDownScaleUp.timingMode = SKActionTimingEaseOut;
     
-    [self runAction:[SKAction playSoundFileNamed:@"swoosh.mp3" waitForCompletion:NO]];
+    if ([[YSIotaSE sharedSE] canPlaySound]) {
+        [self runAction:[self swoosh]];
+    }
     
     [self.totalScore runAction:moveDownScaleUp completion:^{
         for (SKButton *button in @[self.shareButton, self.replayButton]) {
@@ -124,9 +129,15 @@
 - (void)replay {
     SKAction *moveUp    = [SKAction moveTo:CGPointMake(self.totalScore.position.x, self.totalScoreStartingY) duration:0.15];
     SKAction *scaleDown = [SKAction scaleBy:.5 duration:0.2];
-    SKAction *swoosh    = [SKAction playSoundFileNamed:@"swoosh.mp3" waitForCompletion:NO];
-    SKAction *moveUpScaleDown = [SKAction sequence:@[scaleDown, swoosh, moveUp]];
+    
+    SKAction *moveUpScaleDown;
     moveUpScaleDown.timingMode = SKActionTimingEaseOut;
+    
+    if ([[YSIotaSE sharedSE] canPlaySound]) {
+        moveUpScaleDown = [SKAction sequence:@[scaleDown, [self swoosh], moveUp]];
+    } else {
+        moveUpScaleDown = [SKAction sequence:@[scaleDown, moveUp]];
+    }
     
     SKAction *fadeIn    = [SKAction fadeOutWithDuration:0.2];
     SKAction *wait      = [SKAction waitForDuration:0.25];
@@ -159,7 +170,19 @@
 }
 
 - (void)toggleSound {
-    NSLog(@"toggle sound");
+    if ([self.soundToggle.name isEqualToString:@"sound_on"]) {
+        self.soundToggle.name = @"sound_off";
+        [self.soundToggle runAction:[SKAction setTexture:[SKTexture textureWithImageNamed:@"sound_off"]]];
+        [[YSIotaSE sharedSE] setCanPlaySound:NO];
+    } else {
+        self.soundToggle.name = @"sound_on";
+        [self.soundToggle runAction:[SKAction setTexture:[SKTexture textureWithImageNamed:@"sound_on"]]];
+        [[YSIotaSE sharedSE] setCanPlaySound:YES];
+    }
+}
+
+- (SKAction *)swoosh {
+    return [SKAction playSoundFileNamed:@"swoosh.mp3" waitForCompletion:NO];
 }
 
 - (void)exit {
