@@ -12,14 +12,12 @@
 
 #import "ScoreDetector.h"
 #import "ScoreIndicators.h"
-
 #import "MainMenu.h"
-
 #import "YSIotaSE.h"
 #import "AppDelegate.h"
 #import "PegColors.h"
-
 #import "Scorezone.h"
+#import "FloatingPanel.h"
 
 @interface IotaGameScene () {
     int score;
@@ -66,6 +64,7 @@
     [self setupScorezone];
     [self setupPointAmountLabels];
 //    [self setupMotionManager];
+    [self setupFloatingPanel];
 }
 
 - (void)setupMotionManager {
@@ -191,6 +190,21 @@
             }
         }
     }
+}
+
+- (void)setupFloatingPanel {
+    FloatingPanel *panel = [FloatingPanel createFloatingPanelAtYPosition:CGPointMake(0, 86)];
+    [self addChild:panel];
+    
+    panel.position = CGPointMake(panel.position.x + panel.size.width / 2.0, panel.position.y);
+    
+    SKAction *moveRight  = [SKAction moveByX:self.view.frame.size.width - panel.size.width y:0 duration:5];
+    moveRight.timingMode = SKActionTimingEaseInEaseOut;
+    SKAction *moveLeft   = [moveRight reversedAction];
+    SKAction *sequence   = [SKAction sequence:@[moveRight, moveLeft]];
+    
+    [panel runAction:[SKAction repeatActionForever:sequence]];
+    
 }
 
 #pragma mark - Score Zone

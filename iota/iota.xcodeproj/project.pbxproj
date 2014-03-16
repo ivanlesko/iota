@@ -80,6 +80,7 @@
 		4E5BC2BD18D4068B00F7F642 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E5BC2BC18D4068B00F7F642 /* CoreMotion.framework */; };
 		4ECC177418D4E9660046134D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4ECC177318D4E9660046134D /* Main.storyboard */; };
 		4ECC177818D51F1E0046134D /* swoosh.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 4ECC177718D51F1E0046134D /* swoosh.mp3 */; };
+		4ECC177D18D56A1C0046134D /* FloatingPanel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ECC177C18D56A1C0046134D /* FloatingPanel.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -185,6 +186,8 @@
 		4E5BC2BC18D4068B00F7F642 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
 		4ECC177318D4E9660046134D /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		4ECC177718D51F1E0046134D /* swoosh.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = swoosh.mp3; sourceTree = "<group>"; };
+		4ECC177B18D56A1C0046134D /* FloatingPanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FloatingPanel.h; sourceTree = "<group>"; };
+		4ECC177C18D56A1C0046134D /* FloatingPanel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FloatingPanel.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -310,6 +313,8 @@
 				4E5BC23C18D3790800F7F642 /* PegColors.m */,
 				4E5BC24118D3790800F7F642 /* Scorezone.h */,
 				4E5BC24218D3790800F7F642 /* Scorezone.m */,
+				4ECC177B18D56A1C0046134D /* FloatingPanel.h */,
+				4ECC177C18D56A1C0046134D /* FloatingPanel.m */,
 			);
 			name = Sprites;
 			sourceTree = "<group>";
@@ -563,6 +568,7 @@
 				4E5BC20618D376F300F7F642 /* AppDelegate.m in Sources */,
 				4E5BC24A18D3790800F7F642 /* Scorezone.m in Sources */,
 				4E5BC25318D3794500F7F642 /* IotaGameScene.m in Sources */,
+				4ECC177D18D56A1C0046134D /* FloatingPanel.m in Sources */,
 				4E5BC20218D376F300F7F642 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

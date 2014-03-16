@@ -14,10 +14,6 @@
 #define kPKDividername @"dividerBar"
 #define kPKScoreDetectorname @"scoreDetector"
 
-// Peg powerup types
-#define kPKPegModifierNone      0
-#define kPKPegModifierSkull     1
-
 // Gamecenter leaderboard name
 #define kIotaMainLeaderboard @"1"
 
@@ -26,6 +22,6 @@ typedef enum : uint32_t {
     kPKBallCategory          = 0x1 << 0,
     kPKPegCategory           = 0x1 << 1,
     kPKScoreDetectorCategory = 0x1 << 2,
-    kPKPegPowerup            = 0x1 << 3
+    kPKFloatingPanel         = 0x1 << 3
 } kPKCategory;
 

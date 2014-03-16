@@ -18,8 +18,8 @@
     ball.physicsBody = [SKPhysicsBody bodyWithCircleOfRadius:ball.size.width / 2.5];
     ball.physicsBody.dynamic = YES;
     ball.physicsBody.categoryBitMask = kPKBallCategory;
-    ball.physicsBody.collisionBitMask = kPKPegCategory;
-    ball.physicsBody.contactTestBitMask = kPKPegCategory | kPKScoreDetectorCategory | kPKPegPowerup;
+    ball.physicsBody.collisionBitMask = kPKPegCategory | kPKFloatingPanel;
+    ball.physicsBody.contactTestBitMask = kPKPegCategory | kPKScoreDetectorCategory ;
     ball.physicsBody.mass = 0.1;
     ball.physicsBody.friction = 0.1;
     ball.physicsBody.restitution = 0.6;
