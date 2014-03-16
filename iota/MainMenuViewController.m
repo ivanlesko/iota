@@ -63,16 +63,6 @@
 #pragma mark - iAD Delegate Methods
 
 - (void)bannerViewDidLoadAd:(ADBannerView *)banner{
-//    [UIView animateWithDuration:0.4f
-//                     animations:^{
-//                         banner.alpha = 1.0f;
-//                     }
-//                     completion:^(BOOL finished) {
-//                         banner.hidden = NO;
-//                     }];
-    
-    NSLog(@"loading banner");
-    
     if (!self.bannerIsVisible) {
         [UIView beginAnimations:@"animateAdBannerOn" context:NULL];
         banner.frame = CGRectOffset(banner.frame, 0, 66);
@@ -82,16 +72,6 @@
 }
 
 - (void)bannerView:(ADBannerView *)banner didFailToReceiveAdWithError:(NSError *)error {
-//    [UIView animateWithDuration:0.4f
-//                     animations:^{
-//                         banner.alpha = 0.0f;
-//                     }
-//                     completion:^(BOOL finished) {
-//                         banner.hidden = YES;
-//                     }];
-    
-    NSLog(@"banner not loaded");
-    
     if (self.bannerIsVisible) {
         [UIView beginAnimations:@"animateAdBannerOff" context:NULL];
         banner.frame = CGRectOffset(banner.frame, 0, -66);

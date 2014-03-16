@@ -395,7 +395,7 @@
             }
         }
     } else {
-        if (self.ballIsOnScreen == NO /** && touchPos.y <= 340 **/) {
+        if (self.ballIsOnScreen == NO && touchPos.y <= 340) {
             Ball *ball = [Ball newBall];
             ball.position = CGPointMake(touchPos.x, self.view.frame.size.height - touchPos.y);
             ball.currentColor = self.ballLives;
