@@ -17,7 +17,6 @@
 #import "AppDelegate.h"
 #import "PegColors.h"
 #import "Scorezone.h"
-#import "FloatingPanel.h"
 
 @interface IotaGameScene () {
     int score;
@@ -193,39 +192,7 @@
 }
 
 - (void)setupFloatingPanel {
-    SKShapeNode *node = [SKShapeNode node];
-    node.position = CGPointMake(0, 86);
-    
-    CGMutablePathRef pathToDraw = CGPathCreateMutable();
-    CGPathMoveToPoint(pathToDraw, NULL, -12.5, -11);
-    CGPathAddLineToPoint(pathToDraw, NULL, 12.5, -11);
-    CGPathAddLineToPoint(pathToDraw, NULL, 0, 12.5);
-    
-    node.path        = pathToDraw;
-    node.physicsBody = [SKPhysicsBody bodyWithPolygonFromPath:pathToDraw];
-    node.fillColor   = [SKColor darkGrayColor];
-    node.lineWidth   = 0;
-    node.physicsBody.affectedByGravity = NO;
-    node.physicsBody.dynamic = NO;
-    node.physicsBody.restitution = 0.4;
-    node.physicsBody.friction    = 0.1;
-    node.physicsBody.categoryBitMask = kPKFloatingPanel;
-    node.physicsBody.collisionBitMask = kPKPegCategory;
-    node.physicsBody.contactTestBitMask = 0;
-    node.antialiased = YES;
-    
-    [self addChild:node];
-    
-    SKAction *moveRight  = [SKAction group:@[
-                                                 [SKAction moveByX:self.view.frame.size.width y:0 duration:5],
-                                                 [SKAction rotateByAngle:-1280 * M_PI / 180 duration:5]
-                                                 ]];
-    
-    moveRight.timingMode = SKActionTimingEaseInEaseOut;
-    SKAction *moveLeft   = [moveRight reversedAction];
-    SKAction *sequence   = [SKAction sequence:@[moveRight, moveLeft]];
-    
-    [node runAction:[SKAction repeatActionForever:sequence]];
+
     
 }
 
