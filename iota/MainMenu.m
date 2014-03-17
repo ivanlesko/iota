@@ -92,7 +92,7 @@
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     switch (buttonIndex) {
         case 1:
-            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"itms://itunes.com/apps/iMovie"]];
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://itunes.apple.com/us/app/id828498770"]];
             [alertView dismissWithClickedButtonIndex:buttonIndex animated:NO];
             break;
     }

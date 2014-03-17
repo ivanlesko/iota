@@ -30,6 +30,8 @@
     self.iotaGameScene.mainMenuViewController = self;
     [self.iotaGameScene createContent];
     
+    self.adView.alpha = 0.0f;
+    
     mainMenu.gameScene = self.iotaGameScene;
 }
 
@@ -73,10 +75,11 @@
 #pragma mark - iAD Delegate Methods
 
 - (void)bannerViewDidLoadAd:(ADBannerView *)banner{
+    NSLog(@"banner did load");
     if (!self.bannerIsVisible) {
         [UIView animateWithDuration:0.4
                          animations:^{
-                             banner.frame = CGRectOffset(banner.frame, 0, 66);
+                             banner.alpha = 1.0;
                          }
                          completion:^(BOOL finished) {
                              self.bannerIsVisible = YES;
@@ -85,10 +88,11 @@
 }
 
 - (void)bannerView:(ADBannerView *)banner didFailToReceiveAdWithError:(NSError *)error {
+    NSLog(@"banner did not load");
     if (self.bannerIsVisible) {
         [UIView animateWithDuration:0.4
                          animations:^{
-                             banner.frame = CGRectOffset(banner.frame, 0, -66);
+                             banner.alpha = 0.0;
                          }
                          completion:^(BOOL finished) {
                              self.bannerIsVisible = NO;

@@ -130,7 +130,7 @@
     UIImage *snapshot = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     
-    NSString *scoreString = [NSString stringWithFormat:@"I just got %@ in iota! https://itunes.apple.com/us/app/iota/id828498770", self.totalScore.text];
+    NSString *scoreString = [NSString stringWithFormat:@"I just got %@ in iota! https://itunes.apple.com/us/app/id828498770", self.totalScore.text];
     
     NSArray *activityItems = @[scoreString, snapshot];
     
