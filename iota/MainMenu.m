@@ -68,7 +68,6 @@
 
 - (void)playGame {
     SKTransition *gameTransition = [SKTransition fadeWithColor:[UIColor blackColor] duration:1.0];
-    NSLog(@"game scene content created: %d", self.gameScene.contentCreated);
     [self.view presentScene:self.gameScene transition:gameTransition];
 }
 

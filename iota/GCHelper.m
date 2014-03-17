@@ -30,7 +30,6 @@ static GCHelper *sharedHelper = nil;
     if ([GKLocalPlayer localPlayer].authenticated == NO) {
         [[GKLocalPlayer localPlayer] authenticateWithCompletionHandler:nil];
     } else {
-        NSLog(@"already authenticated");
     }
 }
 

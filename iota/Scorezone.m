@@ -123,7 +123,25 @@
 }
 
 - (void)share {
-    NSLog(@"sharing");
+    UIGraphicsBeginImageContextWithOptions(self.gameScene.frame.size, NO, [UIScreen mainScreen].scale);
+    
+    [self.gameScene.view drawViewHierarchyInRect:self.gameScene.frame afterScreenUpdates:YES];
+    
+    UIImage *snapshot = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    NSString *scoreString = [NSString stringWithFormat:@"I just got %@ in iota! https://itunes.apple.com/us/app/iota/id828498770", self.totalScore.text];
+    
+    NSArray *activityItems = @[scoreString, snapshot];
+    
+    UIActivityViewController *activityVC = [[UIActivityViewController alloc] initWithActivityItems:activityItems  
+                                                                             applicationActivities:nil];
+    [activityVC setValue:@"Check out my iota score!" forKey:@"subject"];
+
+    NSLog(@"adviewFrame: %@", NSStringFromCGRect(self.gameScene.mainMenuViewController.adView.frame));
+    [self.gameScene.mainMenuViewController presentViewController:activityVC animated:YES completion:^{
+        
+    }];
 }
 
 - (void)replay {

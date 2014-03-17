@@ -33,6 +33,16 @@
     mainMenu.gameScene = self.iotaGameScene;
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    NSLog(@"view wil appear");
+    
+    [UIView animateWithDuration:0.4 animations:^{
+        self.adView.frame = CGRectOffset(self.adView.frame, 0, 66);
+    }];
+}
+
 - (BOOL)shouldAutorotate
 {
     return YES;
@@ -67,7 +77,6 @@
         [UIView animateWithDuration:0.4
                          animations:^{
                              banner.frame = CGRectOffset(banner.frame, 0, 66);
-                             self.iotaGameScene.scorezone.position = CGPointMake(self.iotaGameScene.scorezone.position.x, self.iotaGameScene.scorezone.position.y - 66);
                          }
                          completion:^(BOOL finished) {
                              self.bannerIsVisible = YES;
@@ -80,7 +89,6 @@
         [UIView animateWithDuration:0.4
                          animations:^{
                              banner.frame = CGRectOffset(banner.frame, 0, -66);
-                             self.iotaGameScene.scorezone.position = CGPointMake(self.iotaGameScene.scorezone.position.x, self.iotaGameScene.scorezone.position.y + 66);
                          }
                          completion:^(BOOL finished) {
                              self.bannerIsVisible = NO;

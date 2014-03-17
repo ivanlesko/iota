@@ -161,18 +161,13 @@
 
 - (void) reportScore: (int64_t) score forCategory: (NSString*) category 
 {
-    NSLog(@"reporting score");
 	GKScore *scoreReporter = [[GKScore alloc] initWithLeaderboardIdentifier:category];
 	scoreReporter.value = score;
     
-    NSLog(@"reported score: %@", scoreReporter);
-    
     [GKScore reportScores:@[scoreReporter] withCompletionHandler:^(NSError *error) {
         if (!error) {
-            NSLog(@"successfully uploaded score");
             [self callDelegateOnMainThread: @selector(scoreReported:) withArg: NULL error: error];
         } else {
-            NSLog(@"Unable to update score: %@", error.localizedDescription);
         }
     }];
 }

@@ -194,7 +194,7 @@
 #pragma mark - Score Zone
 
 - (void)setupScorezone {
-    self.scorezone = [Scorezone createNewScoreZoneAtPosition:CGPointMake(CGRectGetMidX(self.frame), CGRectGetMaxY(self.frame)) withGameScene:self];
+    self.scorezone = [Scorezone createNewScoreZoneAtPosition:CGPointMake(CGRectGetMidX(self.frame), CGRectGetMaxY(self.frame) - 66) withGameScene:self];
     self.scorezone.score.text = [NSString stringWithFormat:@"%d x %d",[self.multiplier intValue], score];
     self.scorezone.totalScore.text = [NSString stringWithFormat:@"%d", abs(score * [self.multiplier floatValue])];
     
