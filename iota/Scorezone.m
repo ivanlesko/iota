@@ -128,6 +128,7 @@
             SKAction *fadeInMoveDown = [SKAction group:@[moveDown, fadeIn]];
             [button runAction:fadeInMoveDown completion:^{
                 button.isEnabled = YES;
+                self.replayScreenPresented = YES;
             }];
         }
     }];
@@ -179,6 +180,7 @@
         button.isEnabled = YES;
         [button runAction:fadeInMoveDown completion:^{
             [button removeFromParent];
+            self.replayScreenPresented = NO;
         }];
     }
     
@@ -215,16 +217,59 @@
 }
 
 - (void)exit {
-    SKTransition *transition = [SKTransition fadeWithColor:[SKColor blackColor] duration:0.5];
-    [self.gameScene.view presentScene:self.gameScene.mainMenuViewController.mainMenu transition:transition];
-    
-    [self.gameScene resetGame];
-    
-    [self clearBallLivesSprites];
-    
-    [self.gameScene enumerateChildNodesWithName:@"finger" usingBlock:^(SKNode *node, BOOL *stop) {
-        [node removeFromParent];
-    }];
+    if (self.replayScreenPresented) {
+        SKAction *moveUp    = [SKAction moveTo:CGPointMake(self.totalScore.position.x, self.totalScoreStartingY) duration:0.15];
+        SKAction *scaleDown = [SKAction scaleBy:.5 duration:0.2];
+        
+        SKAction *moveUpScaleDown;
+        moveUpScaleDown.timingMode = SKActionTimingEaseOut;
+        moveUpScaleDown = [SKAction sequence:@[scaleDown, moveUp]];
+        
+        SKAction *fadeIn    = [SKAction fadeOutWithDuration:0.2];
+        SKAction *wait      = [SKAction waitForDuration:0.25];
+        
+        for (SKButton *button in @[self.shareButton]) {
+            SKAction *moveDown = [SKAction moveTo:CGPointMake(button.position.x, self.buttonStartingY) duration:0.2];
+            SKAction *fadeInMoveDown = [SKAction group:@[moveDown, fadeIn, wait]];
+            fadeInMoveDown.timingMode = SKActionTimingEaseOut;
+            
+            button.isEnabled = YES;
+            [button runAction:fadeInMoveDown completion:^{
+                [button removeFromParent];
+                self.replayScreenPresented = NO;
+            }];
+        }
+        
+        for (SKButton *button in @[self.replayButton]) {
+            SKAction *moveDown = [SKAction moveTo:CGPointMake(button.position.x, self.buttonStartingY) duration:0.2];
+            SKAction *fadeInMoveDown = [SKAction group:@[moveDown,fadeIn, wait]];
+            fadeInMoveDown.timingMode = SKActionTimingEaseOut;
+            
+            button.isEnabled = YES;
+            [button runAction:fadeInMoveDown completion:^{
+                [button removeFromParent];
+                
+                [self.totalScore runAction:moveUpScaleDown completion:^{
+                    [self.gameScene resetGame];
+                    
+                    [self.gameScene enumerateChildNodesWithName:@"finger" usingBlock:^(SKNode *node, BOOL *stop) {
+                        [node removeFromParent];
+                        [self clearBallLivesSprites];
+                        
+                        SKTransition *transition = [SKTransition fadeWithColor:[SKColor blackColor] duration:0.5];
+                        [self.gameScene.view presentScene:self.gameScene.mainMenuViewController.mainMenu transition:transition];
+                    }];
+                }];
+            }];
+        }
+    } else {
+        [self.gameScene resetGame];
+        [self clearBallLivesSprites];
+        
+        SKTransition *transition = [SKTransition fadeWithColor:[SKColor blackColor] duration:0.5];
+        [self.gameScene.view presentScene:self.gameScene.mainMenuViewController.mainMenu transition:transition];
+        
+    }
 }
 
 @end

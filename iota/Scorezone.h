@@ -35,6 +35,9 @@
 /// The ending Y position of the total score label.
 @property (nonatomic) CGFloat totalScoreEndingY;
 
+/// If the replay screen buttons are currently presented.
+@property (nonatomic) BOOL replayScreenPresented;
+
 /// The game scene the score zone belongs to.
 @property (nonatomic, strong) IotaGameScene *gameScene;
 
