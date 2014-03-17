@@ -9,6 +9,7 @@
 #import "Scorezone.h"
 
 #import "YSIotaSE.h"
+#import "MainMenu.h"
 
 @implementation Scorezone
 
@@ -80,10 +81,9 @@
     newScorezone.replayButton.isEnabled  = NO;
     [newScorezone.replayButton setTouchUpInsideTarget:newScorezone action:@selector(replay)];
     
-    newScorezone.totalScoreEndingY      = newScorezone.buttonEndingY - newScorezone.replayButton.size.height / 2.0;
+    newScorezone.totalScoreEndingY       = newScorezone.buttonEndingY - newScorezone.replayButton.size.height / 2.0;
     
     newScorezone.ballLivesSprites = [NSMutableArray new];
-    [newScorezone setupBallLivesSprites];
     
     return newScorezone;
 }
@@ -94,8 +94,18 @@
         turnsBall.position = CGPointMake(-275 + (i * (turnsBall.size.width / 2.0)), -25);
         turnsBall.texture  = [[PegColors iOSColors] objectAtIndex:i + 1];
         turnsBall.physicsBody.dynamic = NO;
+        turnsBall.name     = @"turnsBall";
         [self.ballLivesSprites addObject:turnsBall];
         [self addChild:turnsBall];
+    }
+}
+
+- (void)clearBallLivesSprites {
+    if (self.ballLivesSprites.count) {
+        [self.ballLivesSprites removeAllObjects];
+        [self enumerateChildNodesWithName:@"turnsBall" usingBlock:^(SKNode *node, BOOL *stop) {
+            [node removeFromParent];
+        }];        
     }
 }
 
@@ -204,7 +214,16 @@
 }
 
 - (void)exit {
-    NSLog(@"exit");
+    SKTransition *transition = [SKTransition fadeWithColor:[SKColor blackColor] duration:0.5];
+    [self.gameScene.view presentScene:self.gameScene.mainMenuViewController.mainMenu transition:transition];
+    
+    [self.gameScene resetGame];
+    
+    [self clearBallLivesSprites];
+    
+    [self.gameScene enumerateChildNodesWithName:@"finger" usingBlock:^(SKNode *node, BOOL *stop) {
+        [node removeFromParent];
+    }];
 }
 
 @end

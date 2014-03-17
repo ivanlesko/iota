@@ -21,10 +21,10 @@
     spriteView.showsFPS = NO;
     spriteView.showsNodeCount = NO;
     
-    MainMenu *mainMenu = [[MainMenu alloc] initWithSize:CGSizeMake(768, 1024)];
-    mainMenu.mainMenuViewController = self;
+    self.mainMenu = [[MainMenu alloc] initWithSize:CGSizeMake(768, 1024)];
+    self.mainMenu.mainMenuViewController = self;
     
-    [spriteView presentScene:mainMenu];
+    [spriteView presentScene:self.mainMenu];
     
     self.iotaGameScene = [[IotaGameScene alloc] initWithSize:CGSizeMake(self.view.frame.size.width, self.view.frame.size.height)];
     self.iotaGameScene.mainMenuViewController = self;
@@ -32,17 +32,7 @@
     
     self.adView.alpha = 0.0f;
     
-    mainMenu.gameScene = self.iotaGameScene;
-}
-
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    
-    NSLog(@"view wil appear");
-    
-    [UIView animateWithDuration:0.4 animations:^{
-        self.adView.frame = CGRectOffset(self.adView.frame, 0, 66);
-    }];
+    self.mainMenu.gameScene = self.iotaGameScene;
 }
 
 - (BOOL)shouldAutorotate
@@ -75,7 +65,6 @@
 #pragma mark - iAD Delegate Methods
 
 - (void)bannerViewDidLoadAd:(ADBannerView *)banner{
-    NSLog(@"banner did load");
     if (!self.bannerIsVisible) {
         [UIView animateWithDuration:0.4
                          animations:^{
@@ -88,7 +77,6 @@
 }
 
 - (void)bannerView:(ADBannerView *)banner didFailToReceiveAdWithError:(NSError *)error {
-    NSLog(@"banner did not load");
     if (self.bannerIsVisible) {
         [UIView animateWithDuration:0.4
                          animations:^{

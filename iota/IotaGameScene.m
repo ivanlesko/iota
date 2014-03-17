@@ -20,8 +20,6 @@
 
 @interface IotaGameScene () {
     int score;
-    
-    BOOL gameOver;
     int pegColor; // This is used to determine what color the peg should next.
     int pegColorMax;
     int pegColorReset;
@@ -49,15 +47,24 @@
 #define PEG_COLUMNS 12
 #define PEG_ROWS    11
 
+
 - (void)didMoveToView:(SKView *)view {
-    // Initial setup for the score zone below the pegs.
     [self setupScoreValues];
     [self setupScoreIndicators];
     [self setupDividerBars];
     [self setupScoreDetectors];
     [self setupPointAmountLabels];
-//    [self setupMotionManager];
     [self setupFloatingPanel];
+    [self presentTheFinger];
+    
+    [self enumerateChildNodesWithName:@"peg" usingBlock:^(SKNode *node, BOOL *stop) {
+        Peg *peg = (Peg *)node;
+        peg.multiplier = NO;
+        peg.wasHitThisRound = NO;
+        peg.colorCount = pegColorReset;
+    }];
+    
+    [self.scorezone setupBallLivesSprites];
 }
 
 - (void)setupMotionManager {
@@ -83,10 +90,6 @@
     }];
 }
 
-- (void)willMoveFromView:(SKView *)view {
-    [self resetGame];
-}
-
 #pragma mark - Setup
 
 - (void)createContent {
@@ -96,11 +99,6 @@
                                            alpha:1.0];
     
     self.scaleMode = SKSceneScaleModeAspectFit;
-    
-    [self setupPhysicsWorld];
-    [self setupPegs];
-    [self presentTheFinger];
-    [self setupScorezone];
     
     self.ballIsOnScreen = NO;
     self.ballLives = STARTING_BALL_LIVES;
@@ -117,6 +115,10 @@
     
     AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
     iotaSE = appDelegate.iotaSE;
+    
+    [self setupPhysicsWorld];
+    [self setupPegs];
+    [self setupScorezone];
 }
 
 #pragma mark - Physics World
@@ -552,7 +554,7 @@
     score = 0;
     finalScore = 0;
     self.ballLives = STARTING_BALL_LIVES;
-    gameOver = NO;
+    self.ballIsOnScreen = NO;
     self.multiplier = [NSDecimalNumber decimalNumberWithString:@"0"];
     [self updateScoreLabel];
     [self presentTheFinger];
@@ -569,6 +571,10 @@
     [scoreIndicators clearAllIndicators];
 
     [self enumerateChildNodesWithName:@"gameOverScreen" usingBlock:^(SKNode *node, BOOL *stop) {
+        [node removeFromParent];
+    }];
+    
+    [self enumerateChildNodesWithName:@"ball" usingBlock:^(SKNode *node, BOOL *stop) {
         [node removeFromParent];
     }];
     

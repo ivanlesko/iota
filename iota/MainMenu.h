@@ -17,6 +17,9 @@
 
 #import "IotaGameScene.h"
 
+@class MainMenuViewController;
+@class IotaGameScene;
+
 @interface MainMenu : SKScene <GameCenterManagerDelegate, GKGameCenterControllerDelegate, UIAlertViewDelegate>
 
 @property (nonatomic, strong) MainMenuViewController *mainMenuViewController;

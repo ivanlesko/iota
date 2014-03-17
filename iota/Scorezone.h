@@ -59,4 +59,14 @@
 /// When the user ran out of lives, present the total score, share, and replay button.
 - (void)presentGameOverButtons;
 
+/// Resets the ball live sprites when entering the iota game scene.
+- (void)clearBallLivesSprites;
+
 @end
+
+
+
+
+
+
+

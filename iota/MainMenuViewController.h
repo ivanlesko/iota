@@ -10,13 +10,15 @@
 #import <SpriteKit/SpriteKit.h>
 #import <GameKit/GameKit.h>
 #import <iAd/iAd.h>
+#import "MainMenu.h"
 
 @class IotaGameScene;
 
 @interface MainMenuViewController : UIViewController <GKGameCenterControllerDelegate, ADBannerViewDelegate>
 
 @property (weak, nonatomic) IBOutlet ADBannerView *adView;
-@property (nonatomic) IotaGameScene *iotaGameScene;
+@property (nonatomic, strong) IotaGameScene *iotaGameScene;
+@property (nonatomic, strong) MainMenu *mainMenu;
 @property (nonatomic) BOOL bannerIsVisible;
 
 @end
