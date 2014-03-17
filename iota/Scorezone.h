@@ -16,9 +16,10 @@
 
 @property (nonatomic, strong) SKButton *soundToggle;
 @property (nonatomic, strong) SKButton *exitButton;
-@property (nonatomic, strong) SKLabelNode *score;
-@property (nonatomic, strong) SKLabelNode *totalScore;
-@property (nonatomic, strong) SKLabelNode *highScore;
+@property (nonatomic, strong) SKLabelNode *scoreLabel;
+@property (nonatomic, strong) SKLabelNode *totalScoreLabel;
+@property (nonatomic, strong) SKLabelNode *highScoreLabel;
+@property (nonatomic, strong) SKLabelNode *gotNewHighScoreLabel;
 @property (nonatomic, strong) SKButton *shareButton;
 @property (nonatomic, strong) SKButton *replayButton;
 @property (nonatomic, strong) NSMutableArray *ballLivesSprites;
@@ -60,10 +61,12 @@
 - (void)setupBallLivesSprites;
 
 /// When the user ran out of lives, present the total score, share, and replay button.
-- (void)presentGameOverButtons;
+- (void)presentGameOverButtonsWithScore:(int64_t)score;
 
 /// Resets the ball live sprites when entering the iota game scene.
 - (void)clearBallLivesSprites;
+
+- (void)setScoreLabel:(SKLabelNode *)scoreLabel withMultiplier:(int)multiplier withScore:(int)score;
 
 @end
 

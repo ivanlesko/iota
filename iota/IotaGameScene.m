@@ -19,7 +19,6 @@
 #import "Scorezone.h"
 
 @interface IotaGameScene () {
-    int score;
     int pegColor; // This is used to determine what color the peg should next.
     int pegColorMax;
     int pegColorReset;
@@ -37,7 +36,6 @@
 }
 
 @property BOOL ballIsOnScreen;
-@property (nonatomic) NSDecimalNumber *multiplier;
 
 @end
 
@@ -61,29 +59,6 @@
     [self.scorezone setupBallLivesSprites];
 }
 
-- (void)setupMotionManager {
-    self.motionManager = [[CMMotionManager alloc] init];
-    self.motionManager.deviceMotionUpdateInterval = 0.02;  // 50 Hz
-    
-    self.motionDisplayLink = [CADisplayLink displayLinkWithTarget:self selector:@selector(motionRefresh:)];
-    [self.motionDisplayLink addToRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
-    
-    if ([self.motionManager isDeviceMotionAvailable]) {
-        // to avoid using more CPU than necessary we use `CMAttitudeReferenceFrameXArbitraryZVertical`
-        [self.motionManager startDeviceMotionUpdatesUsingReferenceFrame:CMAttitudeReferenceFrameXArbitraryZVertical];
-    }
-}
-
-- (void)motionRefresh:(id)sender {
-    CMQuaternion quat = self.motionManager.deviceMotion.attitude.quaternion;
-    double yaw = -(asin(2*(quat.x*quat.z - quat.w*quat.y)));
-    
-    [self enumerateChildNodesWithName:@"ball" usingBlock:^(SKNode *node, BOOL *stop) {
-        SKAction *moveByX = [SKAction moveByX:yaw * 7 y:0 duration:0.01];
-        [node runAction:moveByX];
-    }];
-}
-
 #pragma mark - Setup
 
 - (void)createContent {
@@ -96,7 +71,7 @@
     
     self.ballIsOnScreen = NO;
     self.ballLives = STARTING_BALL_LIVES;
-    score = 0;
+    self.score = 0;
     finalScore = 0;
     self.multiplier = [NSDecimalNumber decimalNumberWithString:@"0"];
     
@@ -192,25 +167,10 @@
 
 - (void)setupScorezone {
     self.scorezone = [Scorezone createNewScoreZoneAtPosition:CGPointMake(CGRectGetMidX(self.frame), CGRectGetMaxY(self.frame) - 66) withGameScene:self];
-    self.scorezone.score.text = [NSString stringWithFormat:@"%d x %d",[self.multiplier intValue], score];
-    self.scorezone.totalScore.text = [NSString stringWithFormat:@"%d", abs(score * [self.multiplier floatValue])];
+    self.scorezone.scoreLabel.text = [NSString stringWithFormat:@"%d x %d",[self.multiplier intValue], self.score];
+    self.scorezone.totalScoreLabel.text = [NSString stringWithFormat:@"%d", abs(self.score * [self.multiplier floatValue])];
     
     [self addChild:self.scorezone];
-}
-
-- (void)updateScoreLabel {
-    NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
-    [numberFormatter setGroupingSeparator:@","];
-    [numberFormatter setGroupingSize:3];
-    [numberFormatter setUsesGroupingSeparator:YES];
-    [numberFormatter setDecimalSeparator:@"."];
-    [numberFormatter setNumberStyle:NSNumberFormatterNoStyle];
-    [numberFormatter setMaximumFractionDigits:2];
-    NSString *totalScoreString = [numberFormatter stringFromNumber:[NSNumber numberWithInt:abs(score * [self.multiplier floatValue])]];
-    
-    self.scorezone.score.text = [NSString stringWithFormat:@"%d x %d",[self.multiplier intValue], score];
-    self.scorezone.totalScore.text = totalScoreString;
-    
 }
 
 - (void)presentPointsEarnedLabelWithPointValue:(int)value {
@@ -392,7 +352,7 @@
             }
         }
     } else {
-        if (self.ballIsOnScreen == NO && touchPos.y <= 340) {
+        if (self.ballIsOnScreen == NO /**&& touchPos.y <= 340**/) {
             Ball *ball = [Ball newBall];
             ball.position = CGPointMake(touchPos.x, self.view.frame.size.height - touchPos.y);
             ball.currentColor = self.ballLives;
@@ -422,12 +382,6 @@
     }
 }
 
-#pragma mark - Game Over Screen
-
-- (void)presentGameOverScreen {
-    
-}
-
 #pragma mark - Physics Methods
 
 - (void)didSimulatePhysics {
@@ -435,7 +389,7 @@
         if (node.position.y < 0 || node.position.x < self.view.frame.origin.x || node.position.x > self.view.frame.size.width) {
             [node removeFromParent];
             self.ballIsOnScreen = NO;
-            score += 0;
+            self.score += 0;
         }
     }];
 }
@@ -454,8 +408,7 @@
             
             if (ball.isDead == NO) {
                 ball.isDead = YES;
-                score += scoreDetector.value;
-                [self updateScoreLabel];
+                self.score += scoreDetector.value;
                 
                 if (scoreDetector.value == 0) {
                     [iotaSE playEvent:YSIotaSEEventLoose];
@@ -498,17 +451,13 @@
             
             // Ran out of lives, game over.
             if (self.ballLives == 0) {
-                [self.scorezone presentGameOverButtons];
+                finalScore = abs(self.score * [self.multiplier intValue]);
+                [self.scorezone presentGameOverButtonsWithScore:finalScore];
                 
-                finalScore = abs(score * [self.multiplier intValue]);
                 // Report the score to game center.
                 if (finalScore > 0) {
                     [gameCenterManager reportScore:finalScore forCategory:kIotaMainLeaderboard];
-                    
                 }
-                
-                // Reset the game.
-                [self presentGameOverScreen];
             }
         }
     }
@@ -523,18 +472,10 @@
                 if (!peg.wasHitThisRound) {
                     [iotaSE playHit];
                     
-                    [self updateScoreLabel];
-                    
                     // Turn off the multiplier after itis been hit.
                     if (peg.multiplier == FALSE) {
                         self.multiplier = [self.multiplier decimalNumberByAdding:[NSDecimalNumber decimalNumberWithString:@"1.0"]];
                         peg.multiplier = TRUE;
-                        
-                        SKAction *scaleUp = [SKAction scaleBy:1.2 duration:0.03];
-                        [self.scorezone.score runAction:[SKAction sequence:@[
-                                                                        scaleUp,
-                                                                        [scaleUp reversedAction]
-                                                                        ]]];
                 }
                 
                 Ball *ball = (Ball *)secondBody.node;
@@ -556,12 +497,11 @@
 }
 
 - (void)resetGame {
-    score = 0;
+    self.score = 0;
     finalScore = 0;
     self.ballLives = STARTING_BALL_LIVES;
     self.ballIsOnScreen = NO;
     self.multiplier = [NSDecimalNumber decimalNumberWithString:@"0"];
-    [self updateScoreLabel];
     [self presentTheFinger];
     
     [self.scorezone setupBallLivesSprites];
@@ -579,6 +519,19 @@
     
     // The scene's X gravity changes on each round.
     self.physicsWorld.gravity = CGVectorMake(skRand(-0.02, 0.02), self.physicsWorld.gravity.dy);
+}
+
+#pragma mark - Setters
+- (void)setMultiplier:(NSDecimalNumber *)multiplier{
+    _multiplier = multiplier;
+    
+    [self.scorezone setScoreLabel:self.scorezone.scoreLabel withMultiplier:[_multiplier intValue] withScore:self.score];
+}
+
+- (void)setScore:(int)score {
+    _score = score;
+    
+    [self.scorezone setScoreLabel:self.scorezone.scoreLabel withMultiplier:[_multiplier intValue] withScore:self.score];
 }
 
 #pragma mark - Math Helpers

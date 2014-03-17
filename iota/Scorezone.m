@@ -18,13 +18,13 @@
     newScorezone.position  = position;
     newScorezone.gameScene = gameScene;
     
-    newScorezone.score = [SKLabelNode labelNodeWithFontNamed:@"HelveticaNeue-Light"];
-    newScorezone.score.position         = CGPointMake(0, -34);
-    newScorezone.score.text             = @"0 x 0";
-    newScorezone.score.fontColor        = [UIColor whiteColor];
-    newScorezone.score.fontSize         = 25.0f;
-    newScorezone.score.horizontalAlignmentMode = SKLabelHorizontalAlignmentModeCenter;
-    [newScorezone addChild:newScorezone.score];
+    newScorezone.scoreLabel = [SKLabelNode labelNodeWithFontNamed:@"HelveticaNeue-Light"];
+    newScorezone.scoreLabel.position         = CGPointMake(0, -34);
+    newScorezone.scoreLabel.text             = @"0 x 0";
+    newScorezone.scoreLabel.fontColor        = [UIColor whiteColor];
+    newScorezone.scoreLabel.fontSize         = 25.0f;
+    newScorezone.scoreLabel.horizontalAlignmentMode = SKLabelHorizontalAlignmentModeCenter;
+    [newScorezone addChild:newScorezone.scoreLabel];
     
     newScorezone.shareButton = [[SKButton alloc] initWithImageNamedNormal:@"share" selected:@"share"];
     newScorezone.replayButton = [[SKButton alloc] initWithImageNamedNormal:@"replay" selected:@"replay"];
@@ -34,24 +34,34 @@
     newScorezone.buttonEndingY          = -202;
     newScorezone.totalScoreStartingY    = -77;
     
-    newScorezone.totalScore = [SKLabelNode labelNodeWithFontNamed:@"helveticaNeue-Bold"];
-    newScorezone.totalScore.position    = CGPointMake(0, newScorezone.totalScoreStartingY);
-    newScorezone.totalScore.text        = @"";
-    newScorezone.totalScore.fontColor   = [UIColor whiteColor];
-    newScorezone.totalScore.fontSize    = 94.0f;
-    newScorezone.totalScore.xScale      = 0.5;
-    newScorezone.totalScore.yScale      = 0.5;
-    newScorezone.totalScore.horizontalAlignmentMode = SKLabelHorizontalAlignmentModeCenter;
-    newScorezone.totalScore.zPosition   = 1000;
-    [newScorezone addChild:newScorezone.totalScore];
+    newScorezone.totalScoreLabel = [SKLabelNode labelNodeWithFontNamed:@"helveticaNeue-Bold"];
+    newScorezone.totalScoreLabel.position    = CGPointMake(0, newScorezone.totalScoreStartingY);
+    newScorezone.totalScoreLabel.text        = @"";
+    newScorezone.totalScoreLabel.fontColor   = [UIColor whiteColor];
+    newScorezone.totalScoreLabel.fontSize    = 94.0f;
+    newScorezone.totalScoreLabel.xScale      = 0.5;
+    newScorezone.totalScoreLabel.yScale      = 0.5;
+    newScorezone.totalScoreLabel.horizontalAlignmentMode = SKLabelHorizontalAlignmentModeCenter;
+    newScorezone.totalScoreLabel.zPosition   = 1000;
+    [newScorezone addChild:newScorezone.totalScoreLabel];
     
-    newScorezone.highScore = [SKLabelNode labelNodeWithFontNamed:@"helveticaNeue-Light"];
-    newScorezone.highScore.position  = CGPointMake(0, 71);
-    newScorezone.highScore.text      = @"NEW HIGH SCORE!";
-    newScorezone.highScore.fontSize  = 25.0f;
-    newScorezone.highScore.fontColor = [UIColor colorWithRed:223.0/255.0 green:90.0/255.0 blue:73.0/255.0 alpha:1.0]; // iota red color.
-    newScorezone.highScore.horizontalAlignmentMode = SKLabelHorizontalAlignmentModeCenter;
-    [newScorezone addChild:newScorezone.highScore];
+    newScorezone.gotNewHighScoreLabel = [SKLabelNode labelNodeWithFontNamed:@"helveticaNeue-Light"];
+    newScorezone.gotNewHighScoreLabel.position  = CGPointMake(0, newScorezone.totalScoreStartingY);
+    newScorezone.gotNewHighScoreLabel.text      = @"NEW HIGH SCORE!";
+    newScorezone.gotNewHighScoreLabel.fontSize  = 30.0f;
+    newScorezone.gotNewHighScoreLabel.fontColor = [UIColor colorWithRed:223.0/255.0 green:90.0/255.0 blue:73.0/255.0 alpha:1.0]; // iota red color.
+    newScorezone.gotNewHighScoreLabel.horizontalAlignmentMode = SKLabelHorizontalAlignmentModeCenter;
+    newScorezone.gotNewHighScoreLabel.hidden    = YES;
+    [newScorezone addChild:newScorezone.gotNewHighScoreLabel];
+    
+    newScorezone.highScoreLabel = [SKLabelNode labelNodeWithFontNamed:@"helveticaNeue-Light"];
+    newScorezone.highScoreLabel.position  = CGPointMake(0, newScorezone.totalScoreStartingY);
+    newScorezone.highScoreLabel.text      = [NSString stringWithFormat:@"HIGH SCORE:"];
+    newScorezone.highScoreLabel.fontSize  = 30.0f;
+    newScorezone.highScoreLabel.fontColor = [UIColor whiteColor]; // iota red color.
+    newScorezone.highScoreLabel.horizontalAlignmentMode = SKLabelHorizontalAlignmentModeCenter;
+    newScorezone.highScoreLabel.hidden    = YES;
+    [newScorezone addChild:newScorezone.highScoreLabel];
     
     // The divider graphic below the
     SKSpriteNode *divider = [SKSpriteNode spriteNodeWithImageNamed:@"scoreDivider"];
@@ -110,8 +120,40 @@
     }
 }
 
-- (void)presentGameOverButtons {
-    SKAction *moveDown = [SKAction moveTo:CGPointMake(self.totalScore.position.x, self.totalScoreEndingY) duration:0.15];
+- (void)fetchHighScoreWithScore:(int64_t)score {
+    [GKLeaderboard loadLeaderboardsWithCompletionHandler:^(NSArray *leaderboards, NSError *error) {
+        if (!error) {
+            NSLog(@"boards: %@", leaderboards);
+            GKLeaderboard *board = [leaderboards firstObject];
+            // fetch score for minimum amt of data, b/c must call `loadScore..` to get MY score.
+            board.playerScope = GKLeaderboardPlayerScopeGlobal;
+            board.timeScope = GKLeaderboardTimeScopeAllTime;
+            
+            [board loadScoresWithCompletionHandler:^(NSArray *scores, NSError *error) {
+                if (!error) {
+                    GKScore *currentHighScore = [scores firstObject];
+                    int64_t highscore = currentHighScore.value;
+                    if (score > highscore) {
+                        self.gotNewHighScoreLabel.hidden = NO;
+                        self.gotNewHighScoreLabel.text   = [NSString stringWithFormat:@"NEW HIGH SCORE: %lld", score];
+                    } else {
+                        self.highScoreLabel.hidden       = NO;
+                        self.highScoreLabel.text         = [NSString stringWithFormat:@"HIGH SCORE: %lld", board.localPlayerScore.value];
+                    }
+                } else {
+                    NSLog(@"board error: %@", error.localizedDescription);
+                    return;
+                }
+            }];
+        } else {
+            NSLog(@"leaderboard error: %@", error.localizedDescription);
+            return;
+        }
+    }] ;
+}
+
+- (void)presentGameOverButtonsWithScore:(int64_t)score {
+    SKAction *moveDown = [SKAction moveTo:CGPointMake(self.totalScoreLabel.position.x, self.totalScoreEndingY) duration:0.15];
     SKAction *scaleUp  = [SKAction scaleBy:2 duration:0.2];
     SKAction *moveDownScaleUp = [SKAction sequence:@[moveDown, scaleUp]];
     moveDownScaleUp.timingMode = SKActionTimingEaseOut;
@@ -120,7 +162,7 @@
         [self runAction:[self swoosh]];
     }
     
-    [self.totalScore runAction:moveDownScaleUp completion:^{
+    [self.totalScoreLabel runAction:moveDownScaleUp completion:^{
         for (SKButton *button in @[self.shareButton, self.replayButton]) {
             [self addChild:button];
             SKAction *moveDown = [SKAction moveTo:CGPointMake(button.position.x, self.buttonEndingY) duration:0.2];
@@ -132,6 +174,8 @@
             }];
         }
     }];
+    
+    [self fetchHighScoreWithScore:score];
 }
 
 - (void)share {
@@ -142,7 +186,7 @@
     UIImage *snapshot = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     
-    NSString *scoreString = [NSString stringWithFormat:@"I just got %@ in iota! https://itunes.apple.com/us/app/id828498770", self.totalScore.text];
+    NSString *scoreString = [NSString stringWithFormat:@"I just got %@ in iota! https://itunes.apple.com/us/app/id828498770", self.totalScoreLabel.text];
     
     NSArray *activityItems = @[scoreString, snapshot];
     
@@ -157,7 +201,9 @@
 }
 
 - (void)replay {
-    SKAction *moveUp    = [SKAction moveTo:CGPointMake(self.totalScore.position.x, self.totalScoreStartingY) duration:0.15];
+    self.highScoreLabel.hidden = YES;
+    self.gotNewHighScoreLabel.hidden = YES;
+    SKAction *moveUp    = [SKAction moveTo:CGPointMake(self.totalScoreLabel.position.x, self.totalScoreStartingY) duration:0.15];
     SKAction *scaleDown = [SKAction scaleBy:.5 duration:0.2];
     
     SKAction *moveUpScaleDown;
@@ -193,7 +239,7 @@
         [button runAction:fadeInMoveDown completion:^{
             [button removeFromParent];
             
-            [self.totalScore runAction:moveUpScaleDown completion:^{
+            [self.totalScoreLabel runAction:moveUpScaleDown completion:^{
                 [self.gameScene resetGame];
             }];
         }];
@@ -218,7 +264,7 @@
 
 - (void)exit {
     if (self.replayScreenPresented) {
-        SKAction *moveUp    = [SKAction moveTo:CGPointMake(self.totalScore.position.x, self.totalScoreStartingY) duration:0.15];
+        SKAction *moveUp    = [SKAction moveTo:CGPointMake(self.totalScoreLabel.position.x, self.totalScoreStartingY) duration:0.15];
         SKAction *scaleDown = [SKAction scaleBy:.5 duration:0.2];
         
         SKAction *moveUpScaleDown;
@@ -249,7 +295,7 @@
             [button runAction:fadeInMoveDown completion:^{
                 [button removeFromParent];
                 
-                [self.totalScore runAction:moveUpScaleDown completion:^{
+                [self.totalScoreLabel runAction:moveUpScaleDown completion:^{
                     [self.gameScene resetGame];
                     
                     [self.gameScene enumerateChildNodesWithName:@"finger" usingBlock:^(SKNode *node, BOOL *stop) {
@@ -272,11 +318,41 @@
     }
 }
 
+#pragma mark - Setter Methods
+
+- (NSNumberFormatter *)commaFormattedNumber {
+    NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
+    [numberFormatter setGroupingSeparator:@","];
+    [numberFormatter setGroupingSize:3];
+    [numberFormatter setUsesGroupingSeparator:YES];
+    [numberFormatter setDecimalSeparator:@"."];
+    [numberFormatter setNumberStyle:NSNumberFormatterNoStyle];
+    [numberFormatter setMaximumFractionDigits:2];
+    return numberFormatter;
+}
+
+- (void)setScoreLabel:(SKLabelNode *)scoreLabel withMultiplier:(int)multiplier withScore:(int)score {
+    _scoreLabel = scoreLabel;
+    
+    NSNumberFormatter *numberFormatter = [self commaFormattedNumber];
+    NSString *scoreString = [numberFormatter stringFromNumber:[NSNumber numberWithInt:score]];
+    NSString *totalScoreString = [numberFormatter stringFromNumber:[NSNumber numberWithInt:(multiplier * score)]];
+    
+    _scoreLabel.text = [NSString stringWithFormat:@"%d x %@", multiplier, scoreString];
+    _totalScoreLabel.text = totalScoreString;
+    SKAction *scaleUp = [SKAction scaleBy:1.2 duration:0.03];
+    [_scoreLabel runAction:[SKAction sequence:@[scaleUp, [scaleUp reversedAction]]]];
+}
+
+- (void)setHighScoreLabel:(SKLabelNode *)highScoreLabel {
+    
+}
+
+- (void)setGotNewHighScoreLabel:(SKLabelNode *)gotNewHighScoreLabel {
+    
+}
+
 @end
-
-
-
-
 
 
 

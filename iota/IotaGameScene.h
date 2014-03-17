@@ -22,6 +22,8 @@
 @property (nonatomic, strong) MainMenuViewController *mainMenuViewController;
 @property (nonatomic) BOOL contentCreated;
 @property (nonatomic) int ballLives;
+@property (nonatomic) int score;
+@property (nonatomic) NSDecimalNumber *multiplier;
 
 @property (nonatomic) CMMotionManager *motionManager;
 @property (nonatomic) CADisplayLink *motionDisplayLink;
