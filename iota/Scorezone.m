@@ -42,6 +42,7 @@
     newScorezone.totalScore.xScale      = 0.5;
     newScorezone.totalScore.yScale      = 0.5;
     newScorezone.totalScore.horizontalAlignmentMode = SKLabelHorizontalAlignmentModeCenter;
+    newScorezone.totalScore.zPosition   = 1000;
     [newScorezone addChild:newScorezone.totalScore];
     
     newScorezone.highScore = [SKLabelNode labelNodeWithFontNamed:@"helveticaNeue-Light"];

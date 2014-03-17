@@ -29,8 +29,6 @@
         [self createContent];
         self.contentCreated = YES;
     }
-    
-    
 }
 
 - (void)createContent {

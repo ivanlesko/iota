@@ -49,12 +49,6 @@
 
 
 - (void)didMoveToView:(SKView *)view {
-    [self setupScoreValues];
-    [self setupScoreIndicators];
-    [self setupDividerBars];
-    [self setupScoreDetectors];
-    [self setupPointAmountLabels];
-    [self setupFloatingPanel];
     [self presentTheFinger];
     
     [self enumerateChildNodesWithName:@"peg" usingBlock:^(SKNode *node, BOOL *stop) {
@@ -119,6 +113,12 @@
     [self setupPhysicsWorld];
     [self setupPegs];
     [self setupScorezone];
+
+    [self setupScoreValues];
+    [self setupPointAmountLabels];
+    [self setupScoreIndicators];
+    [self setupDividerBars];
+    [self setupScoreDetectors];
 }
 
 #pragma mark - Physics World
@@ -188,11 +188,6 @@
     }
 }
 
-- (void)setupFloatingPanel {
-
-    
-}
-
 #pragma mark - Score Zone
 
 - (void)setupScorezone {
@@ -225,6 +220,7 @@
     pointsEarned.position     = CGPointMake(CGRectGetMidX(self.view.frame), 700);
     pointsEarned.alpha        = 0.0f;
     pointsEarned.text         = [NSString stringWithFormat:@"+%d", value];
+    pointsEarned.name         = @"pointsEarned";
     
     [self addChild:pointsEarned];
     
@@ -364,6 +360,7 @@
         pointAmountLabel.position = CGPointMake(185.0 + (i * 50), 15);
         pointAmountLabel.text = [NSString stringWithFormat:@"%d", [scoreValues[i] intValue]];
         pointAmountLabel.zPosition = 1000;
+        pointAmountLabel.name = @"pointAmountLabel";
         
         [self addChild:pointAmountLabel];
     }
@@ -550,6 +547,14 @@
 
 #pragma mark - Game Ended
 
+- (void)removeNodesForNames:(NSArray *)names{
+    for (NSString *name in names) {
+        [self enumerateChildNodesWithName:name usingBlock:^(SKNode *node, BOOL *stop) {
+            [node removeFromParent];
+        }];
+    }
+}
+
 - (void)resetGame {
     score = 0;
     finalScore = 0;
@@ -568,15 +573,9 @@
         peg.colorCount = pegColorReset;
     }];
     
-    [scoreIndicators clearAllIndicators];
-
-    [self enumerateChildNodesWithName:@"gameOverScreen" usingBlock:^(SKNode *node, BOOL *stop) {
-        [node removeFromParent];
-    }];
+    [self removeNodesForNames:@[@"pointsEarned", @"ball"]];
     
-    [self enumerateChildNodesWithName:@"ball" usingBlock:^(SKNode *node, BOOL *stop) {
-        [node removeFromParent];
-    }];
+    [scoreIndicators clearAllIndicators];
     
     // The scene's X gravity changes on each round.
     self.physicsWorld.gravity = CGVectorMake(skRand(-0.02, 0.02), self.physicsWorld.gravity.dy);
