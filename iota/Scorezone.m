@@ -43,24 +43,17 @@
     newScorezone.totalScoreLabel.yScale      = 0.5;
     newScorezone.totalScoreLabel.horizontalAlignmentMode = SKLabelHorizontalAlignmentModeCenter;
     newScorezone.totalScoreLabel.zPosition   = 1000;
+    newScorezone.totalScoreLabel.name        = @"totalScoreLabel";
     [newScorezone addChild:newScorezone.totalScoreLabel];
-    
-    newScorezone.gotNewHighScoreLabel = [SKLabelNode labelNodeWithFontNamed:@"helveticaNeue-Light"];
-    newScorezone.gotNewHighScoreLabel.position  = CGPointMake(0, newScorezone.totalScoreStartingY);
-    newScorezone.gotNewHighScoreLabel.text      = @"NEW HIGH SCORE!";
-    newScorezone.gotNewHighScoreLabel.fontSize  = 30.0f;
-    newScorezone.gotNewHighScoreLabel.fontColor = [UIColor colorWithRed:223.0/255.0 green:90.0/255.0 blue:73.0/255.0 alpha:1.0]; // iota red color.
-    newScorezone.gotNewHighScoreLabel.horizontalAlignmentMode = SKLabelHorizontalAlignmentModeCenter;
-    newScorezone.gotNewHighScoreLabel.hidden    = YES;
-    [newScorezone addChild:newScorezone.gotNewHighScoreLabel];
     
     newScorezone.highScoreLabel = [SKLabelNode labelNodeWithFontNamed:@"helveticaNeue-Light"];
     newScorezone.highScoreLabel.position  = CGPointMake(0, newScorezone.totalScoreStartingY);
     newScorezone.highScoreLabel.text      = [NSString stringWithFormat:@"HIGH SCORE:"];
     newScorezone.highScoreLabel.fontSize  = 30.0f;
-    newScorezone.highScoreLabel.fontColor = [UIColor whiteColor]; // iota red color.
+    newScorezone.highScoreLabel.fontColor = [UIColor whiteColor];
     newScorezone.highScoreLabel.horizontalAlignmentMode = SKLabelHorizontalAlignmentModeCenter;
     newScorezone.highScoreLabel.hidden    = YES;
+    newScorezone.highScoreLabel.name      = @"highScorelabel";
     [newScorezone addChild:newScorezone.highScoreLabel];
     
     // The divider graphic below the
@@ -133,13 +126,7 @@
                 if (!error) {
                     GKScore *currentHighScore = [scores firstObject];
                     int64_t highscore = currentHighScore.value;
-                    if (score > highscore) {
-                        self.gotNewHighScoreLabel.hidden = NO;
-                        self.gotNewHighScoreLabel.text   = [NSString stringWithFormat:@"NEW HIGH SCORE: %lld", score];
-                    } else {
-                        self.highScoreLabel.hidden       = NO;
-                        self.highScoreLabel.text         = [NSString stringWithFormat:@"HIGH SCORE: %lld", board.localPlayerScore.value];
-                    }
+                    [self setHighScoreLabel:self.highScoreLabel withScore:score andHighScore:highscore];
                 } else {
                     NSLog(@"board error: %@", error.localizedDescription);
                     return;
@@ -202,7 +189,6 @@
 
 - (void)replay {
     self.highScoreLabel.hidden = YES;
-    self.gotNewHighScoreLabel.hidden = YES;
     SKAction *moveUp    = [SKAction moveTo:CGPointMake(self.totalScoreLabel.position.x, self.totalScoreStartingY) duration:0.15];
     SKAction *scaleDown = [SKAction scaleBy:.5 duration:0.2];
     
@@ -244,6 +230,8 @@
             }];
         }];
     }
+    
+    [self.gameScene presentTheFinger];
 }
 
 - (void)toggleSound {
@@ -296,26 +284,30 @@
                 [button removeFromParent];
                 
                 [self.totalScoreLabel runAction:moveUpScaleDown completion:^{
-                    [self.gameScene resetGame];
-                    
                     [self.gameScene enumerateChildNodesWithName:@"finger" usingBlock:^(SKNode *node, BOOL *stop) {
                         [node removeFromParent];
-                        [self clearBallLivesSprites];
                         
                         SKTransition *transition = [SKTransition fadeWithColor:[SKColor blackColor] duration:0.5];
                         [self.gameScene.view presentScene:self.gameScene.mainMenuViewController.mainMenu transition:transition];
+                        
+                        
                     }];
                 }];
             }];
         }
-    } else {
-        [self.gameScene resetGame];
-        [self clearBallLivesSprites];
-        
-        SKTransition *transition = [SKTransition fadeWithColor:[SKColor blackColor] duration:0.5];
-        [self.gameScene.view presentScene:self.gameScene.mainMenuViewController.mainMenu transition:transition];
-        
     }
+    
+    [self clearBallLivesSprites];
+    self.highScoreLabel.hidden = YES;
+    
+    [self.gameScene enumerateChildNodesWithName:@"finger" usingBlock:^(SKNode *node, BOOL *stop) {
+        [node removeFromParent];
+    }];
+    
+    [self.gameScene resetGame];
+    
+    SKTransition *transition = [SKTransition fadeWithColor:[SKColor blackColor] duration:0.5];
+    [self.gameScene.view presentScene:self.gameScene.mainMenuViewController.mainMenu transition:transition];
 }
 
 #pragma mark - Setter Methods
@@ -344,12 +336,23 @@
     [_scoreLabel runAction:[SKAction sequence:@[scaleUp, [scaleUp reversedAction]]]];
 }
 
-- (void)setHighScoreLabel:(SKLabelNode *)highScoreLabel {
+- (void)setHighScoreLabel:(SKLabelNode *)highScoreLabel withScore:(int64_t)score andHighScore:(int64_t)highscore{
+    _highScoreLabel        = highScoreLabel;
+    _highScoreLabel.hidden = NO;
     
-}
-
-- (void)setGotNewHighScoreLabel:(SKLabelNode *)gotNewHighScoreLabel {
+    NSNumberFormatter *formatter = [self commaFormattedNumber];
+    NSString *scoreString;
     
+    if (score > highscore) {
+        scoreString = [formatter stringFromNumber:[NSNumber numberWithLongLong:score]];
+        self.highScoreLabel.fontColor = [SKColor colorWithRed:223.0/255.0 green:90.0/255.0 blue:73.0/255.0 alpha:1.0]; // iota red
+        self.highScoreLabel.text      = [NSString stringWithFormat:@"NEW HIGH SCORE: %@", scoreString];
+        
+    } else {
+        scoreString = [formatter stringFromNumber:[NSNumber numberWithLongLong:highscore]];
+        self.highScoreLabel.fontColor = [SKColor whiteColor];
+        self.highScoreLabel.text      = [NSString stringWithFormat:@"HIGH SCORE: %@", scoreString];
+    }
 }
 
 @end

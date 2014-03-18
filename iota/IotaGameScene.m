@@ -502,9 +502,6 @@
     self.ballLives = STARTING_BALL_LIVES;
     self.ballIsOnScreen = NO;
     self.multiplier = [NSDecimalNumber decimalNumberWithString:@"0"];
-    [self presentTheFinger];
-    
-    [self.scorezone setupBallLivesSprites];
     
     [self enumerateChildNodesWithName:@"peg" usingBlock:^(SKNode *node, BOOL *stop) {
         Peg *peg = (Peg *)node;
@@ -512,6 +509,8 @@
         peg.wasHitThisRound = NO;
         peg.colorCount = pegColorReset;
     }];
+    
+    [self.scorezone setupBallLivesSprites];
     
     [self removeNodesForNames:@[@"pointsEarned", @"ball"]];
     

@@ -19,7 +19,6 @@
 @property (nonatomic, strong) SKLabelNode *scoreLabel;
 @property (nonatomic, strong) SKLabelNode *totalScoreLabel;
 @property (nonatomic, strong) SKLabelNode *highScoreLabel;
-@property (nonatomic, strong) SKLabelNode *gotNewHighScoreLabel;
 @property (nonatomic, strong) SKButton *shareButton;
 @property (nonatomic, strong) SKButton *replayButton;
 @property (nonatomic, strong) NSMutableArray *ballLivesSprites;

@@ -25,11 +25,10 @@
 @property (nonatomic) int score;
 @property (nonatomic) NSDecimalNumber *multiplier;
 
-@property (nonatomic) CMMotionManager *motionManager;
-@property (nonatomic) CADisplayLink *motionDisplayLink;
 @property (nonatomic, strong) Scorezone *scorezone;
 
 - (void)createContent;
 - (void)resetGame;
+- (void)presentTheFinger;
 
 @end
