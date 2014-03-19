@@ -331,55 +331,38 @@
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
     UITouch *touch = [touches anyObject];
     CGPoint touchPos = [touch locationInView:self.view];
-    
-    for (UITouch *touch in touches) {
-        SKNode *node = [self nodeAtPoint:[touch locationInNode:self]];
-        if (node != self && [node.name isEqualToString:@"exit"]) {
-            SKTransition *gameTransition = [SKTransition fadeWithColor:[UIColor whiteColor] duration:1.0];
-            MainMenu *mainMenu = [[MainMenu alloc] initWithSize:self.size];
-            [self.view presentScene:mainMenu transition:gameTransition];
-            
-            return;
-        }
-    }
 
-    if (self.ballLives <= 0) {
-        for (UITouch *touch in touches) {
-            SKNode *node = [self nodeAtPoint:[touch locationInNode:self]];
-            if (node != self && [node.name isEqualToString:@"gameOverScreen"]) {
-                // Game over screen logic.
-                return;
-            }
-        }
-    } else {
-        if (self.ballIsOnScreen == NO /**&& touchPos.y <= 340**/) {
-            Ball *ball = [Ball newBall];
-            ball.position = CGPointMake(touchPos.x, self.view.frame.size.height - touchPos.y);
-            ball.currentColor = self.ballLives;
-            
-            [self addChild:ball];
-            self.ballIsOnScreen = YES;
-            
-            self.ballLives--;
-            
-            // Remove the last ball from the ball lives in the top left corner.
-            SKSpriteNode *turnsBall = [self.scorezone.ballLivesSprites lastObject];
-            [turnsBall removeFromParent];
-            [self.scorezone.ballLivesSprites removeLastObject];
-            
-            [iotaSE reset];
-            
-            [self enumerateChildNodesWithName:@"finger" usingBlock:^(SKNode *node, BOOL *stop) {
-                SKAction *fadeOutMoveUp  = [SKAction group:@[
-                                                             [SKAction moveByX:0 y:30 duration:0.1],
-                                                             [SKAction fadeOutWithDuration:0.1]
-                                                             ]];
-                [node runAction:fadeOutMoveUp completion:^{
-                    [node removeFromParent];
-                }];
-            }];
-        }
+    if (self.ballIsOnScreen == NO /**&& touchPos.y <= 340**/) {
+        [self dropBallAtTouchLocation:touchPos];
     }
+}
+
+- (void)dropBallAtTouchLocation:(CGPoint)touchPos {
+    Ball *ball = [Ball newBall];
+    ball.position = CGPointMake(touchPos.x, self.view.frame.size.height - touchPos.y);
+    ball.currentColor = self.ballLives;
+    
+    [self addChild:ball];
+    self.ballIsOnScreen = YES;
+    
+    self.ballLives--;
+    
+    // Remove the last ball from the ball lives in the top left corner.
+    SKSpriteNode *turnsBall = [self.scorezone.ballLivesSprites lastObject];
+    [turnsBall removeFromParent];
+    [self.scorezone.ballLivesSprites removeLastObject];
+    
+    [iotaSE reset];
+    
+    [self enumerateChildNodesWithName:@"finger" usingBlock:^(SKNode *node, BOOL *stop) {
+        SKAction *fadeOutMoveUp  = [SKAction group:@[
+                                                     [SKAction moveByX:0 y:30 duration:0.1],
+                                                     [SKAction fadeOutWithDuration:0.1]
+                                                     ]];
+        [node runAction:fadeOutMoveUp completion:^{
+            [node removeFromParent];
+        }];
+    }];
 }
 
 #pragma mark - Physics Methods
