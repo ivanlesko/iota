@@ -55,8 +55,6 @@
         peg.wasHitThisRound = NO;
         peg.colorCount = pegColorReset;
     }];
-    
-    [self.scorezone setupBallLivesSprites];
 }
 
 #pragma mark - Setup
@@ -332,7 +330,7 @@
     UITouch *touch = [touches anyObject];
     CGPoint touchPos = [touch locationInView:self.view];
 
-    if (self.ballIsOnScreen == NO /**&& touchPos.y <= 340**/) {
+    if (self.ballIsOnScreen == NO && self.ballLives != 0 /**&& touchPos.y <= 340**/) {
         [self dropBallAtTouchLocation:touchPos];
     }
 }
@@ -493,6 +491,7 @@
         peg.colorCount = pegColorReset;
     }];
     
+    [self.scorezone clearBallLivesSprites];
     [self.scorezone setupBallLivesSprites];
     
     [self removeNodesForNames:@[@"pointsEarned", @"ball"]];

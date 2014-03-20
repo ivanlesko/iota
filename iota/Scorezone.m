@@ -89,6 +89,8 @@
     
     newScorezone.ballLivesSprites = [NSMutableArray new];
     
+    [newScorezone setupBallLivesSprites];
+    
     return newScorezone;
 }
 
@@ -102,6 +104,8 @@
         [self.ballLivesSprites addObject:turnsBall];
         [self addChild:turnsBall];
     }
+    
+    NSLog(@"calling setup ball lives sprites");
 }
 
 - (void)clearBallLivesSprites {
@@ -227,11 +231,11 @@
             
             [self.totalScoreLabel runAction:moveUpScaleDown completion:^{
                 [self.gameScene resetGame];
+                [self.gameScene presentTheFinger];
             }];
         }];
     }
     
-    [self.gameScene presentTheFinger];
 }
 
 - (void)toggleSound {
@@ -251,6 +255,7 @@
 }
 
 - (void)exit {
+    
     if (self.replayScreenPresented) {
         SKAction *moveUp    = [SKAction moveTo:CGPointMake(self.totalScoreLabel.position.x, self.totalScoreStartingY) duration:0.15];
         SKAction *scaleDown = [SKAction scaleBy:.5 duration:0.2];
@@ -262,10 +267,11 @@
         SKAction *fadeIn    = [SKAction fadeOutWithDuration:0.2];
         SKAction *wait      = [SKAction waitForDuration:0.25];
         
+        SKAction *moveDown = [SKAction moveBy:CGVectorMake(0, self.buttonStartingY - self.buttonEndingY) duration:0.2];
+        SKAction *fadeInMoveDown = [SKAction group:@[moveDown, fadeIn, wait]];
+        fadeInMoveDown.timingMode = SKActionTimingEaseOut;
+        
         for (SKButton *button in @[self.shareButton]) {
-            SKAction *moveDown = [SKAction moveTo:CGPointMake(button.position.x, self.buttonStartingY) duration:0.2];
-            SKAction *fadeInMoveDown = [SKAction group:@[moveDown, fadeIn, wait]];
-            fadeInMoveDown.timingMode = SKActionTimingEaseOut;
             
             button.isEnabled = YES;
             [button runAction:fadeInMoveDown completion:^{
@@ -287,17 +293,24 @@
                     [self.gameScene enumerateChildNodesWithName:@"finger" usingBlock:^(SKNode *node, BOOL *stop) {
                         [node removeFromParent];
                         
+                        self.highScoreLabel.hidden = YES;
+                        
+                        [self.gameScene enumerateChildNodesWithName:@"finger" usingBlock:^(SKNode *node, BOOL *stop) {
+                            [node removeFromParent];
+                        }];
+                        
+                        [self.gameScene resetGame];
+                        
                         SKTransition *transition = [SKTransition fadeWithColor:[SKColor blackColor] duration:0.5];
                         [self.gameScene.view presentScene:self.gameScene.mainMenuViewController.mainMenu transition:transition];
                         
-                        
+                        return;
                     }];
                 }];
             }];
         }
     }
     
-    [self clearBallLivesSprites];
     self.highScoreLabel.hidden = YES;
     
     [self.gameScene enumerateChildNodesWithName:@"finger" usingBlock:^(SKNode *node, BOOL *stop) {
