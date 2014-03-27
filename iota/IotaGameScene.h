@@ -11,9 +11,7 @@
 
 #import "MainMenuViewController.h"
 
-#import "GameCenterManager.h"
 #import "AppSpecificValues.h"
-#import <CoreMotion/CoreMotion.h>
 
 #import "Scorezone.h"
 
@@ -31,8 +29,14 @@
 
 @property (nonatomic, strong) Scorezone *scorezone;
 
+@property (nonatomic, strong) GKLeaderboard *currentLeaderboard;
+@property (nonatomic, strong) NSString *currentLeaderboardIdentifier;
+@property (nonatomic) int64_t cachedHighestScore;
+
 - (void)createContent;
 - (void)resetGame;
 - (void)presentTheFinger;
+
+- (void) reloadScoresComplete: (GKLeaderboard*) leaderBoard error: (NSError*) error;
 
 @end

@@ -38,7 +38,6 @@
 		4E5BC26218D3795100F7F642 /* YSIotaSE.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E5BC25B18D3795100F7F642 /* YSIotaSE.m */; };
 		4E5BC26418D379AD00F7F642 /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E5BC26318D379AC00F7F642 /* GameKit.framework */; };
 		4E5BC26618D379B100F7F642 /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E5BC26518D379B100F7F642 /* iAd.framework */; };
-		4E5BC26F18D37A2100F7F642 /* GCHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E5BC26918D37A2100F7F642 /* GCHelper.m */; };
 		4E5BC27018D37A2100F7F642 /* GameCenterManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E5BC26C18D37A2100F7F642 /* GameCenterManager.m */; };
 		4E5BC27118D37A2100F7F642 /* SKButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E5BC26E18D37A2100F7F642 /* SKButton.m */; };
 		4E5BC29818D389B300F7F642 /* A2_dly.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 4E5BC27418D389B300F7F642 /* A2_dly.mp3 */; };
@@ -77,7 +76,6 @@
 		4E5BC2B918D389B300F7F642 /* G4_dly.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 4E5BC29518D389B300F7F642 /* G4_dly.mp3 */; };
 		4E5BC2BA18D389B300F7F642 /* G5_dly.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 4E5BC29618D389B300F7F642 /* G5_dly.mp3 */; };
 		4E5BC2BB18D389B300F7F642 /* G6_dly.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 4E5BC29718D389B300F7F642 /* G6_dly.mp3 */; };
-		4E5BC2BD18D4068B00F7F642 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E5BC2BC18D4068B00F7F642 /* CoreMotion.framework */; };
 		4ECC177418D4E9660046134D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4ECC177318D4E9660046134D /* Main.storyboard */; };
 		4ECC177818D51F1E0046134D /* swoosh.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 4ECC177718D51F1E0046134D /* swoosh.mp3 */; };
 		4EFC026318E3515900207A33 /* UIShareAcitivityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EFC026218E3515900207A33 /* UIShareAcitivityViewController.m */; };
@@ -140,8 +138,6 @@
 		4E5BC26318D379AC00F7F642 /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
 		4E5BC26518D379B100F7F642 /* iAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iAd.framework; path = System/Library/Frameworks/iAd.framework; sourceTree = SDKROOT; };
 		4E5BC26718D37A2100F7F642 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
-		4E5BC26818D37A2100F7F642 /* GCHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCHelper.h; sourceTree = "<group>"; };
-		4E5BC26918D37A2100F7F642 /* GCHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCHelper.m; sourceTree = "<group>"; };
 		4E5BC26A18D37A2100F7F642 /* AppSpecificValues.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppSpecificValues.h; sourceTree = "<group>"; };
 		4E5BC26B18D37A2100F7F642 /* GameCenterManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameCenterManager.h; sourceTree = "<group>"; };
 		4E5BC26C18D37A2100F7F642 /* GameCenterManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameCenterManager.m; sourceTree = "<group>"; };
@@ -195,7 +191,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4E5BC2BD18D4068B00F7F642 /* CoreMotion.framework in Frameworks */,
 				4E5BC26618D379B100F7F642 /* iAd.framework in Frameworks */,
 				4E5BC26418D379AD00F7F642 /* GameKit.framework in Frameworks */,
 				4E5BC1F618D376F300F7F642 /* CoreGraphics.framework in Frameworks */,
@@ -353,8 +348,6 @@
 			isa = PBXGroup;
 			children = (
 				4E5BC26718D37A2100F7F642 /* Constants.h */,
-				4E5BC26818D37A2100F7F642 /* GCHelper.h */,
-				4E5BC26918D37A2100F7F642 /* GCHelper.m */,
 				4E5BC26A18D37A2100F7F642 /* AppSpecificValues.h */,
 				4E5BC26B18D37A2100F7F642 /* GameCenterManager.h */,
 				4E5BC26C18D37A2100F7F642 /* GameCenterManager.m */,
@@ -461,6 +454,9 @@
 				LastUpgradeCheck = 0500;
 				ORGANIZATIONNAME = "Ivan Lesko";
 				TargetAttributes = {
+					4E5BC1EF18D376F300F7F642 = {
+						DevelopmentTeam = PA483M26HF;
+					};
 					4E5BC21718D376F400F7F642 = {
 						TestTargetID = 4E5BC1EF18D376F300F7F642;
 					};
@@ -564,7 +560,6 @@
 				4E5BC24318D3790800F7F642 /* Ball.m in Sources */,
 				4E5BC26218D3795100F7F642 /* YSIotaSE.m in Sources */,
 				4E5BC25218D3794500F7F642 /* MainMenu.m in Sources */,
-				4E5BC26F18D37A2100F7F642 /* GCHelper.m in Sources */,
 				4E5BC24518D3790800F7F642 /* ScoreDetector.m in Sources */,
 				4E5BC20618D376F300F7F642 /* AppDelegate.m in Sources */,
 				4E5BC24A18D3790800F7F642 /* Scorezone.m in Sources */,

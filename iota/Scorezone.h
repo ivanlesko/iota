@@ -65,7 +65,7 @@
 - (void)setupBallLivesSprites;
 
 /// When the user ran out of lives, present the total score, share, and replay button.
-- (void)presentGameOverButtonsWithScore:(int64_t)score;
+- (void)presentGameOverButtonsWithScore:(int64_t)score andCachedHighScore:(int64_t)highScore;
 
 /// Resets the ball live sprites when entering the iota game scene.
 - (void)clearBallLivesSprites;

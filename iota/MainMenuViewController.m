@@ -20,7 +20,7 @@
     SKView *spriteView = (SKView *)self.view;
     spriteView.showsDrawCount = NO;
     spriteView.showsFPS = NO;
-    spriteView.showsNodeCount = YES;
+    spriteView.showsNodeCount = NO;
     
     self.mainMenu = [[MainMenu alloc] initWithSize:CGSizeMake(768, 1024)];
     self.mainMenu.mainMenuViewController = self;
@@ -33,6 +33,8 @@
     
     AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
     appDelegate.iotaGameScene = self.iotaGameScene;
+    appDelegate.gameCenterManager.delegate = self.iotaGameScene;
+    [appDelegate.gameCenterManager authenticateLocalUser];
     
     self.adView.alpha = 0.0f;
     

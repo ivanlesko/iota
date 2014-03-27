@@ -16,8 +16,7 @@
 
 // Gamecenter leaderboard name
 
-#define kIotaMainLeaderboard @"1"
-
+#define kIotaMainLeaderboard @"iotaLeaderboard"
 
 typedef enum {
     kPKGameStatePreRound = 0,

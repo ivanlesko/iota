@@ -18,6 +18,8 @@
 #import "PegColors.h"
 #import "Scorezone.h"
 
+#import "GameCenterManager.h"
+
 @interface IotaGameScene () {
     int pegColor; // This is used to determine what color the peg should next.
     int pegColorMax;
@@ -55,6 +57,9 @@
         peg.wasHitThisRound = NO;
         peg.colorCount = pegColorReset;
     }];
+    
+    [gameCenterManager reloadHighScoresForCategory:self.currentLeaderboardIdentifier];
+    
 }
 
 #pragma mark - Setup
@@ -77,10 +82,16 @@
     pegColorMax = 7;
     pegColorReset = 8;
     
-    gameCenterManager = [[GameCenterManager alloc] init];
-    gameCenterManager.delegate = self;
+    self.currentLeaderboardIdentifier = kIotaMainLeaderboard;
     
     AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+    
+    gameCenterManager = appDelegate.gameCenterManager;
+    
+    if ([GameCenterManager isGameCenterAvailable]) {
+        gameCenterManager.delegate = self;
+    }
+    
     iotaSE = appDelegate.iotaSE;
     
     [self setupPhysicsWorld];
@@ -92,6 +103,7 @@
     [self setupScoreIndicators];
     [self setupDividerBars];
     [self setupScoreDetectors];
+    
 }
 
 #pragma mark - Physics World
@@ -426,16 +438,10 @@
                     }
                 }
                 
-                NSLog(@"node count: %d", self.children.count);
-                
                 NSUInteger detectorIndex = [scoreDetectors indexOfObject:scoreDetector];
                 if (detectorIndex < 9) {
                     [scoreIndicators insertIndicatorAtIndex:detectorIndex withColor:[[PegColors iOSColorValues] objectAtIndex:ball.currentColor -1]];
                 }
-                
-//                if (self.ballLives > 0) {
-//                    [self presentPointsEarnedLabelWithPointValue:scoreDetector.value];
-//                }
             }
             
             [self enumerateChildNodesWithName:@"peg" usingBlock:^(SKNode *node, BOOL *stop) {
@@ -446,7 +452,7 @@
             // Ran out of lives, game over.
             if (self.ballLives == 0) {
                 finalScore = abs(self.score * [self.multiplier intValue]);
-                [self.scorezone presentGameOverButtonsWithScore:finalScore];
+                [self.scorezone presentGameOverButtonsWithScore:finalScore andCachedHighScore:self.cachedHighestScore];
                 
                 // Report the score to game center.
                 if (finalScore > 0) {
@@ -526,6 +532,38 @@
     _score = score;
     
     [self.scorezone setScoreLabel:self.scorezone.scoreLabel withMultiplier:[_multiplier intValue] withScore:self.score];
+}
+
+#pragma mark - Game Center Manager Delegate methods
+
+- (void) processGameCenterAuth: (NSError*) error
+{
+	if(error == NULL)
+	{
+		[gameCenterManager reloadHighScoresForCategory: self.currentLeaderboardIdentifier];
+	}
+	else
+	{
+		UIAlertView* alert= [[UIAlertView alloc] initWithTitle: @"Game Center Account Required"
+                                                       message: [NSString stringWithFormat: @"Reason: %@", [error localizedDescription]]
+                                                      delegate: self cancelButtonTitle: @"Try Again..." otherButtonTitles: NULL];
+		[alert show];
+	}
+}
+
+- (void) reloadScoresComplete: (GKLeaderboard*) leaderBoard error: (NSError*) error
+{
+	if(error == NULL)
+	{
+        self.currentLeaderboard = leaderBoard;
+		int64_t personalBest= leaderBoard.localPlayerScore.value;
+		if([leaderBoard.scores count] >0)
+		{
+			self.cachedHighestScore = personalBest;
+		} else {
+            self.cachedHighestScore = 0;
+        }
+	}
 }
 
 #pragma mark - Math Helpers

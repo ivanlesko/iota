@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "GCHelper.h"
 #import "YSIotaSE.h"
 
 #import "IotaGameScene.h"

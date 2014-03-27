@@ -74,7 +74,7 @@
 - (void)showLeaderboard {
     GKGameCenterViewController *leaderboardController = [[GKGameCenterViewController alloc] init];
     if (leaderboardController != NULL) {
-        leaderboardController.gameCenterDelegate = self.view.window.rootViewController;
+        leaderboardController.gameCenterDelegate = self.mainMenuViewController;
         [self.view.window.rootViewController presentViewController:leaderboardController animated:YES completion:nil];
     }
 }   

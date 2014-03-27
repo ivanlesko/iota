@@ -108,8 +108,6 @@
         [self.ballLivesSprites addObject:turnsBall];
         [self addChild:turnsBall];
     }
-    
-    NSLog(@"calling setup ball lives sprites");
 }
 
 - (void)clearBallLivesSprites {
@@ -135,26 +133,21 @@
                     int64_t highscore = currentHighScore.value;
                     [self setHighScoreLabel:self.highScoreLabel withScore:score andHighScore:highscore];
                 } else {
-                    NSLog(@"board error: %@", error.localizedDescription);
                     return;
                 }
             }];
         } else {
-            NSLog(@"leaderboard error: %@", error.localizedDescription);
             return;
         }
     }] ;
 }
 
-- (void)presentGameOverButtonsWithScore:(int64_t)score {
+- (void)presentGameOverButtonsWithScore:(int64_t)score andCachedHighScore:(int64_t)highScore {
     if (!self.replayScreenPresented) {
         SKAction *moveDown = [SKAction moveTo:CGPointMake(self.totalScoreLabel.position.x, self.totalScoreEndingY) duration:0.15];
         SKAction *scaleUp  = [SKAction scaleBy:2 duration:0.2];
         SKAction *moveDownScaleUp = [SKAction sequence:@[moveDown, scaleUp]];
         moveDownScaleUp.timingMode = SKActionTimingEaseOut;
-        
-        NSLog(@"replay button enabled: %d", self.replayButton.isEnabled);
-        NSLog(@"share button enabled: %d", self.shareButton.isEnabled);
         
         if ([[YSIotaSE sharedSE] canPlaySound]) {
             [self runAction:[self swoosh]];
@@ -171,6 +164,10 @@
                 }];
             }
         }];
+        
+        for (SKButton *button in @[self.replayButton, self.shareButton]) {
+        }
+        
     } else {
         [self replay];
     }
@@ -260,8 +257,20 @@
     return [SKAction playSoundFileNamed:@"swoosh.mp3" waitForCompletion:NO];
 }
 
-- (void)exit {
+- (void)removeNodesAndExittoMenu {
+    self.highScoreLabel.hidden = YES;
     
+    [self.gameScene enumerateChildNodesWithName:@"finger" usingBlock:^(SKNode *node, BOOL *stop) {
+        [node removeFromParent];
+    }];
+    
+    [self.gameScene resetGame];
+    
+    SKTransition *transition = [SKTransition fadeWithColor:[SKColor blackColor] duration:0.5];
+    [self.gameScene.view presentScene:self.gameScene.mainMenuViewController.mainMenu transition:transition];
+}
+
+- (void)exit {
     if (self.replayScreenPresented) {
         SKAction *moveUp    = [SKAction moveTo:CGPointMake(self.totalScoreLabel.position.x, self.totalScoreStartingY) duration:0.15];
         SKAction *scaleDown = [SKAction scaleBy:.5 duration:0.2];
@@ -281,7 +290,6 @@
             
             button.isEnabled = YES;
             [button runAction:fadeInMoveDown completion:^{
-                [button removeFromParent];
                 self.replayScreenPresented = NO;
             }];
         }
@@ -293,36 +301,14 @@
             
             button.isEnabled = YES;
             [button runAction:fadeInMoveDown completion:^{
-                [button removeFromParent];
                 
                 [self.totalScoreLabel runAction:moveUpScaleDown completion:^{
-                    [self.gameScene enumerateChildNodesWithName:@"finger" usingBlock:^(SKNode *node, BOOL *stop) {
-                        [node removeFromParent];
-                    }];
-                    self.highScoreLabel.hidden = YES;
-                    
-                    [self.gameScene enumerateChildNodesWithName:@"finger" usingBlock:^(SKNode *node, BOOL *stop) {
-                        [node removeFromParent];
-                    }];
-                    
-                    [self.gameScene resetGame];
-                    
-                    SKTransition *transition = [SKTransition fadeWithColor:[SKColor blackColor] duration:0.5];
-                    [self.gameScene.view presentScene:self.gameScene.mainMenuViewController.mainMenu transition:transition];
+                    [self removeNodesAndExittoMenu];
                 }];
             }];
         }
     } else {
-        self.highScoreLabel.hidden = YES;
-    
-        [self.gameScene enumerateChildNodesWithName:@"finger" usingBlock:^(SKNode *node, BOOL *stop) {
-            [node removeFromParent];
-        }];
-        
-        [self.gameScene resetGame];
-
-        SKTransition *transition = [SKTransition fadeWithColor:[SKColor blackColor] duration:0.5];
-        [self.gameScene.view presentScene:self.gameScene.mainMenuViewController.mainMenu transition:transition];
+        [self removeNodesAndExittoMenu];
     }
 }
 
@@ -359,7 +345,8 @@
     NSNumberFormatter *formatter = [self commaFormattedNumber];
     NSString *scoreString;
     
-    if (score > highscore) {
+    
+    if (score > highscore || highscore == 0 || !highscore) {
         scoreString = [formatter stringFromNumber:[NSNumber numberWithLongLong:score]];
         self.highScoreLabel.fontColor = [SKColor colorWithRed:223.0/255.0 green:90.0/255.0 blue:73.0/255.0 alpha:1.0]; // iota red
         self.highScoreLabel.text      = [NSString stringWithFormat:@"NEW HIGH SCORE: %@", scoreString];
