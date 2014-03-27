@@ -23,6 +23,11 @@
 @property (nonatomic, strong) SKButton *replayButton;
 @property (nonatomic, strong) NSMutableArray *ballLivesSprites;
 
+/// The divider bar that displays below the score.
+/// We need this sprite to be publicly visible to determine
+/// the highest point on the screen that the ball can be dropped.
+@property (nonatomic, strong) SKSpriteNode *dividerBar;
+
 /// The ending Y position of the share and replay button.
 @property (nonatomic) CGFloat buttonEndingY;
 

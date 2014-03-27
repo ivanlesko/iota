@@ -329,9 +329,18 @@
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
     UITouch *touch = [touches anyObject];
     CGPoint touchPos = [touch locationInView:self.view];
-
-    if (self.ballIsOnScreen == NO && self.ballLives != 0 /**&& touchPos.y <= 340**/) {
-        [self dropBallAtTouchLocation:touchPos];
+    
+    if (self.ballIsOnScreen == NO && self.ballLives != 0) {
+        Peg *lastPeg = [pegs lastObject];
+        
+        CGPoint scoreZoneDividerBarPointInScene = [self convertPoint:self.scorezone.dividerBar.position fromNode:self.scorezone];
+        
+        if (touchPos.y <= self.frame.size.height - lastPeg.position.y - (lastPeg.size.height / 2.0) &&
+            touchPos.y >= self.frame.size.height - scoreZoneDividerBarPointInScene.y &&
+            touchPos.x > 20 &&
+            touchPos.x < self.frame.size.width - 20) {
+            [self dropBallAtTouchLocation:touchPos];
+        }
     }
 }
 
@@ -361,6 +370,8 @@
             [node removeFromParent];
         }];
     }];
+    
+    
 }
 
 #pragma mark - Physics Methods
@@ -415,14 +426,16 @@
                     }
                 }
                 
+                NSLog(@"node count: %d", self.children.count);
+                
                 NSUInteger detectorIndex = [scoreDetectors indexOfObject:scoreDetector];
                 if (detectorIndex < 9) {
                     [scoreIndicators insertIndicatorAtIndex:detectorIndex withColor:[[PegColors iOSColorValues] objectAtIndex:ball.currentColor -1]];
                 }
                 
-                if (self.ballLives > 0) {
-                    [self presentPointsEarnedLabelWithPointValue:scoreDetector.value];
-                }
+//                if (self.ballLives > 0) {
+//                    [self presentPointsEarnedLabelWithPointValue:scoreDetector.value];
+//                }
             }
             
             [self enumerateChildNodesWithName:@"peg" usingBlock:^(SKNode *node, BOOL *stop) {

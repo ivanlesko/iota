@@ -7,15 +7,25 @@
 //
 
 #import <UIKit/UIKit.h>
-
 #import "GCHelper.h"
-
 #import "YSIotaSE.h"
+
+#import "IotaGameScene.h"
+
+#import "GameCenterManager.h"
+
+@class IotaGameScene;
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
 
 @property (nonatomic, strong) YSIotaSE *iotaSE;
+
+@property (nonatomic, strong) IotaGameScene *iotaGameScene;
+
+@property (nonatomic, strong) GameCenterManager *gameCenterManager;
+
+@property (nonatomic, strong) SKView *gameView;
 
 @end

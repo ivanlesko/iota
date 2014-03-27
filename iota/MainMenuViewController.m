@@ -9,6 +9,7 @@
 #import "MainMenuViewController.h"
 #import "IotaGameScene.h"
 #import "MainMenu.h"
+#import "AppDelegate.h"
 
 @implementation MainMenuViewController
 
@@ -19,7 +20,7 @@
     SKView *spriteView = (SKView *)self.view;
     spriteView.showsDrawCount = NO;
     spriteView.showsFPS = NO;
-    spriteView.showsNodeCount = NO;
+    spriteView.showsNodeCount = YES;
     
     self.mainMenu = [[MainMenu alloc] initWithSize:CGSizeMake(768, 1024)];
     self.mainMenu.mainMenuViewController = self;
@@ -29,6 +30,9 @@
     self.iotaGameScene = [[IotaGameScene alloc] initWithSize:CGSizeMake(self.view.frame.size.width, self.view.frame.size.height)];
     self.iotaGameScene.mainMenuViewController = self;
     [self.iotaGameScene createContent];
+    
+    AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+    appDelegate.iotaGameScene = self.iotaGameScene;
     
     self.adView.alpha = 0.0f;
     

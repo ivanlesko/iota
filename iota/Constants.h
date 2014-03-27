@@ -15,7 +15,16 @@
 #define kPKScoreDetectorname @"scoreDetector"
 
 // Gamecenter leaderboard name
+
 #define kIotaMainLeaderboard @"1"
+
+
+typedef enum {
+    kPKGameStatePreRound = 0,
+    kPkGameStateInRound,
+    kPkGameStatePostRound
+} kPKGameState;
+
 
 // Physics body contact bitmasks
 typedef enum : uint32_t {

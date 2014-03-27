@@ -10,6 +10,7 @@
 
 #import "YSIotaSE.h"
 #import "MainMenu.h"
+#import "UIShareAcitivityViewController.h"
 
 @implementation Scorezone
 
@@ -57,10 +58,10 @@
     [newScorezone addChild:newScorezone.highScoreLabel];
     
     // The divider graphic below the
-    SKSpriteNode *divider = [SKSpriteNode spriteNodeWithImageNamed:@"scoreDivider"];
-    divider.anchorPoint   = CGPointMake(0.5, 1);
-    divider.position      = CGPointMake(0, -93);
-    [newScorezone addChild:divider];
+    newScorezone.dividerBar = [SKSpriteNode spriteNodeWithImageNamed:@"scoreDivider"];
+    newScorezone.dividerBar.anchorPoint   = CGPointMake(0.5, 1);
+    newScorezone.dividerBar.position      = CGPointMake(0, -93);
+    [newScorezone addChild:newScorezone.dividerBar];
     
     newScorezone.soundToggle = [[SKButton alloc] initWithImageNamedNormal:@"sound_on" selected:@"sound_on"];
     newScorezone.soundToggle.anchorPoint = CGPointMake(1, 1);
@@ -78,12 +79,15 @@
     newScorezone.shareButton.position    = CGPointMake(-247, newScorezone.buttonStartingY);
     newScorezone.shareButton.alpha       = 0.0;
     newScorezone.shareButton.isEnabled   = NO;
+    newScorezone.shareButton.name        = @"shareButton";
     [newScorezone.shareButton setTouchUpInsideTarget:newScorezone action:@selector(share)];
+    [newScorezone addChild:newScorezone.shareButton];
 
     newScorezone.replayButton.position   = CGPointMake(247, newScorezone.buttonStartingY);
     newScorezone.replayButton.alpha      = 0.0;
     newScorezone.replayButton.isEnabled  = NO;
     [newScorezone.replayButton setTouchUpInsideTarget:newScorezone action:@selector(replay)];
+    [newScorezone addChild:newScorezone.replayButton];
     
     newScorezone.totalScoreEndingY       = newScorezone.buttonEndingY - newScorezone.replayButton.size.height / 2.0;
     
@@ -120,7 +124,6 @@
 - (void)fetchHighScoreWithScore:(int64_t)score {
     [GKLeaderboard loadLeaderboardsWithCompletionHandler:^(NSArray *leaderboards, NSError *error) {
         if (!error) {
-            NSLog(@"boards: %@", leaderboards);
             GKLeaderboard *board = [leaderboards firstObject];
             // fetch score for minimum amt of data, b/c must call `loadScore..` to get MY score.
             board.playerScope = GKLeaderboardPlayerScopeGlobal;
@@ -144,27 +147,33 @@
 }
 
 - (void)presentGameOverButtonsWithScore:(int64_t)score {
-    SKAction *moveDown = [SKAction moveTo:CGPointMake(self.totalScoreLabel.position.x, self.totalScoreEndingY) duration:0.15];
-    SKAction *scaleUp  = [SKAction scaleBy:2 duration:0.2];
-    SKAction *moveDownScaleUp = [SKAction sequence:@[moveDown, scaleUp]];
-    moveDownScaleUp.timingMode = SKActionTimingEaseOut;
-    
-    if ([[YSIotaSE sharedSE] canPlaySound]) {
-        [self runAction:[self swoosh]];
-    }
-    
-    [self.totalScoreLabel runAction:moveDownScaleUp completion:^{
-        for (SKButton *button in @[self.shareButton, self.replayButton]) {
-            [self addChild:button];
-            SKAction *moveDown = [SKAction moveTo:CGPointMake(button.position.x, self.buttonEndingY) duration:0.2];
-            SKAction *fadeIn   = [SKAction fadeInWithDuration:0.2];
-            SKAction *fadeInMoveDown = [SKAction group:@[moveDown, fadeIn]];
-            [button runAction:fadeInMoveDown completion:^{
-                button.isEnabled = YES;
-                self.replayScreenPresented = YES;
-            }];
+    if (!self.replayScreenPresented) {
+        SKAction *moveDown = [SKAction moveTo:CGPointMake(self.totalScoreLabel.position.x, self.totalScoreEndingY) duration:0.15];
+        SKAction *scaleUp  = [SKAction scaleBy:2 duration:0.2];
+        SKAction *moveDownScaleUp = [SKAction sequence:@[moveDown, scaleUp]];
+        moveDownScaleUp.timingMode = SKActionTimingEaseOut;
+        
+        NSLog(@"replay button enabled: %d", self.replayButton.isEnabled);
+        NSLog(@"share button enabled: %d", self.shareButton.isEnabled);
+        
+        if ([[YSIotaSE sharedSE] canPlaySound]) {
+            [self runAction:[self swoosh]];
         }
-    }];
+        
+        [self.totalScoreLabel runAction:moveDownScaleUp completion:^{
+            for (SKButton *button in @[self.shareButton, self.replayButton]) {
+                SKAction *moveDown = [SKAction moveTo:CGPointMake(button.position.x, self.buttonEndingY) duration:0.2];
+                SKAction *fadeIn   = [SKAction fadeInWithDuration:0.2];
+                SKAction *fadeInMoveDown = [SKAction group:@[moveDown, fadeIn]];
+                [button runAction:fadeInMoveDown completion:^{
+                    button.isEnabled = YES;
+                    self.replayScreenPresented = YES;
+                }];
+            }
+        }];
+    } else {
+        [self replay];
+    }
     
     [self fetchHighScoreWithScore:score];
 }
@@ -181,11 +190,10 @@
     
     NSArray *activityItems = @[scoreString, snapshot];
     
-    UIActivityViewController *activityVC = [[UIActivityViewController alloc] initWithActivityItems:activityItems  
-                                                                             applicationActivities:nil];
+    UIShareAcitivityViewController *activityVC = [[UIShareAcitivityViewController alloc] initWithActivityItems:activityItems
+                                                                                         applicationActivities:nil];
     [activityVC setValue:@"Check out my iota score!" forKey:@"subject"];
 
-    NSLog(@"adviewFrame: %@", NSStringFromCGRect(self.gameScene.mainMenuViewController.adView.frame));
     [self.gameScene.mainMenuViewController presentViewController:activityVC animated:YES completion:^{
         
     }];
@@ -209,29 +217,27 @@
     SKAction *wait      = [SKAction waitForDuration:0.25];
     
     for (SKButton *button in @[self.shareButton]) {
+        button.isEnabled = NO;
         SKAction *moveDown = [SKAction moveTo:CGPointMake(button.position.x, self.buttonStartingY) duration:0.2];
         SKAction *fadeInMoveDown = [SKAction group:@[moveDown, fadeIn, wait]];
         fadeInMoveDown.timingMode = SKActionTimingEaseOut;
         
-        button.isEnabled = YES;
         [button runAction:fadeInMoveDown completion:^{
-            [button removeFromParent];
-            self.replayScreenPresented = NO;
+            
         }];
     }
     
     for (SKButton *button in @[self.replayButton]) {
+        button.isEnabled = NO;
         SKAction *moveDown = [SKAction moveTo:CGPointMake(button.position.x, self.buttonStartingY) duration:0.2];
         SKAction *fadeInMoveDown = [SKAction group:@[moveDown,fadeIn, wait]];
         fadeInMoveDown.timingMode = SKActionTimingEaseOut;
         
-        button.isEnabled = YES;
         [button runAction:fadeInMoveDown completion:^{
-            [button removeFromParent];
-            
             [self.totalScoreLabel runAction:moveUpScaleDown completion:^{
                 [self.gameScene resetGame];
                 [self.gameScene presentTheFinger];
+                self.replayScreenPresented = NO;
             }];
         }];
     }
@@ -292,35 +298,32 @@
                 [self.totalScoreLabel runAction:moveUpScaleDown completion:^{
                     [self.gameScene enumerateChildNodesWithName:@"finger" usingBlock:^(SKNode *node, BOOL *stop) {
                         [node removeFromParent];
-                        
-                        self.highScoreLabel.hidden = YES;
-                        
-                        [self.gameScene enumerateChildNodesWithName:@"finger" usingBlock:^(SKNode *node, BOOL *stop) {
-                            [node removeFromParent];
-                        }];
-                        
-                        [self.gameScene resetGame];
-                        
-                        SKTransition *transition = [SKTransition fadeWithColor:[SKColor blackColor] duration:0.5];
-                        [self.gameScene.view presentScene:self.gameScene.mainMenuViewController.mainMenu transition:transition];
-                        
-                        return;
                     }];
+                    self.highScoreLabel.hidden = YES;
+                    
+                    [self.gameScene enumerateChildNodesWithName:@"finger" usingBlock:^(SKNode *node, BOOL *stop) {
+                        [node removeFromParent];
+                    }];
+                    
+                    [self.gameScene resetGame];
+                    
+                    SKTransition *transition = [SKTransition fadeWithColor:[SKColor blackColor] duration:0.5];
+                    [self.gameScene.view presentScene:self.gameScene.mainMenuViewController.mainMenu transition:transition];
                 }];
             }];
         }
+    } else {
+        self.highScoreLabel.hidden = YES;
+    
+        [self.gameScene enumerateChildNodesWithName:@"finger" usingBlock:^(SKNode *node, BOOL *stop) {
+            [node removeFromParent];
+        }];
+        
+        [self.gameScene resetGame];
+
+        SKTransition *transition = [SKTransition fadeWithColor:[SKColor blackColor] duration:0.5];
+        [self.gameScene.view presentScene:self.gameScene.mainMenuViewController.mainMenu transition:transition];
     }
-    
-    self.highScoreLabel.hidden = YES;
-    
-    [self.gameScene enumerateChildNodesWithName:@"finger" usingBlock:^(SKNode *node, BOOL *stop) {
-        [node removeFromParent];
-    }];
-    
-    [self.gameScene resetGame];
-    
-    SKTransition *transition = [SKTransition fadeWithColor:[SKColor blackColor] duration:0.5];
-    [self.gameScene.view presentScene:self.gameScene.mainMenuViewController.mainMenu transition:transition];
 }
 
 #pragma mark - Setter Methods

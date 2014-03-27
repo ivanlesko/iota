@@ -17,6 +17,8 @@
 
 #import "Scorezone.h"
 
+#import "Constants.h"
+
 @interface IotaGameScene : SKScene <SKPhysicsContactDelegate, GameCenterManagerDelegate, UIAccelerometerDelegate>
 
 @property (nonatomic, strong) MainMenuViewController *mainMenuViewController;
@@ -24,6 +26,8 @@
 @property (nonatomic) int ballLives;
 @property (nonatomic) int score;
 @property (nonatomic) NSDecimalNumber *multiplier;
+
+@property (nonatomic) kPKGameState gameState;
 
 @property (nonatomic, strong) Scorezone *scorezone;
 

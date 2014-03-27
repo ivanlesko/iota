@@ -80,6 +80,7 @@
 		4E5BC2BD18D4068B00F7F642 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E5BC2BC18D4068B00F7F642 /* CoreMotion.framework */; };
 		4ECC177418D4E9660046134D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4ECC177318D4E9660046134D /* Main.storyboard */; };
 		4ECC177818D51F1E0046134D /* swoosh.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 4ECC177718D51F1E0046134D /* swoosh.mp3 */; };
+		4EFC026318E3515900207A33 /* UIShareAcitivityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EFC026218E3515900207A33 /* UIShareAcitivityViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -185,6 +186,8 @@
 		4E5BC2BC18D4068B00F7F642 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
 		4ECC177318D4E9660046134D /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		4ECC177718D51F1E0046134D /* swoosh.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = swoosh.mp3; sourceTree = "<group>"; };
+		4EFC026118E3515900207A33 /* UIShareAcitivityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIShareAcitivityViewController.h; sourceTree = "<group>"; };
+		4EFC026218E3515900207A33 /* UIShareAcitivityViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIShareAcitivityViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -323,6 +326,8 @@
 				4E5BC24E18D3794500F7F642 /* MainMenu.m */,
 				4E5BC24F18D3794500F7F642 /* IotaGameScene.h */,
 				4E5BC25018D3794500F7F642 /* IotaGameScene.m */,
+				4EFC026118E3515900207A33 /* UIShareAcitivityViewController.h */,
+				4EFC026218E3515900207A33 /* UIShareAcitivityViewController.m */,
 			);
 			name = Scenes;
 			sourceTree = "<group>";
@@ -551,6 +556,7 @@
 			files = (
 				4E5BC24618D3790800F7F642 /* ScoreIndicators.m in Sources */,
 				4E5BC24418D3790800F7F642 /* Peg.m in Sources */,
+				4EFC026318E3515900207A33 /* UIShareAcitivityViewController.m in Sources */,
 				4E5BC27118D37A2100F7F642 /* SKButton.m in Sources */,
 				4E5BC25118D3794500F7F642 /* MainMenuViewController.m in Sources */,
 				4E5BC27018D37A2100F7F642 /* GameCenterManager.m in Sources */,
