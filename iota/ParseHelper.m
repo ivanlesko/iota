@@ -30,13 +30,7 @@
     [newScore setObject:[NSNumber numberWithInt:multiplier]      forKey:kPKScoreMultiplierKey];
     [newScore setObject:[NSNumber numberWithInt:score]           forKey:kPkScoreScoreKey];
     
-    [newScore saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-        if (!error) {
-            NSLog(@"successfully uploaded score");
-        } else {
-            NSLog(@"failed up upload score");
-        }
-    }];
+    [newScore saveInBackground];
 }
 
 @end
