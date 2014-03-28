@@ -119,29 +119,6 @@
     }
 }
 
-- (void)fetchHighScoreWithScore:(int64_t)score {
-    [GKLeaderboard loadLeaderboardsWithCompletionHandler:^(NSArray *leaderboards, NSError *error) {
-        if (!error) {
-            GKLeaderboard *board = [leaderboards firstObject];
-            // fetch score for minimum amt of data, b/c must call `loadScore..` to get MY score.
-            board.playerScope = GKLeaderboardPlayerScopeGlobal;
-            board.timeScope = GKLeaderboardTimeScopeAllTime;
-            
-            [board loadScoresWithCompletionHandler:^(NSArray *scores, NSError *error) {
-                if (!error) {
-                    GKScore *currentHighScore = [scores firstObject];
-                    int64_t highscore = currentHighScore.value;
-                    [self setHighScoreLabel:self.highScoreLabel withScore:score andHighScore:highscore];
-                } else {
-                    return;
-                }
-            }];
-        } else {
-            return;
-        }
-    }] ;
-}
-
 - (void)presentGameOverButtonsWithScore:(int64_t)score andCachedHighScore:(int64_t)highScore {
     if (!self.replayScreenPresented) {
         SKAction *moveDown = [SKAction moveTo:CGPointMake(self.totalScoreLabel.position.x, self.totalScoreEndingY) duration:0.15];
@@ -167,8 +144,6 @@
     } else {
         [self replay];
     }
-    
-    [self fetchHighScoreWithScore:score];
 }
 
 - (void)share {

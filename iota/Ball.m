@@ -23,8 +23,8 @@
     ball.physicsBody.mass = 0.1;
     ball.physicsBody.friction = 0.1;
     ball.physicsBody.restitution = 0.6;
-    ball.xScale = 0.75;
-    ball.yScale = 0.75;
+    ball.xScale = 0.85;
+    ball.yScale = 0.85;
     ball.name = kPKBallName;
     ball.isDead = NO;
     

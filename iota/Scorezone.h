@@ -72,6 +72,8 @@
 
 - (void)setScoreLabel:(SKLabelNode *)scoreLabel withMultiplier:(int)multiplier withScore:(int)score;
 
+- (void)setHighScoreLabel:(SKLabelNode *)highScoreLabel withScore:(int64_t)score andHighScore:(int64_t)highscore;
+
 @end
 
 

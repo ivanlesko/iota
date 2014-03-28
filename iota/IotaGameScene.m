@@ -464,6 +464,7 @@
                     if (finalScore > 0) {
                         [gameCenterManager reportScore:finalScore forCategory:kIotaMainLeaderboard];
                         [[ParseHelper sharedHelper] reportScoreWithTotalScore:finalScore multiplier:[self.multiplier intValue] score:self.score];
+                        [self.scorezone setHighScoreLabel:self.scorezone.highScoreLabel withScore:finalScore andHighScore:self.cachedHighestScore];
                     }
                 }
             }
