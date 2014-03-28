@@ -10,14 +10,10 @@
 #import <GameKit/GameKit.h>
 
 #import "MainMenuViewController.h"
-
 #import "AppSpecificValues.h"
-
 #import "Scorezone.h"
-
 #import "Constants.h"
-
-#import  "Reachability.h"
+#import "Reachability.h"
 
 @interface IotaGameScene : SKScene <SKPhysicsContactDelegate, GameCenterManagerDelegate, UIAccelerometerDelegate>
 
@@ -39,6 +35,6 @@
 - (void)resetGame;
 - (void)presentTheFinger;
 
-- (void) reloadScoresComplete: (GKLeaderboard*) leaderBoard error: (NSError*) error;
+- (void)reloadScoresComplete:(GKLeaderboard *)leaderBoard error:(NSError *)error;
 
 @end

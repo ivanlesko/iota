@@ -7,15 +7,13 @@
 //
 
 #import <SpriteKit/SpriteKit.h>
-
 #import <GameKit/GameKit.h>
 
 #import "MainMenuViewController.h"
-
 #import "AppSpecificValues.h"
 #import "GameCenterManager.h"
-
 #import "IotaGameScene.h"
+#import "SKButton.h"
 
 @class MainMenuViewController;
 @class IotaGameScene;

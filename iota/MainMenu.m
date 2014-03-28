@@ -7,11 +7,10 @@
 //
 
 #import "MainMenu.h"
-
 #import "IotaGameScene.h"
 #import "SKButton.h"
-
 #import "YSIotaSE.h"
+#import "CreditsScene.h"
 
 @interface MainMenu() {
     NSString *currentLeaderboard;
@@ -61,9 +60,15 @@
     // Create and add the rate button.
     SKButton *rateButton = [[SKButton alloc] initWithImageNamed:@"rate"];
     rateButton.anchorPoint = CGPointMake(0.5, 0);
-    rateButton.position    = CGPointMake(CGRectGetMidX(self.frame), 142);
+    rateButton.position    = CGPointMake(CGRectGetMidX(self.frame), 250);
     [rateButton setTouchUpInsideTarget:self action:@selector(rateTheApp)];
     [self addChild:rateButton];
+    
+    SKButton *creditsButton = [[SKButton alloc] initWithImageNamed:@"creditsButton"];
+    creditsButton.anchorPoint = CGPointMake(0.5, 0);
+    creditsButton.position    = CGPointMake(CGRectGetMidX(self.frame), 50);
+    [creditsButton setTouchDownTarget:self action:@selector(presentCreditsScreen)];
+    [self addChild:creditsButton];
 }
 
 - (void)playGame {
@@ -81,10 +86,10 @@
 
 - (void)rateTheApp {
     UIAlertView *rateAlert = [[UIAlertView alloc] initWithTitle:@"Fan of iota?"
-                                                        message:@"Would you like to show iota some love?"
+                                                        message:@"Show some love by rating this app."
                                                        delegate:self
                                               cancelButtonTitle:@"Cancel"
-                                              otherButtonTitles:@"Yes, please!", nil];
+                                              otherButtonTitles:@"Rate iota!", nil];
     
     [rateAlert show];
 }
@@ -99,7 +104,14 @@
 }
 
 - (void)gameCenterViewControllerDidFinish:(GKGameCenterViewController *)gameCenterViewController {
-    
+    return;
+}
+
+- (void)presentCreditsScreen {
+    CreditsScene *creditsScene = [[CreditsScene alloc] initWithSize:self.frame.size];
+    creditsScene.mainMenu      = self;
+    SKTransition *transition   = [SKTransition fadeWithColor:[SKColor blackColor] duration:1.0];
+    [self.view presentScene:creditsScene transition:transition];
 }
 
 @end
