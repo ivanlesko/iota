@@ -15,3 +15,6 @@ profile
 DerivedData
 *.hmap
 *.ipa
+
+iota/ParseHelper.h
+iota/ParseHelper.m
