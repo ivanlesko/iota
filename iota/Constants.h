@@ -15,8 +15,13 @@
 #define kPKScoreDetectorname @"scoreDetector"
 
 // Gamecenter leaderboard name
-
 #define kIotaMainLeaderboard @"iotaLeaderboard"
+
+// Parse constants
+#define kPKScoreClassName     @"Score"
+#define kPKScoreTotalScoreKey @"totalScore"
+#define kPKScoreMultiplierKey @"multiplier"
+#define kPkScoreScoreKey      @"score"
 
 typedef enum {
     kPKGameStatePreRound = 0,

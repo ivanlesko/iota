@@ -7,6 +7,8 @@
 //
 
 #import "AppDelegate.h"
+#import <Parse/Parse.h>
+#import "ParseHelper.h"
 
 @implementation AppDelegate
 
@@ -14,9 +16,12 @@
 {
     // Override point for customization after application launch.
     self.gameCenterManager = [[GameCenterManager alloc] init];
+    [self.gameCenterManager authenticateLocalUser];
     
     self.iotaSE = [YSIotaSE sharedSE];
     [self.iotaSE prime];
+    
+    [[ParseHelper sharedHelper] setApplicationId];
     
     return YES;
 }
@@ -50,13 +55,16 @@
 {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
     
+    NSLog(@"did become active");
+    
     if([GKLocalPlayer localPlayer].authenticated == NO)
 	{
-        [[GKLocalPlayer localPlayer] setAuthenticateHandler:^(UIViewController *viewController, NSError *error) {
-            [self.gameCenterManager authenticateLocalUser];
-        }];
-	} else {
         NSLog(@"local player is not authenticated");
+        [self.gameCenterManager authenticateLocalUser];
+//        [[GKLocalPlayer localPlayer] setAuthenticateHandler:^(UIViewController *viewController, NSError *error) {
+//        }];
+	} else {
+        NSLog(@"local player is authenticated");
     }
 }
 

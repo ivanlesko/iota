@@ -164,10 +164,6 @@
                 }];
             }
         }];
-        
-        for (SKButton *button in @[self.replayButton, self.shareButton]) {
-        }
-        
     } else {
         [self replay];
     }
@@ -231,6 +227,7 @@
         fadeInMoveDown.timingMode = SKActionTimingEaseOut;
         
         [button runAction:fadeInMoveDown completion:^{
+            self.highScoreLabel.hidden = YES;
             [self.totalScoreLabel runAction:moveUpScaleDown completion:^{
                 [self.gameScene resetGame];
                 [self.gameScene presentTheFinger];

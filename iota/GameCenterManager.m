@@ -139,7 +139,6 @@
 
 - (void) reportScore: (int64_t) score forCategory: (NSString*) category
 {
-    NSLog(@"reporting score: %lld", score);
 	GKScore *scoreReporter = [[GKScore alloc] initWithLeaderboardIdentifier:category];
 	scoreReporter.value = score;
     

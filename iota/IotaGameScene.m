@@ -6,6 +6,7 @@
 //  Copyright (c) 2014 Ivan Lesko. All rights reserved.
 //
 
+#import <SystemConfiguration/SystemConfiguration.h>
 #import "IotaGameScene.h"
 
 #import "SKButton.h"
@@ -19,6 +20,8 @@
 #import "Scorezone.h"
 
 #import "GameCenterManager.h"
+
+#import "ParseHelper.h"
 
 @interface IotaGameScene () {
     int pegColor; // This is used to determine what color the peg should next.
@@ -35,6 +38,8 @@
     int64_t finalScore;
     
     YSIotaSE *iotaSE;
+    
+    Reachability *internetReachability;
 }
 
 @property BOOL ballIsOnScreen;
@@ -455,8 +460,11 @@
                 [self.scorezone presentGameOverButtonsWithScore:finalScore andCachedHighScore:self.cachedHighestScore];
                 
                 // Report the score to game center.
-                if (finalScore > 0) {
-                    [gameCenterManager reportScore:finalScore forCategory:kIotaMainLeaderboard];
+                if ([self connected]) {
+                    if (finalScore > 0) {
+                        [gameCenterManager reportScore:finalScore forCategory:kIotaMainLeaderboard];
+                        [[ParseHelper sharedHelper] reportScoreWithTotalScore:finalScore multiplier:[self.multiplier intValue] score:self.score];
+                    }
                 }
             }
         }
@@ -566,6 +574,15 @@
 	}
 }
 
+#pragma mark - Reachability Method
+
+- (BOOL)connected
+{
+    Reachability *reachability = [Reachability reachabilityForInternetConnection];
+    NetworkStatus networkStatus = [reachability currentReachabilityStatus];
+    return networkStatus != NotReachable;
+}
+
 #pragma mark - Math Helpers
 
 static inline CGFloat skRandf() {
@@ -578,19 +595,3 @@ static inline CGFloat skRand(CGFloat low, CGFloat high) {
 
 
 @end
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

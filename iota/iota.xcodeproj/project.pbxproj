@@ -7,6 +7,18 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4E40332618E4FCC2009567F0 /* ParseHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E40332518E4FCC2009567F0 /* ParseHelper.m */; };
+		4E40332C18E504E6009567F0 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E40332B18E504E6009567F0 /* Parse.framework */; };
+		4E40332E18E50550009567F0 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E40332D18E50550009567F0 /* AudioToolbox.framework */; };
+		4E40333018E50556009567F0 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E40332F18E50556009567F0 /* CFNetwork.framework */; };
+		4E40333218E5055D009567F0 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E40333118E5055D009567F0 /* CoreLocation.framework */; };
+		4E40333418E50566009567F0 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E40333318E50565009567F0 /* libz.dylib */; };
+		4E40333618E5056C009567F0 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E40333518E5056C009567F0 /* MobileCoreServices.framework */; };
+		4E40333818E50573009567F0 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E40333718E50573009567F0 /* QuartzCore.framework */; };
+		4E40333A18E50579009567F0 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E40333918E50579009567F0 /* Security.framework */; };
+		4E40333C18E50587009567F0 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E40333B18E50587009567F0 /* StoreKit.framework */; };
+		4E40333E18E5058D009567F0 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E40333D18E5058D009567F0 /* SystemConfiguration.framework */; };
+		4E40334118E5072D009567F0 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E40334018E5072D009567F0 /* Reachability.m */; };
 		4E5BC1F418D376F300F7F642 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E5BC1F318D376F300F7F642 /* Foundation.framework */; };
 		4E5BC1F618D376F300F7F642 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E5BC1F518D376F300F7F642 /* CoreGraphics.framework */; };
 		4E5BC1F818D376F300F7F642 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E5BC1F718D376F300F7F642 /* UIKit.framework */; };
@@ -92,6 +104,20 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4E40332418E4FCC2009567F0 /* ParseHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParseHelper.h; sourceTree = "<group>"; };
+		4E40332518E4FCC2009567F0 /* ParseHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ParseHelper.m; sourceTree = "<group>"; };
+		4E40332B18E504E6009567F0 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
+		4E40332D18E50550009567F0 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		4E40332F18E50556009567F0 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		4E40333118E5055D009567F0 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		4E40333318E50565009567F0 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
+		4E40333518E5056C009567F0 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		4E40333718E50573009567F0 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		4E40333918E50579009567F0 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		4E40333B18E50587009567F0 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		4E40333D18E5058D009567F0 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		4E40333F18E5072D009567F0 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
+		4E40334018E5072D009567F0 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		4E5BC1F018D376F300F7F642 /* iota.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iota.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4E5BC1F318D376F300F7F642 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		4E5BC1F518D376F300F7F642 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -191,9 +217,19 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4E40333E18E5058D009567F0 /* SystemConfiguration.framework in Frameworks */,
+				4E40333C18E50587009567F0 /* StoreKit.framework in Frameworks */,
+				4E40333A18E50579009567F0 /* Security.framework in Frameworks */,
+				4E40333818E50573009567F0 /* QuartzCore.framework in Frameworks */,
+				4E40333618E5056C009567F0 /* MobileCoreServices.framework in Frameworks */,
+				4E40333418E50566009567F0 /* libz.dylib in Frameworks */,
+				4E40333218E5055D009567F0 /* CoreLocation.framework in Frameworks */,
+				4E40333018E50556009567F0 /* CFNetwork.framework in Frameworks */,
+				4E40332E18E50550009567F0 /* AudioToolbox.framework in Frameworks */,
 				4E5BC26618D379B100F7F642 /* iAd.framework in Frameworks */,
 				4E5BC26418D379AD00F7F642 /* GameKit.framework in Frameworks */,
 				4E5BC1F618D376F300F7F642 /* CoreGraphics.framework in Frameworks */,
+				4E40332C18E504E6009567F0 /* Parse.framework in Frameworks */,
 				4E5BC1F818D376F300F7F642 /* UIKit.framework in Frameworks */,
 				4E5BC1FA18D376F300F7F642 /* SpriteKit.framework in Frameworks */,
 				4E5BC1F418D376F300F7F642 /* Foundation.framework in Frameworks */,
@@ -239,6 +275,16 @@
 		4E5BC1F218D376F300F7F642 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				4E40333D18E5058D009567F0 /* SystemConfiguration.framework */,
+				4E40333B18E50587009567F0 /* StoreKit.framework */,
+				4E40333918E50579009567F0 /* Security.framework */,
+				4E40333718E50573009567F0 /* QuartzCore.framework */,
+				4E40333518E5056C009567F0 /* MobileCoreServices.framework */,
+				4E40333318E50565009567F0 /* libz.dylib */,
+				4E40333118E5055D009567F0 /* CoreLocation.framework */,
+				4E40332F18E50556009567F0 /* CFNetwork.framework */,
+				4E40332D18E50550009567F0 /* AudioToolbox.framework */,
+				4E40332B18E504E6009567F0 /* Parse.framework */,
 				4E5BC2BC18D4068B00F7F642 /* CoreMotion.framework */,
 				4E5BC26518D379B100F7F642 /* iAd.framework */,
 				4E5BC26318D379AC00F7F642 /* GameKit.framework */,
@@ -353,6 +399,10 @@
 				4E5BC26C18D37A2100F7F642 /* GameCenterManager.m */,
 				4E5BC26D18D37A2100F7F642 /* SKButton.h */,
 				4E5BC26E18D37A2100F7F642 /* SKButton.m */,
+				4E40332418E4FCC2009567F0 /* ParseHelper.h */,
+				4E40332518E4FCC2009567F0 /* ParseHelper.m */,
+				4E40333F18E5072D009567F0 /* Reachability.h */,
+				4E40334018E5072D009567F0 /* Reachability.m */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
@@ -553,6 +603,7 @@
 				4E5BC24618D3790800F7F642 /* ScoreIndicators.m in Sources */,
 				4E5BC24418D3790800F7F642 /* Peg.m in Sources */,
 				4EFC026318E3515900207A33 /* UIShareAcitivityViewController.m in Sources */,
+				4E40332618E4FCC2009567F0 /* ParseHelper.m in Sources */,
 				4E5BC27118D37A2100F7F642 /* SKButton.m in Sources */,
 				4E5BC25118D3794500F7F642 /* MainMenuViewController.m in Sources */,
 				4E5BC27018D37A2100F7F642 /* GameCenterManager.m in Sources */,
@@ -565,6 +616,7 @@
 				4E5BC24A18D3790800F7F642 /* Scorezone.m in Sources */,
 				4E5BC25318D3794500F7F642 /* IotaGameScene.m in Sources */,
 				4E5BC20218D376F300F7F642 /* main.m in Sources */,
+				4E40334118E5072D009567F0 /* Reachability.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -683,10 +735,16 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					/Users/ivanlesko/Downloads,
+					"/Users/ivanlesko/Documents/XCode\\ Projects/20140313_iota/iota",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "iota/iota-Prefix.pch";
 				INFOPLIST_FILE = "iota/iota-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SPRITEKIT_TEXTURE_ATLAS_OUTPUT = YES;
 				TARGETED_DEVICE_FAMILY = 2;
@@ -699,10 +757,16 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					/Users/ivanlesko/Downloads,
+					"/Users/ivanlesko/Documents/XCode\\ Projects/20140313_iota/iota",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "iota/iota-Prefix.pch";
 				INFOPLIST_FILE = "iota/iota-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SPRITEKIT_TEXTURE_ATLAS_OUTPUT = YES;
 				TARGETED_DEVICE_FAMILY = 2;

@@ -17,6 +17,8 @@
 
 #import "Constants.h"
 
+#import  "Reachability.h"
+
 @interface IotaGameScene : SKScene <SKPhysicsContactDelegate, GameCenterManagerDelegate, UIAccelerometerDelegate>
 
 @property (nonatomic, strong) MainMenuViewController *mainMenuViewController;
