@@ -102,7 +102,7 @@
     for (int i = 0; i < self.gameScene.ballLives; i++) {
         SKSpriteNode *turnsBall = [Ball newBall];
         turnsBall.position = CGPointMake(-275 + (i * (turnsBall.size.width / 2.0)), -25);
-        turnsBall.texture  = [[PegColors iOSColors] objectAtIndex:i + 1];
+        turnsBall.texture  = [[PegColors iotaColors] objectAtIndex:i];
         turnsBall.physicsBody.dynamic = NO;
         turnsBall.name     = @"turnsBall";
         [self.ballLivesSprites addObject:turnsBall];
@@ -238,8 +238,7 @@
     
     [self.gameScene resetGame];
     
-    SKTransition *transition = [SKTransition fadeWithColor:[SKColor blackColor] duration:0.5];
-    [self.gameScene.view presentScene:self.gameScene.mainMenuViewController.mainMenu transition:transition];
+    [self.gameScene.view presentScene:self.gameScene.mainMenuViewController.mainMenu transition:[SKTransition fadeToBlackOneSecondDuration]];
 }
 
 - (void)exit {

@@ -15,10 +15,10 @@
     Ball *ball = [Ball spriteNodeWithImageNamed:@"ball"];
     
     // Ball Physics
-    ball.physicsBody = [SKPhysicsBody bodyWithCircleOfRadius:ball.size.width / 2.5];
+    ball.physicsBody = [SKPhysicsBody bodyWithCircleOfRadius:(ball.size.width / 2) * 0.85];
     ball.physicsBody.dynamic = YES;
     ball.physicsBody.categoryBitMask = kPKBallCategory;
-    ball.physicsBody.collisionBitMask = kPKPegCategory | kPKFloatingPanel;
+    ball.physicsBody.collisionBitMask = kPKPegCategory | kPKFloatingPanel | kPKBallCategory;
     ball.physicsBody.contactTestBitMask = kPKPegCategory | kPKScoreDetectorCategory ;
     ball.physicsBody.mass = 0.1;
     ball.physicsBody.friction = 0.1;
@@ -27,13 +27,14 @@
     ball.yScale = 0.85;
     ball.name = kPKBallName;
     ball.isDead = NO;
+    ball.currentColor = 4;
     
     return ball;
 }
 
 - (void)setCurrentColor:(int)currentColor {
     _currentColor = currentColor;
-    self.texture = [[PegColors iOSColors] objectAtIndex:_currentColor];
+    self.texture = [[PegColors iotaColors] objectAtIndex:_currentColor - 1];
 }
 
 @end

@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		4E0C6AD618E5E681008919A2 /* CreditsScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E0C6AD518E5E681008919A2 /* CreditsScene.m */; };
+		4E0C6AD918E621D9008919A2 /* SKTransition+CustomTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E0C6AD818E621D9008919A2 /* SKTransition+CustomTransition.m */; };
 		4E40332618E4FCC2009567F0 /* ParseHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E40332518E4FCC2009567F0 /* ParseHelper.m */; };
 		4E40332C18E504E6009567F0 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E40332B18E504E6009567F0 /* Parse.framework */; };
 		4E40332E18E50550009567F0 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E40332D18E50550009567F0 /* AudioToolbox.framework */; };
@@ -107,6 +108,8 @@
 /* Begin PBXFileReference section */
 		4E0C6AD418E5E681008919A2 /* CreditsScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreditsScene.h; sourceTree = "<group>"; };
 		4E0C6AD518E5E681008919A2 /* CreditsScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreditsScene.m; sourceTree = "<group>"; };
+		4E0C6AD718E621D9008919A2 /* SKTransition+CustomTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SKTransition+CustomTransition.h"; sourceTree = "<group>"; };
+		4E0C6AD818E621D9008919A2 /* SKTransition+CustomTransition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SKTransition+CustomTransition.m"; sourceTree = "<group>"; };
 		4E40332418E4FCC2009567F0 /* ParseHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParseHelper.h; sourceTree = "<group>"; };
 		4E40332518E4FCC2009567F0 /* ParseHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ParseHelper.m; sourceTree = "<group>"; };
 		4E40332B18E504E6009567F0 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
@@ -167,7 +170,6 @@
 		4E5BC26318D379AC00F7F642 /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
 		4E5BC26518D379B100F7F642 /* iAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iAd.framework; path = System/Library/Frameworks/iAd.framework; sourceTree = SDKROOT; };
 		4E5BC26718D37A2100F7F642 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
-		4E5BC26A18D37A2100F7F642 /* AppSpecificValues.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppSpecificValues.h; sourceTree = "<group>"; };
 		4E5BC26B18D37A2100F7F642 /* GameCenterManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameCenterManager.h; sourceTree = "<group>"; };
 		4E5BC26C18D37A2100F7F642 /* GameCenterManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameCenterManager.m; sourceTree = "<group>"; };
 		4E5BC26D18D37A2100F7F642 /* SKButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKButton.h; sourceTree = "<group>"; };
@@ -399,7 +401,6 @@
 			isa = PBXGroup;
 			children = (
 				4E5BC26718D37A2100F7F642 /* Constants.h */,
-				4E5BC26A18D37A2100F7F642 /* AppSpecificValues.h */,
 				4E5BC26B18D37A2100F7F642 /* GameCenterManager.h */,
 				4E5BC26C18D37A2100F7F642 /* GameCenterManager.m */,
 				4E5BC26D18D37A2100F7F642 /* SKButton.h */,
@@ -408,6 +409,8 @@
 				4E40332518E4FCC2009567F0 /* ParseHelper.m */,
 				4E40333F18E5072D009567F0 /* Reachability.h */,
 				4E40334018E5072D009567F0 /* Reachability.m */,
+				4E0C6AD718E621D9008919A2 /* SKTransition+CustomTransition.h */,
+				4E0C6AD818E621D9008919A2 /* SKTransition+CustomTransition.m */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
@@ -609,6 +612,7 @@
 				4E5BC24418D3790800F7F642 /* Peg.m in Sources */,
 				4EFC026318E3515900207A33 /* UIShareAcitivityViewController.m in Sources */,
 				4E40332618E4FCC2009567F0 /* ParseHelper.m in Sources */,
+				4E0C6AD918E621D9008919A2 /* SKTransition+CustomTransition.m in Sources */,
 				4E5BC27118D37A2100F7F642 /* SKButton.m in Sources */,
 				4E5BC25118D3794500F7F642 /* MainMenuViewController.m in Sources */,
 				4E5BC27018D37A2100F7F642 /* GameCenterManager.m in Sources */,

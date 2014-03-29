@@ -22,6 +22,7 @@
 #define kPKScoreTotalScoreKey @"totalScore"
 #define kPKScoreMultiplierKey @"multiplier"
 #define kPkScoreScoreKey      @"score"
+#define kPkScoreValuesKey     @"values"
 
 typedef enum {
     kPKGameStatePreRound = 0,

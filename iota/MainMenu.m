@@ -37,27 +37,23 @@
                                            alpha:1.0];
     self.scaleMode = SKSceneScaleModeAspectFit;
     
-    // Create and add the logo
     SKSpriteNode *logo = [SKSpriteNode spriteNodeWithImageNamed:@"iota"];
-    logo.anchorPoint = CGPointMake(0.5, 0);
-    logo.position = CGPointMake(CGRectGetMidX(self.frame), 727);
+    logo.anchorPoint   = CGPointMake(0.5, 0);
+    logo.position      = CGPointMake(CGRectGetMidX(self.frame), 727);
     [self addChild:logo];
     
-    // Create and add the play button.
     SKButton *playButton = [[SKButton alloc] initWithImageNamedNormal:@"play" selected:@"play"];
     playButton.anchorPoint = CGPointZero;
     playButton.position    = CGPointMake(269, 570);
     [playButton setTouchUpInsideTarget:self action:@selector(playGame)];
     [self addChild:playButton];
     
-    // Create and add the leaderboard button.
     SKButton *leaderboardButton = [[SKButton alloc] initWithImageNamedNormal:@"leaderboard" selected:@"leaderboard"];
     leaderboardButton.anchorPoint = CGPointZero;
     leaderboardButton.position    = CGPointMake(435, 570);
     [leaderboardButton setTouchUpInsideTarget:self action:@selector(showLeaderboard)];
     [self addChild:leaderboardButton];
     
-    // Create and add the rate button.
     SKButton *rateButton = [[SKButton alloc] initWithImageNamed:@"rate"];
     rateButton.anchorPoint = CGPointMake(0.5, 0);
     rateButton.position    = CGPointMake(CGRectGetMidX(self.frame), 250);
@@ -72,8 +68,7 @@
 }
 
 - (void)playGame {
-    SKTransition *gameTransition = [SKTransition fadeWithColor:[UIColor blackColor] duration:1.0];
-    [self.view presentScene:self.gameScene transition:gameTransition];
+    [self.view presentScene:self.gameScene transition:[SKTransition fadeToBlackOneSecondDuration]];
 }
 
 - (void)showLeaderboard {
@@ -110,8 +105,7 @@
 - (void)presentCreditsScreen {
     CreditsScene *creditsScene = [[CreditsScene alloc] initWithSize:self.frame.size];
     creditsScene.mainMenu      = self;
-    SKTransition *transition   = [SKTransition fadeWithColor:[SKColor blackColor] duration:1.0];
-    [self.view presentScene:creditsScene transition:transition];
+    [self.view presentScene:creditsScene transition:[SKTransition fadeToBlackOneSecondDuration]];
 }
 
 @end

@@ -11,11 +11,12 @@
 @interface ScoreIndicators : SKSpriteNode
 
 @property (nonatomic, strong) NSMutableArray *placeholders;
+@property (nonatomic, strong) NSMutableArray *values;
 
 + (ScoreIndicators *)createNewScoreIndicators;
 
 /// Inserts a new score indicator at a given index with the current ball color.
-- (void)insertIndicatorAtIndex:(NSUInteger)index withColor:(SKColor *)color;
+- (void)insertIndicatorAtIndex:(NSUInteger)index withColor:(SKColor *)color withValue:(int)value;
 
 /// Removes all indicators from the placeholders after the round is over.
 - (void)clearAllIndicators;

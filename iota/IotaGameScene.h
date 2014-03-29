@@ -10,7 +10,6 @@
 #import <GameKit/GameKit.h>
 
 #import "MainMenuViewController.h"
-#import "AppSpecificValues.h"
 #import "Scorezone.h"
 #import "Constants.h"
 #import "Reachability.h"

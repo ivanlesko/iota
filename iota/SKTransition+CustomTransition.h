@@ -1,5 +1,5 @@
 //
-//  CreditsScene.h
+//  SKTransition+CustomTransition.h
 //  iota
 //
 //  Created by Ivan Lesko on 3/28/14.
@@ -7,10 +7,9 @@
 //
 
 #import <SpriteKit/SpriteKit.h>
-#import "MainMenu.h"
 
-@interface CreditsScene : SKScene <SKPhysicsContactDelegate>
+@interface SKTransition (CustomTransition)
 
-@property (nonatomic, strong) MainMenu *mainMenu;
++ (SKTransition *)fadeToBlackOneSecondDuration;
 
 @end

@@ -7,6 +7,7 @@
 //
 
 #import <SystemConfiguration/SystemConfiguration.h>
+#import <AVFoundation/AVFoundation.h>
 #import "IotaGameScene.h"
 
 #import "SKButton.h"
@@ -65,6 +66,7 @@
     
     [gameCenterManager reloadHighScoresForCategory:self.currentLeaderboardIdentifier];
     
+    [[AVAudioSession sharedInstance] setActive:YES error:nil];
 }
 
 #pragma mark - Setup
@@ -445,7 +447,7 @@
                 
                 NSUInteger detectorIndex = [scoreDetectors indexOfObject:scoreDetector];
                 if (detectorIndex < 9) {
-                    [scoreIndicators insertIndicatorAtIndex:detectorIndex withColor:[[PegColors iOSColorValues] objectAtIndex:ball.currentColor -1]];
+                    [scoreIndicators insertIndicatorAtIndex:detectorIndex withColor:[[PegColors iotaColorValues] objectAtIndex:ball.currentColor - 1] withValue:scoreDetector.value];
                 }
             }
             
@@ -460,10 +462,11 @@
                 [self.scorezone presentGameOverButtonsWithScore:finalScore andCachedHighScore:self.cachedHighestScore];
                 
                 // Report the score to game center.
-                if ([self connected]) {
-                    if (finalScore > 0) {
-                        [gameCenterManager reportScore:finalScore forCategory:kIotaMainLeaderboard];
-                        [[ParseHelper sharedHelper] reportScoreWithTotalScore:finalScore multiplier:[self.multiplier intValue] score:self.score];
+                if (finalScore > 0) {
+                    [gameCenterManager reportScore:finalScore forCategory:kIotaMainLeaderboard];
+                    
+                    if ([self connected]) {
+                        [[ParseHelper sharedHelper] reportScoreWithTotalScore:finalScore multiplier:[self.multiplier intValue] score:self.score withValues:scoreIndicators.values];
                         [self.scorezone setHighScoreLabel:self.scorezone.highScoreLabel withScore:finalScore andHighScore:self.cachedHighestScore];
                     }
                 }

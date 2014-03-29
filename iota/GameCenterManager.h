@@ -51,8 +51,6 @@
 
 @class GKLeaderboard, GKAchievement, GKPlayer;
 
-
-
 @protocol GameCenterManagerDelegate <NSObject>
 @optional
 - (void)reloadScoresComplete: (GKLeaderboard*)leaderBoard error: (NSError*) error;
@@ -73,10 +71,10 @@
 
 + (BOOL)isGameCenterAvailable;
 
-- (void) authenticateLocalUser;
+- (void)authenticateLocalUser;
 
-- (void)reportScore: (int64_t) score forCategory: (NSString*) category;
-- (void)reloadHighScoresForCategory: (NSString*) category;
+- (void)reportScore:(int64_t)score forCategory:(NSString*)category;
+- (void)reloadHighScoresForCategory:(NSString*)category;
 
 @end
 

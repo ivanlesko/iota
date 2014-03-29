@@ -10,7 +10,6 @@
 #import <GameKit/GameKit.h>
 
 #import "MainMenuViewController.h"
-#import "AppSpecificValues.h"
 #import "GameCenterManager.h"
 #import "IotaGameScene.h"
 #import "SKButton.h"

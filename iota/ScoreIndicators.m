@@ -28,10 +28,12 @@
         [indicators.placeholders addObject:placeholder];
     }
     
+    indicators.values = [NSMutableArray new];
+    
     return indicators;
 }
 
-- (void)insertIndicatorAtIndex:(NSUInteger)index withColor:(SKColor *)color {
+- (void)insertIndicatorAtIndex:(NSUInteger)index withColor:(SKColor *)color withValue:(int)value {
     SKSpriteNode *indicator = [self indicatorWithColor:color];
     indicator.zPosition = self.indicatorZPos;
     self.indicatorZPos--;
@@ -50,6 +52,8 @@
     moveUp.timingMode = SKActionTimingEaseIn;
     
     [indicator runAction:moveUp];
+    
+    [self.values addObject:[NSNumber numberWithInt:value]];
 }
 
 - (void)clearAllIndicators {
@@ -66,6 +70,8 @@
     }
     
     self.indicatorZPos = 5;
+    
+    [self.values removeAllObjects];
 }
 
 /// Returns a new indicator with some default values.

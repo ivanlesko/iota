@@ -7,6 +7,9 @@
 //
 
 #import "AppDelegate.h"
+
+#import <AVFoundation/AVFoundation.h>
+
 #import <Parse/Parse.h>
 #import "ParseHelper.h"
 
@@ -22,6 +25,8 @@
     [self.iotaSE prime];
     
     [[ParseHelper sharedHelper] setApplicationId];
+    
+    [self startAudio];
     
     return YES;
 }
@@ -40,6 +45,8 @@
 {
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later. 
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+    
+    [self stopAudio];
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application
@@ -49,6 +56,8 @@
     if ([self.gameView.scene isKindOfClass:[IotaGameScene class]]) {
         self.gameView.scene.paused = NO;
     }
+    
+    [self startAudio];
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application
@@ -64,6 +73,54 @@
 - (void)applicationWillTerminate:(UIApplication *)application
 {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+    
+    [self stopAudio];
+}
+
+static BOOL isAudioSessionActive = NO;
+
+- (void)startAudio {
+    AVAudioSession *audioSession = [AVAudioSession sharedInstance];
+    NSError *error = nil;
+    
+    if (audioSession.otherAudioPlaying) {
+        [audioSession setCategory: AVAudioSessionCategoryAmbient error:&error];
+    } else {
+        [audioSession setCategory: AVAudioSessionCategorySoloAmbient error:&error];
+    }
+    
+    if (!error) {
+        [audioSession setActive:YES error:&error];
+        isAudioSessionActive = YES;
+    }
+}
+
+- (void)stopAudio {
+    // Prevent background apps from duplicate entering if terminating an app.
+    if (!isAudioSessionActive) return;
+    
+    AVAudioSession *audioSession = [AVAudioSession sharedInstance];
+    NSError *error = nil;
+    
+    [audioSession setActive:NO error:&error];
+    
+    
+    if (error) {
+        // It's not enough to setActive:NO
+        // We have to deactivate it effectively (without that error),
+        // so try again (and again... until success).
+        [self stopAudio];
+    } else {
+        isAudioSessionActive = NO;
+    }
 }
 
 @end
+
+
+
+
+
+
+
+

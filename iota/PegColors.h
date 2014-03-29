@@ -10,8 +10,8 @@
 
 @interface PegColors : NSObject
 
-+ (NSArray *)iOSColors;
++ (NSArray *)iotaColors;
 
-+ (NSArray *)iOSColorValues;
++ (NSArray *)iotaColorValues;
 
 @end

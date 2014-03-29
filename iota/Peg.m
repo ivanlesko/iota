@@ -32,15 +32,12 @@
         return;
     }
     
-    SKAction *setTexture = [SKAction setTexture:[[PegColors iOSColors] objectAtIndex:_colorCount]];
-    
     SKAction *scaleUp = [SKAction scaleBy:1.15 duration:0.05];
     SKAction *scaleUpReverse = [scaleUp reversedAction];
     scaleUp.timingMode = SKActionTimingEaseInEaseOut;
-    
     [self runAction:[SKAction sequence:@[scaleUp, scaleUpReverse]]];
     
-    [self runAction:setTexture];
+    self.texture = [[PegColors iotaColors] objectAtIndex:_colorCount -1];
 }
 
 

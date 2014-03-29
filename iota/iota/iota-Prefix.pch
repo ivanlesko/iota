@@ -17,4 +17,5 @@
     #import "Ball.h"
     #import "ScoreDetector.h"
     #import "Constants.h"
+    #import "SKTransition+CustomTransition.h"
 #endif
