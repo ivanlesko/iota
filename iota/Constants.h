@@ -24,6 +24,9 @@
 #define kPkScoreScoreKey      @"score"
 #define kPkScoreValuesKey     @"values"
 
+// Local high score
+#define kPKLocalHighScoreKey  @"localHighScore"
+
 typedef enum {
     kPKGameStatePreRound = 0,
     kPkGameStateInRound,

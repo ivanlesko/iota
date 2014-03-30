@@ -13,6 +13,7 @@
 #import "Scorezone.h"
 #import "Constants.h"
 #import "Reachability.h"
+#import "HighScoreHelper.h"
 
 @interface IotaGameScene : SKScene <SKPhysicsContactDelegate, GameCenterManagerDelegate, UIAccelerometerDelegate>
 
@@ -28,7 +29,8 @@
 
 @property (nonatomic, strong) GKLeaderboard *currentLeaderboard;
 @property (nonatomic, strong) NSString *currentLeaderboardIdentifier;
-@property (nonatomic) int64_t cachedHighestScore;
+@property (nonatomic) int64_t cachedLocalHighScore;
+@property (nonatomic) int64_t cachedRemoteHighScore;
 
 - (void)createContent;
 - (void)resetGame;

@@ -65,8 +65,6 @@
     }];
     
     [gameCenterManager reloadHighScoresForCategory:self.currentLeaderboardIdentifier];
-    
-    [[AVAudioSession sharedInstance] setActive:YES error:nil];
 }
 
 #pragma mark - Setup
@@ -101,6 +99,11 @@
     
     iotaSE = appDelegate.iotaSE;
     
+    self.cachedLocalHighScore = [[HighScoreHelper sharedInstance] localHighScore];
+    if (_cachedLocalHighScore > self.cachedRemoteHighScore) {
+        [gameCenterManager reportScore:_cachedLocalHighScore forCategory:kIotaMainLeaderboard];
+    }
+    
     [self setupPhysicsWorld];
     [self setupPegs];
     [self setupScorezone];
@@ -110,7 +113,6 @@
     [self setupScoreIndicators];
     [self setupDividerBars];
     [self setupScoreDetectors];
-    
 }
 
 #pragma mark - Physics World
@@ -363,6 +365,44 @@
     }
 }
 
+- (NetworkStatus *)notifyNetworkStatus:(Reachability *)reachability
+{
+    NetworkStatus netStatus = [reachability currentReachabilityStatus];
+    
+    NSString* statusString = @"Network Mode Changed / Connection closed!!";
+    
+    @try
+    {
+        switch (netStatus)
+        {
+            case NotReachable:
+            {
+                statusString = @"No network Access!! Connection closed";
+                break;
+            }
+            case ReachableViaWWAN:
+            {
+                statusString = @"Network Mode Changed / Connection reachable only via WWAN!!";
+                break;
+            }
+            case ReachableViaWiFi:
+            {
+                statusString = @"Network Mode Changed / Connection reachable via WiFi";
+                break;
+            }
+            default:
+            {
+                break;
+            }
+                
+        }
+    }
+    @catch (NSException *exception)
+    {
+        NSLog(@"%s\n Exception: Name- %@ Reason->%@", __PRETTY_FUNCTION__,[exception name],[exception reason]);
+    }
+}
+
 - (void)dropBallAtTouchLocation:(CGPoint)touchPos {
     Ball *ball = [Ball newBall];
     ball.position = CGPointMake(touchPos.x, self.view.frame.size.height - touchPos.y);
@@ -459,17 +499,20 @@
             // Ran out of lives, game over.
             if (self.ballLives == 0) {
                 finalScore = abs(self.score * [self.multiplier intValue]);
-                [self.scorezone presentGameOverButtonsWithScore:finalScore andCachedHighScore:self.cachedHighestScore];
+                [self.scorezone presentGameOverButtonsWithScore:finalScore andCachedHighScore:self.cachedLocalHighScore];
+                [self.scorezone setHighScoreLabel:self.scorezone.highScoreLabel withScore:finalScore andHighScore:self.cachedLocalHighScore];
                 
-                // Report the score to game center.
-                if (finalScore > 0) {
-                    [gameCenterManager reportScore:finalScore forCategory:kIotaMainLeaderboard];
-                    
-                    if ([self connected]) {
-                        [[ParseHelper sharedHelper] reportScoreWithTotalScore:finalScore multiplier:[self.multiplier intValue] score:self.score withValues:scoreIndicators.values];
-                        [self.scorezone setHighScoreLabel:self.scorezone.highScoreLabel withScore:finalScore andHighScore:self.cachedHighestScore];
-                    }
+                if ([self connected]) {
+                    [[ParseHelper sharedHelper] reportScoreWithTotalScore:self.cachedLocalHighScore multiplier:[self.multiplier intValue] score:self.score withValues:scoreIndicators.values];
                 }
+                
+                if (finalScore > self.cachedLocalHighScore) {
+                    self.cachedLocalHighScore = finalScore;
+
+                    NSLog(@"set new high score in user defaults: %lld", [[HighScoreHelper sharedInstance] localHighScore]);
+                }
+                NSLog(@"cached high score: %lld", self.cachedLocalHighScore);
+                NSLog(@"cahced remote high score: %lld", self.cachedRemoteHighScore);
             }
         }
     }
@@ -546,6 +589,15 @@
     [self.scorezone setScoreLabel:self.scorezone.scoreLabel withMultiplier:[_multiplier intValue] withScore:self.score];
 }
 
+- (void)setCachedLocalHighScore:(int64_t)cachedLocalHighScore {
+    _cachedLocalHighScore = cachedLocalHighScore;
+    
+    if (_cachedLocalHighScore > _cachedLocalHighScore > 0) {
+        [gameCenterManager reportScore:_cachedLocalHighScore forCategory:kIotaMainLeaderboard];
+        NSLog(@"reporting score");
+    }
+}
+
 #pragma mark - Game Center Manager Delegate methods
 
 - (void) processGameCenterAuth: (NSError*) error
@@ -569,11 +621,12 @@
 	{
         self.currentLeaderboard = leaderBoard;
 		int64_t personalBest= leaderBoard.localPlayerScore.value;
-		if([leaderBoard.scores count] >0)
-		{
-			self.cachedHighestScore = personalBest;
-		} else {
-            self.cachedHighestScore = 0;
+		if([leaderBoard.scores count] >0) {
+            self.cachedRemoteHighScore = personalBest;
+            if (self.cachedRemoteHighScore > self.cachedLocalHighScore) {
+                self.cachedLocalHighScore = self.cachedRemoteHighScore;
+                [[HighScoreHelper sharedInstance] updateHighScoreWithScore:self.cachedLocalHighScore];
+            }
         }
 	}
 }

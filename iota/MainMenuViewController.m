@@ -39,6 +39,8 @@
     self.adView.alpha = 0.0f;
     
     self.mainMenu.gameScene = self.iotaGameScene;
+    
+    
 }
 
 - (BOOL)shouldAutorotate

@@ -18,4 +18,5 @@
     #import "ScoreDetector.h"
     #import "Constants.h"
     #import "SKTransition+CustomTransition.h"
+    #import "NSUserDefaults+MPSecureUserDefaults.h"
 #endif
