@@ -18,3 +18,9 @@ DerivedData
 
 iota/ParseHelper.h
 iota/ParseHelper.m
+
+iota/NSUserDefaults+MPSecureUserDefaults.h
+iota/NSUserDefaults+MPSecureUserDefaults.m
+
+iota/HighScoreHelper.h
+iota/HighScoreHelper.m
