@@ -13,6 +13,8 @@
 #import <Parse/Parse.h>
 #import "ParseHelper.h"
 
+#import "NSUserDefaults+MPSecureUserDefaults.h"
+
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -27,6 +29,8 @@
     [[ParseHelper sharedHelper] setApplicationId];
     
     [self startAudio];
+    
+    [NSUserDefaults setSecret:@"secret"];
     
     return YES;
 }

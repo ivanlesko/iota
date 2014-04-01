@@ -503,16 +503,12 @@
                 [self.scorezone setHighScoreLabel:self.scorezone.highScoreLabel withScore:finalScore andHighScore:self.cachedLocalHighScore];
                 
                 if ([self connected]) {
-                    [[ParseHelper sharedHelper] reportScoreWithTotalScore:self.cachedLocalHighScore multiplier:[self.multiplier intValue] score:self.score withValues:scoreIndicators.values];
+                    [[ParseHelper sharedHelper] reportScoreWithTotalScore:finalScore multiplier:[self.multiplier intValue] score:self.score withValues:scoreIndicators.values];
                 }
                 
                 if (finalScore > self.cachedLocalHighScore) {
                     self.cachedLocalHighScore = finalScore;
-
-                    NSLog(@"set new high score in user defaults: %lld", [[HighScoreHelper sharedInstance] localHighScore]);
                 }
-                NSLog(@"cached high score: %lld", self.cachedLocalHighScore);
-                NSLog(@"cahced remote high score: %lld", self.cachedRemoteHighScore);
             }
         }
     }
