@@ -2,7 +2,7 @@
 //  FingerSprite.m
 //  iota
 //
-//  Created by Luda on 4/2/14.
+//  Created by Ivan on 4/2/14.
 //  Copyright (c) 2014 Ivan Lesko. All rights reserved.
 //
 
