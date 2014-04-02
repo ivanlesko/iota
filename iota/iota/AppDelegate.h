@@ -10,8 +10,8 @@
 #import "YSIotaSE.h"
 
 #import "IotaGameScene.h"
-
 #import "GameCenterManager.h"
+#import "Stats.h"
 
 @class IotaGameScene;
 
@@ -26,5 +26,7 @@
 @property (nonatomic, strong) GameCenterManager *gameCenterManager;
 
 @property (nonatomic, strong) SKView *gameView;
+
+@property (nonatomic, strong) Stats *stats;
 
 @end

@@ -12,12 +12,12 @@
 
 + (ScoreDetector *)newScoreDetectorWithSize:(CGSize)size {
     ScoreDetector *detector = [ScoreDetector spriteNodeWithColor:[UIColor redColor] size:size];
-    detector.name = kPKScoreDetectorname;
+    detector.name  = kIOScoreDetectorName;
     detector.color = [SKColor clearColor];
     detector.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:detector.size];
     detector.physicsBody.dynamic = NO;
     detector.physicsBody.collisionBitMask = 0x0;
-    detector.physicsBody.categoryBitMask = kPKScoreDetectorCategory;
+    detector.physicsBody.categoryBitMask  = kPKScoreDetectorCategory;
     detector.value = 0;
     
     return detector;

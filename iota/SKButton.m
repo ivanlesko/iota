@@ -1,9 +1,10 @@
 //
-//  SKButton.m
+//  SKButton.h
 //  Iota
 //
-//  Created by Ivan Lesko on 2/26/14.
-//  Copyright (c) 2014 Ivan Lesko. All rights reserved.
+//  Created by AndyOS from StackOverflow on 2/26/14.
+//  http://stackoverflow.com/questions/19082202/setting-up-buttons-in-skscene
+//  Copyright (c) 2014 AndyOS. All rights reserved.
 //
 
 #import "SKButton.h"

@@ -17,15 +17,15 @@
     // Ball Physics
     ball.physicsBody = [SKPhysicsBody bodyWithCircleOfRadius:(ball.size.width / 2) * 0.85];
     ball.physicsBody.dynamic = YES;
-    ball.physicsBody.categoryBitMask = kPKBallCategory;
-    ball.physicsBody.collisionBitMask = kPKPegCategory | kPKFloatingPanel | kPKBallCategory;
+    ball.physicsBody.categoryBitMask    = kPKBallCategory;
+    ball.physicsBody.collisionBitMask   = kPKPegCategory | kPKFloatingPanel | kPKBallCategory;
     ball.physicsBody.contactTestBitMask = kPKPegCategory | kPKScoreDetectorCategory ;
-    ball.physicsBody.mass = 0.1;
-    ball.physicsBody.friction = 0.1;
+    ball.physicsBody.mass        = 0.1;
+    ball.physicsBody.friction    = 0.1;
     ball.physicsBody.restitution = 0.6;
     ball.xScale = 0.85;
     ball.yScale = 0.85;
-    ball.name = kPKBallName;
+    ball.name   = kIOBallName;
     ball.isDead = NO;
     ball.currentColor = 4;
     

@@ -45,9 +45,7 @@
  
  */
 
-
 #import <Foundation/Foundation.h>
-
 
 @class GKLeaderboard, GKAchievement, GKPlayer;
 

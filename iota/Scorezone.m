@@ -119,7 +119,7 @@
     }
 }
 
-- (void)presentGameOverButtonsWithScore:(int64_t)score andCachedHighScore:(int64_t)highScore {
+- (void)presentGameOverButtonsWithScore:(int64_t)score andLocalHighScore:(int64_t)highScore {
     if (!self.replayScreenPresented) {
         SKAction *moveDown = [SKAction moveTo:CGPointMake(self.totalScoreLabel.position.x, self.totalScoreEndingY) duration:0.15];
         SKAction *scaleUp  = [SKAction scaleBy:2 duration:0.2];
@@ -205,7 +205,7 @@
             self.highScoreLabel.hidden = YES;
             [self.totalScoreLabel runAction:moveUpScaleDown completion:^{
                 [self.gameScene resetGame];
-                [self.gameScene presentTheFinger];
+                [self.gameScene presentTheFingerSprite];
                 self.replayScreenPresented = NO;
             }];
         }];

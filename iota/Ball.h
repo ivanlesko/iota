@@ -11,10 +11,16 @@
 
 @interface Ball : SKSpriteNode
 
+/// The ball's current color.
 @property (nonatomic) int currentColor;
-@property (nonatomic) BOOL isDead; // When a ball hits a score detector, it becomes dead.
-                                   // A ball can't hit another score detector if it is dead.
 
+/*
+ * When a ball hits a score detector, it becomes dead.
+ * A ball can't hit another score detector if it is dead.
+ */
+@property (nonatomic) BOOL isDead;
+
+/// Creates a new instance of a ball with default values.
 + (Ball *)newBall;
 
 @end

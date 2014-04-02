@@ -31,6 +31,12 @@
     [self startAudio];
     
     [NSUserDefaults setSecret:@"secret"];
+
+    if (!self.stats) {
+        self.stats = [Stats sharedInstance];
+    }
+    
+    NSLog(@"%@", self.stats);
     
     return YES;
 }

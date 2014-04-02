@@ -19,7 +19,7 @@
     
     SKView *spriteView = (SKView *)self.view;
     spriteView.showsDrawCount = NO;
-    spriteView.showsFPS = NO;
+    spriteView.showsFPS       = NO;
     spriteView.showsNodeCount = NO;
     
     self.mainMenu = [[MainMenu alloc] initWithSize:CGSizeMake(768, 1024)];

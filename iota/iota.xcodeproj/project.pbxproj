@@ -10,7 +10,6 @@
 		4E0C6AD618E5E681008919A2 /* CreditsScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E0C6AD518E5E681008919A2 /* CreditsScene.m */; };
 		4E0C6AD918E621D9008919A2 /* SKTransition+CustomTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E0C6AD818E621D9008919A2 /* SKTransition+CustomTransition.m */; };
 		4E0C6ADC18E7EDA1008919A2 /* NSUserDefaults+MPSecureUserDefaults.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E0C6ADB18E7EDA1008919A2 /* NSUserDefaults+MPSecureUserDefaults.m */; };
-		4E0C6ADF18E7F0F7008919A2 /* HighScoreHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E0C6ADE18E7F0F7008919A2 /* HighScoreHelper.m */; };
 		4E40332618E4FCC2009567F0 /* ParseHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E40332518E4FCC2009567F0 /* ParseHelper.m */; };
 		4E40332E18E50550009567F0 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E40332D18E50550009567F0 /* AudioToolbox.framework */; };
 		4E40333018E50556009567F0 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E40332F18E50556009567F0 /* CFNetwork.framework */; };
@@ -95,7 +94,10 @@
 		4ECC177818D51F1E0046134D /* swoosh.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 4ECC177718D51F1E0046134D /* swoosh.mp3 */; };
 		4EFC026318E3515900207A33 /* UIShareAcitivityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EFC026218E3515900207A33 /* UIShareAcitivityViewController.m */; };
 		8587012F18EB398D005BE5E3 /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 8587012E18EB398D005BE5E3 /* Constants.m */; };
-		85DB210B18E9CCBD00E0FA90 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 85DB210A18E9CCBD00E0FA90 /* Parse.framework */; };
+		85A039F118EB62FF00A0E60E /* Stats.m in Sources */ = {isa = PBXBuildFile; fileRef = 85A039F018EB62FF00A0E60E /* Stats.m */; };
+		85A039F318EBA2AE00A0E60E /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 85A039F218EBA2AE00A0E60E /* Parse.framework */; };
+		85A039FA18EBC89100A0E60E /* NSNumber+DefaultNumbers.m in Sources */ = {isa = PBXBuildFile; fileRef = 85A039F918EBC89100A0E60E /* NSNumber+DefaultNumbers.m */; };
+		85A03A0218ECB8CE00A0E60E /* FingerSprite.m in Sources */ = {isa = PBXBuildFile; fileRef = 85A03A0118ECB8CE00A0E60E /* FingerSprite.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -115,8 +117,6 @@
 		4E0C6AD818E621D9008919A2 /* SKTransition+CustomTransition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SKTransition+CustomTransition.m"; sourceTree = "<group>"; };
 		4E0C6ADA18E7EDA1008919A2 /* NSUserDefaults+MPSecureUserDefaults.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSUserDefaults+MPSecureUserDefaults.h"; sourceTree = "<group>"; };
 		4E0C6ADB18E7EDA1008919A2 /* NSUserDefaults+MPSecureUserDefaults.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSUserDefaults+MPSecureUserDefaults.m"; sourceTree = "<group>"; };
-		4E0C6ADD18E7F0F7008919A2 /* HighScoreHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HighScoreHelper.h; sourceTree = "<group>"; };
-		4E0C6ADE18E7F0F7008919A2 /* HighScoreHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HighScoreHelper.m; sourceTree = "<group>"; };
 		4E40332418E4FCC2009567F0 /* ParseHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParseHelper.h; sourceTree = "<group>"; };
 		4E40332518E4FCC2009567F0 /* ParseHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ParseHelper.m; sourceTree = "<group>"; };
 		4E40332D18E50550009567F0 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
@@ -222,7 +222,13 @@
 		4EFC026218E3515900207A33 /* UIShareAcitivityViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIShareAcitivityViewController.m; sourceTree = "<group>"; };
 		8587012D18EB398D005BE5E3 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		8587012E18EB398D005BE5E3 /* Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Constants.m; sourceTree = "<group>"; };
-		85DB210A18E9CCBD00E0FA90 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
+		85A039EF18EB62FF00A0E60E /* Stats.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Stats.h; sourceTree = "<group>"; };
+		85A039F018EB62FF00A0E60E /* Stats.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Stats.m; sourceTree = "<group>"; };
+		85A039F218EBA2AE00A0E60E /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Parse.framework; path = ../../../../Desktop/Parse.framework; sourceTree = "<group>"; };
+		85A039F818EBC89100A0E60E /* NSNumber+DefaultNumbers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSNumber+DefaultNumbers.h"; sourceTree = "<group>"; };
+		85A039F918EBC89100A0E60E /* NSNumber+DefaultNumbers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSNumber+DefaultNumbers.m"; sourceTree = "<group>"; };
+		85A03A0018ECB8CE00A0E60E /* FingerSprite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FingerSprite.h; sourceTree = "<group>"; };
+		85A03A0118ECB8CE00A0E60E /* FingerSprite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FingerSprite.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -230,13 +236,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				85A039F318EBA2AE00A0E60E /* Parse.framework in Frameworks */,
 				4E40333E18E5058D009567F0 /* SystemConfiguration.framework in Frameworks */,
 				4E40333C18E50587009567F0 /* StoreKit.framework in Frameworks */,
 				4E40333A18E50579009567F0 /* Security.framework in Frameworks */,
 				4E40333818E50573009567F0 /* QuartzCore.framework in Frameworks */,
 				4E40333618E5056C009567F0 /* MobileCoreServices.framework in Frameworks */,
 				4E40333418E50566009567F0 /* libz.dylib in Frameworks */,
-				85DB210B18E9CCBD00E0FA90 /* Parse.framework in Frameworks */,
 				4E40333218E5055D009567F0 /* CoreLocation.framework in Frameworks */,
 				4E40333018E50556009567F0 /* CFNetwork.framework in Frameworks */,
 				4E40332E18E50550009567F0 /* AudioToolbox.framework in Frameworks */,
@@ -265,10 +271,13 @@
 		4E5BC1E718D376F300F7F642 = {
 			isa = PBXGroup;
 			children = (
+				4E5BC22F18D378C900F7F642 /* Sprites */,
+				85A039FB18EBCBBB00A0E60E /* Categories */,
+				4E5BC23018D378D100F7F642 /* Scenes */,
+				85A039FC18ECB37B00A0E60E /* View Controllers */,
+				85A039F418EBA6E500A0E60E /* Models */,
 				4E5BC23218D378E100F7F642 /* Helpers */,
 				4E5BC23118D378DA00F7F642 /* Sound Engine */,
-				4E5BC23018D378D100F7F642 /* Scenes */,
-				4E5BC22F18D378C900F7F642 /* Sprites */,
 				4E5BC1FB18D376F300F7F642 /* iota */,
 				4E5BC21F18D376F400F7F642 /* iotaTests */,
 				4E5BC1F218D376F300F7F642 /* Frameworks */,
@@ -288,7 +297,7 @@
 		4E5BC1F218D376F300F7F642 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				85DB210A18E9CCBD00E0FA90 /* Parse.framework */,
+				85A039F218EBA2AE00A0E60E /* Parse.framework */,
 				4E40333D18E5058D009567F0 /* SystemConfiguration.framework */,
 				4E40333B18E50587009567F0 /* StoreKit.framework */,
 				4E40333918E50579009567F0 /* Security.framework */,
@@ -363,10 +372,10 @@
 				4E5BC23818D3790800F7F642 /* ScoreDetector.m */,
 				4E5BC23918D3790800F7F642 /* ScoreIndicators.h */,
 				4E5BC23A18D3790800F7F642 /* ScoreIndicators.m */,
-				4E5BC23B18D3790800F7F642 /* PegColors.h */,
-				4E5BC23C18D3790800F7F642 /* PegColors.m */,
 				4E5BC24118D3790800F7F642 /* Scorezone.h */,
 				4E5BC24218D3790800F7F642 /* Scorezone.m */,
+				85A03A0018ECB8CE00A0E60E /* FingerSprite.h */,
+				85A03A0118ECB8CE00A0E60E /* FingerSprite.m */,
 			);
 			name = Sprites;
 			sourceTree = "<group>";
@@ -374,16 +383,12 @@
 		4E5BC23018D378D100F7F642 /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
-				4E5BC24B18D3794500F7F642 /* MainMenuViewController.h */,
-				4E5BC24C18D3794500F7F642 /* MainMenuViewController.m */,
 				4E5BC24D18D3794500F7F642 /* MainMenu.h */,
 				4E5BC24E18D3794500F7F642 /* MainMenu.m */,
 				4E0C6AD418E5E681008919A2 /* CreditsScene.h */,
 				4E0C6AD518E5E681008919A2 /* CreditsScene.m */,
 				4E5BC24F18D3794500F7F642 /* IotaGameScene.h */,
 				4E5BC25018D3794500F7F642 /* IotaGameScene.m */,
-				4EFC026118E3515900207A33 /* UIShareAcitivityViewController.h */,
-				4EFC026218E3515900207A33 /* UIShareAcitivityViewController.m */,
 			);
 			name = Scenes;
 			sourceTree = "<group>";
@@ -418,12 +423,6 @@
 				4E40332518E4FCC2009567F0 /* ParseHelper.m */,
 				4E40333F18E5072D009567F0 /* Reachability.h */,
 				4E40334018E5072D009567F0 /* Reachability.m */,
-				4E0C6ADD18E7F0F7008919A2 /* HighScoreHelper.h */,
-				4E0C6ADE18E7F0F7008919A2 /* HighScoreHelper.m */,
-				4E0C6AD718E621D9008919A2 /* SKTransition+CustomTransition.h */,
-				4E0C6AD818E621D9008919A2 /* SKTransition+CustomTransition.m */,
-				4E0C6ADA18E7EDA1008919A2 /* NSUserDefaults+MPSecureUserDefaults.h */,
-				4E0C6ADB18E7EDA1008919A2 /* NSUserDefaults+MPSecureUserDefaults.m */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
@@ -476,6 +475,41 @@
 				4E5BC29718D389B300F7F642 /* G6_dly.mp3 */,
 			);
 			path = IotaNotesDly2;
+			sourceTree = "<group>";
+		};
+		85A039F418EBA6E500A0E60E /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				85A039EF18EB62FF00A0E60E /* Stats.h */,
+				85A039F018EB62FF00A0E60E /* Stats.m */,
+				4E5BC23B18D3790800F7F642 /* PegColors.h */,
+				4E5BC23C18D3790800F7F642 /* PegColors.m */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
+		85A039FB18EBCBBB00A0E60E /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				4E0C6AD718E621D9008919A2 /* SKTransition+CustomTransition.h */,
+				4E0C6AD818E621D9008919A2 /* SKTransition+CustomTransition.m */,
+				4E0C6ADA18E7EDA1008919A2 /* NSUserDefaults+MPSecureUserDefaults.h */,
+				4E0C6ADB18E7EDA1008919A2 /* NSUserDefaults+MPSecureUserDefaults.m */,
+				85A039F818EBC89100A0E60E /* NSNumber+DefaultNumbers.h */,
+				85A039F918EBC89100A0E60E /* NSNumber+DefaultNumbers.m */,
+			);
+			name = Categories;
+			sourceTree = "<group>";
+		};
+		85A039FC18ECB37B00A0E60E /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				4E5BC24B18D3794500F7F642 /* MainMenuViewController.h */,
+				4E5BC24C18D3794500F7F642 /* MainMenuViewController.m */,
+				4EFC026118E3515900207A33 /* UIShareAcitivityViewController.h */,
+				4EFC026218E3515900207A33 /* UIShareAcitivityViewController.m */,
+			);
+			name = "View Controllers";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -621,8 +655,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				85A039FA18EBC89100A0E60E /* NSNumber+DefaultNumbers.m in Sources */,
 				4E5BC24618D3790800F7F642 /* ScoreIndicators.m in Sources */,
 				4E5BC24418D3790800F7F642 /* Peg.m in Sources */,
+				85A03A0218ECB8CE00A0E60E /* FingerSprite.m in Sources */,
 				4EFC026318E3515900207A33 /* UIShareAcitivityViewController.m in Sources */,
 				4E40332618E4FCC2009567F0 /* ParseHelper.m in Sources */,
 				4E0C6AD918E621D9008919A2 /* SKTransition+CustomTransition.m in Sources */,
@@ -630,6 +666,7 @@
 				4E0C6ADC18E7EDA1008919A2 /* NSUserDefaults+MPSecureUserDefaults.m in Sources */,
 				4E5BC25118D3794500F7F642 /* MainMenuViewController.m in Sources */,
 				4E5BC27018D37A2100F7F642 /* GameCenterManager.m in Sources */,
+				85A039F118EB62FF00A0E60E /* Stats.m in Sources */,
 				4E5BC24718D3790800F7F642 /* PegColors.m in Sources */,
 				4E5BC24318D3790800F7F642 /* Ball.m in Sources */,
 				8587012F18EB398D005BE5E3 /* Constants.m in Sources */,
@@ -637,7 +674,6 @@
 				4E5BC25218D3794500F7F642 /* MainMenu.m in Sources */,
 				4E5BC24518D3790800F7F642 /* ScoreDetector.m in Sources */,
 				4E5BC20618D376F300F7F642 /* AppDelegate.m in Sources */,
-				4E0C6ADF18E7F0F7008919A2 /* HighScoreHelper.m in Sources */,
 				4E5BC24A18D3790800F7F642 /* Scorezone.m in Sources */,
 				4E5BC25318D3794500F7F642 /* IotaGameScene.m in Sources */,
 				4E5BC20218D376F300F7F642 /* main.m in Sources */,
@@ -765,9 +801,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					/Users/ivanlesko/Downloads,
-					"/Users/ivanlesko/Documents/XCode\\ Projects/20140313_iota/iota",
-					"/Users/luda/Documents/Xcode\\ projects/iota/iota",
+					/Users/luda/Desktop,
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "iota/iota-Prefix.pch";
@@ -792,9 +826,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					/Users/ivanlesko/Downloads,
-					"/Users/ivanlesko/Documents/XCode\\ Projects/20140313_iota/iota",
-					"/Users/luda/Documents/Xcode\\ projects/iota/iota",
+					/Users/luda/Desktop,
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "iota/iota-Prefix.pch";

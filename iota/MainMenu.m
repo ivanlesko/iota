@@ -42,25 +42,25 @@
     logo.position      = CGPointMake(CGRectGetMidX(self.frame), 727);
     [self addChild:logo];
     
-    SKButton *playButton = [[SKButton alloc] initWithImageNamedNormal:@"play" selected:@"play"];
+    SKButton *playButton   = [[SKButton alloc] initWithImageNamedNormal:@"play" selected:@"play"];
     playButton.anchorPoint = CGPointZero;
     playButton.position    = CGPointMake(269, 570);
     [playButton setTouchUpInsideTarget:self action:@selector(playGame)];
     [self addChild:playButton];
     
-    SKButton *leaderboardButton = [[SKButton alloc] initWithImageNamedNormal:@"leaderboard" selected:@"leaderboard"];
+    SKButton *leaderboardButton   = [[SKButton alloc] initWithImageNamedNormal:@"leaderboard" selected:@"leaderboard"];
     leaderboardButton.anchorPoint = CGPointZero;
     leaderboardButton.position    = CGPointMake(435, 570);
     [leaderboardButton setTouchUpInsideTarget:self action:@selector(showLeaderboard)];
     [self addChild:leaderboardButton];
     
-    SKButton *rateButton = [[SKButton alloc] initWithImageNamed:@"rate"];
+    SKButton *rateButton   = [[SKButton alloc] initWithImageNamed:@"rate"];
     rateButton.anchorPoint = CGPointMake(0.5, 0);
     rateButton.position    = CGPointMake(CGRectGetMidX(self.frame), 250);
     [rateButton setTouchUpInsideTarget:self action:@selector(rateTheApp)];
     [self addChild:rateButton];
     
-    SKButton *creditsButton = [[SKButton alloc] initWithImageNamed:@"creditsButton"];
+    SKButton *creditsButton   = [[SKButton alloc] initWithImageNamed:@"creditsButton"];
     creditsButton.anchorPoint = CGPointMake(0.5, 0);
     creditsButton.position    = CGPointMake(CGRectGetMidX(self.frame), 50);
     [creditsButton setTouchDownTarget:self action:@selector(presentCreditsScreen)];

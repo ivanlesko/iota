@@ -17,7 +17,7 @@
     peg.physicsBody = [SKPhysicsBody bodyWithCircleOfRadius:peg.size.width / 2.0];
     peg.physicsBody.dynamic = NO;
     peg.physicsBody.categoryBitMask = kPKPegCategory;
-    peg.name = kPKPegName;
+    peg.name = kIOPegName;
     peg.multiplier = NO;
     peg.wasHitThisRound = NO;
     

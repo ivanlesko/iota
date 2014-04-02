@@ -10,23 +10,12 @@
 #import <AVFoundation/AVFoundation.h>
 #import "IotaGameScene.h"
 
-#import "SKButton.h"
-
-#import "ScoreDetector.h"
-#import "ScoreIndicators.h"
-#import "MainMenu.h"
-#import "YSIotaSE.h"
-#import "AppDelegate.h"
-#import "PegColors.h"
-#import "Scorezone.h"
-
-#import "GameCenterManager.h"
-
-#import "ParseHelper.h"
+#define STARTING_BALL_LIVES 5
+#define PEG_COLUMNS 12
+#define PEG_ROWS    11
 
 @interface IotaGameScene () {
     int pegColor; // This is used to determine what color the peg should next.
-    int pegColorMax;
     int pegColorReset;
     
     NSMutableArray  *scoreDetectors;  // Contains all of the score detectors on the screen.
@@ -49,15 +38,11 @@
 
 @implementation IotaGameScene
 
-#define STARTING_BALL_LIVES 5
-#define PEG_COLUMNS 12
-#define PEG_ROWS    11
-
 
 - (void)didMoveToView:(SKView *)view {
-    [self presentTheFinger];
+    [self presentTheFingerSprite];
     
-    [self enumerateChildNodesWithName:@"peg" usingBlock:^(SKNode *node, BOOL *stop) {
+    [self enumerateChildNodesWithName:kIOPegName usingBlock:^(SKNode *node, BOOL *stop) {
         Peg *peg = (Peg *)node;
         peg.multiplier = NO;
         peg.wasHitThisRound = NO;
@@ -75,8 +60,6 @@
                                             blue:37.0 / 255.0
                                            alpha:1.0];
     
-    self.scaleMode = SKSceneScaleModeAspectFit;
-    
     self.ballIsOnScreen = NO;
     self.ballLives = STARTING_BALL_LIVES;
     self.score = 0;
@@ -84,30 +67,26 @@
     self.multiplier = [NSDecimalNumber decimalNumberWithString:@"0"];
     
     pegColor = self.ballLives;
-    pegColorMax = 7;
     pegColorReset = 8;
     
-    self.currentLeaderboardIdentifier = kIotaMainLeaderboard;
+    self.currentLeaderboardIdentifier = kIOMainLeaderboard;
     
     AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
-    
-    gameCenterManager = appDelegate.gameCenterManager;
+    self.stats = appDelegate.stats;
+    gameCenterManager    = appDelegate.gameCenterManager;
+    iotaSE               = appDelegate.iotaSE;
     
     if ([GameCenterManager isGameCenterAvailable]) {
         gameCenterManager.delegate = self;
     }
     
-    iotaSE = appDelegate.iotaSE;
-    
-    self.cachedLocalHighScore = [[HighScoreHelper sharedInstance] localHighScore];
-    if (_cachedLocalHighScore > self.cachedRemoteHighScore) {
-        [gameCenterManager reportScore:_cachedLocalHighScore forCategory:kIotaMainLeaderboard];
+    if ([self.stats.localHighScore longLongValue] > [self.stats.remoteHighScore longLongValue]) {
+        [gameCenterManager reportScore:[self.stats.localHighScore longLongValue] forCategory:kIOMainLeaderboard];
     }
     
     [self setupPhysicsWorld];
     [self setupPegs];
     [self setupScorezone];
-
     [self setupScoreValues];
     [self setupPointAmountLabels];
     [self setupScoreIndicators];
@@ -122,36 +101,10 @@
     self.physicsWorld.contactDelegate = self;
 }
 
-#pragma mark - The Finger
+#pragma mark - The Finger Sprite
 
-- (void)presentTheFinger {
-    [self addChild:[self theFinger]];
-}
-
-- (SKSpriteNode *)theFinger {
-    SKSpriteNode *finger = [SKSpriteNode spriteNodeWithImageNamed:@"finger.png"];
-    finger.position = CGPointMake(CGRectGetMidX(self.frame) + 55, CGRectGetMidY(self.frame) * 1.5);
-    finger.name = @"finger";
-    finger.zRotation = 45 * M_PI / 180;
-    finger.alpha = 0.0;
-    
-    SKAction *waitShort = [SKAction waitForDuration:0.12];
-    SKAction *waitLong  = [SKAction waitForDuration:0.35];
-    
-    SKAction *fingerUp  = [SKAction setTexture:[SKTexture textureWithImageNamed:@"finger"]];
-    SKAction *fingerDown = [SKAction setTexture:[SKTexture textureWithImageNamed:@"finger_pressed"]];
-    
-    SKAction *anim = [SKAction sequence:@[waitShort, fingerDown, waitShort, fingerUp, waitShort, fingerDown, waitShort, fingerUp, waitLong]];
-    SKAction *repeatAnim = [SKAction repeatActionForever:anim];
-    
-    SKAction *fadeInMoveDown = [SKAction group:@[
-                                                 [SKAction moveByX:0 y:-30 duration:0.2],
-                                                 [SKAction fadeInWithDuration:0.2]
-                                                 ]];
-    
-    [finger runAction:[SKAction sequence:@[fadeInMoveDown, repeatAnim]]];
-    
-    return finger;
+- (void)presentTheFingerSprite {
+    [self addChild:[FingerSprite drawFingerAtPostion:CGPointMake(CGRectGetMidX(self.frame) + 55, CGRectGetMidY(self.frame) * 1.5)]];
 }
 
 #pragma mark - Pegs
@@ -192,45 +145,13 @@
     [self addChild:self.scorezone];
 }
 
-- (void)presentPointsEarnedLabelWithPointValue:(int)value {
-    SKLabelNode *pointsEarned = [SKLabelNode labelNodeWithFontNamed:@"HelveticaNeue-UltraLight"];
-    pointsEarned.fontSize     = 48.0f;
-    pointsEarned.fontColor    = [SKColor whiteColor];
-    pointsEarned.position     = CGPointMake(CGRectGetMidX(self.view.frame), 700);
-    pointsEarned.alpha        = 0.0f;
-    pointsEarned.text         = [NSString stringWithFormat:@"+%d", value];
-    pointsEarned.name         = @"pointsEarned";
-    
-    [self addChild:pointsEarned];
-    
-    SKAction *fadeIn  = [SKAction fadeInWithDuration:0.15];
-    SKAction *fadeOut = [SKAction fadeOutWithDuration:0.15];
-    SKAction *moveUp  = [SKAction moveBy:CGVectorMake(0, 75) duration:0.15];
-    SKAction *moveUpSlightly = [SKAction moveBy:CGVectorMake(0, 10) duration:0.75];
-    SKAction *scaleUp = [SKAction scaleBy:1.25 duration:0.15];
-    SKAction *wait    = [SKAction waitForDuration:.4];
-    
-    fadeIn.timingMode = SKActionTimingEaseInEaseOut;
-    fadeOut.timingMode = SKActionTimingEaseInEaseOut;
-    moveUp.timingMode = SKActionTimingEaseInEaseOut;
-    scaleUp.timingMode = SKActionTimingEaseInEaseOut;
-    moveUpSlightly.timingMode = SKActionTimingEaseInEaseOut;
-    
-    SKAction *moveUpFadeIn  = [SKAction group:@[fadeIn, moveUp]];
-    SKAction *moveUpFadeOut = [SKAction group:@[fadeOut, moveUp]];
-    
-    [pointsEarned runAction:[SKAction sequence:@[moveUpFadeIn, wait, scaleUp, moveUpFadeOut]] completion:^{
-        [pointsEarned removeFromParent];
-    }];
-}
-
 #pragma mark - Divider Bar
 
 - (SKSpriteNode *)dividerBarWithSize:(CGSize)size {
     SKSpriteNode *bar = [SKSpriteNode spriteNodeWithColor:[SKColor lightGrayColor] size:size];
     bar.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:size];
     bar.physicsBody.dynamic = NO;
-    bar.name = kPKDividername;
+    bar.name = kIODividerName;
     bar.zPosition = 1000;
     
     return bar;
@@ -361,45 +282,9 @@
             touchPos.x > 20 &&
             touchPos.x < self.frame.size.width - 20) {
             [self dropBallAtTouchLocation:touchPos];
+            
+            [self.stats incrementBallsPlayed];
         }
-    }
-}
-
-- (NetworkStatus *)notifyNetworkStatus:(Reachability *)reachability
-{
-    NetworkStatus netStatus = [reachability currentReachabilityStatus];
-    
-    NSString* statusString = @"Network Mode Changed / Connection closed!!";
-    
-    @try
-    {
-        switch (netStatus)
-        {
-            case NotReachable:
-            {
-                statusString = @"No network Access!! Connection closed";
-                break;
-            }
-            case ReachableViaWWAN:
-            {
-                statusString = @"Network Mode Changed / Connection reachable only via WWAN!!";
-                break;
-            }
-            case ReachableViaWiFi:
-            {
-                statusString = @"Network Mode Changed / Connection reachable via WiFi";
-                break;
-            }
-            default:
-            {
-                break;
-            }
-                
-        }
-    }
-    @catch (NSException *exception)
-    {
-        NSLog(@"%s\n Exception: Name- %@ Reason->%@", __PRETTY_FUNCTION__,[exception name],[exception reason]);
     }
 }
 
@@ -420,23 +305,16 @@
     
     [iotaSE reset];
     
-    [self enumerateChildNodesWithName:@"finger" usingBlock:^(SKNode *node, BOOL *stop) {
-        SKAction *fadeOutMoveUp  = [SKAction group:@[
-                                                     [SKAction moveByX:0 y:30 duration:0.1],
-                                                     [SKAction fadeOutWithDuration:0.1]
-                                                     ]];
-        [node runAction:fadeOutMoveUp completion:^{
-            [node removeFromParent];
-        }];
+    [self enumerateChildNodesWithName:kIOFingerName usingBlock:^(SKNode *node, BOOL *stop) {
+        FingerSprite *finger = (FingerSprite *)node;
+        [finger moveUpFadeOut];
     }];
-    
-    
 }
 
 #pragma mark - Physics Methods
 
 - (void)didSimulatePhysics {
-    [self enumerateChildNodesWithName:@"ball" usingBlock:^(SKNode *node, BOOL *stop) {
+    [self enumerateChildNodesWithName:kIOBallName usingBlock:^(SKNode *node, BOOL *stop) {
         if (node.position.y < 0 || node.position.x < self.view.frame.origin.x || node.position.x > self.view.frame.size.width) {
             [node removeFromParent];
             self.ballIsOnScreen = NO;
@@ -444,6 +322,8 @@
         }
     }];
 }
+
+#pragma mark - Physics Contact Delegate Methods
 
 - (void)didBeginContact:(SKPhysicsContact *)contact {
     SKPhysicsBody *firstBody, *secondBody;
@@ -489,9 +369,11 @@
                 if (detectorIndex < 9) {
                     [scoreIndicators insertIndicatorAtIndex:detectorIndex withColor:[[PegColors iotaColorValues] objectAtIndex:ball.currentColor - 1] withValue:scoreDetector.value];
                 }
+                
+                [self.stats incrementScoreDetectorsHitCount];
             }
             
-            [self enumerateChildNodesWithName:@"peg" usingBlock:^(SKNode *node, BOOL *stop) {
+            [self enumerateChildNodesWithName:kIOPegName usingBlock:^(SKNode *node, BOOL *stop) {
                 Peg *peg = (Peg *)node;
                 peg.wasHitThisRound = NO;
             }];
@@ -499,39 +381,48 @@
             // Ran out of lives, game over.
             if (self.ballLives == 0) {
                 finalScore = abs(self.score * [self.multiplier intValue]);
-                [self.scorezone presentGameOverButtonsWithScore:finalScore andCachedHighScore:self.cachedLocalHighScore];
-                [self.scorezone setHighScoreLabel:self.scorezone.highScoreLabel withScore:finalScore andHighScore:self.cachedLocalHighScore];
+                [self.scorezone presentGameOverButtonsWithScore:finalScore andLocalHighScore:[self.stats.localHighScore longLongValue]];
+                [self.scorezone setHighScoreLabel:self.scorezone.highScoreLabel withScore:finalScore andHighScore:[self.stats.localHighScore longLongValue]];
+                [gameCenterManager reportScore:finalScore forCategory:kIOMainLeaderboard];
+                if (self.stats.localHighScore.longLongValue > self.stats.remoteHighScore.longLongValue) {
+                    [gameCenterManager reportScore:self.stats.localHighScore.longLongValue forCategory:kIOMainLeaderboard];
+                }
                 
                 if ([self connected]) {
                     [[ParseHelper sharedHelper] reportScoreWithTotalScore:finalScore multiplier:[self.multiplier intValue] score:self.score withValues:scoreIndicators.values];
                 }
                 
-                if (finalScore > self.cachedLocalHighScore) {
-                    self.cachedLocalHighScore = finalScore;
+                if (finalScore > [self.stats.localHighScore longLongValue]) {
+                    self.stats.localHighScore = [NSNumber numberWithLongLong:finalScore];
                 }
+                
+                [self.stats updateTotalScoreWithScore:finalScore];
+                [self.stats incrementGamesPlayedCount];
+                NSLog(@"%@", self.stats);
             }
         }
     }
     
     // Hit a peg
-        if ([pegs containsObject:firstBody.node]) {
+    if ([pegs containsObject:firstBody.node]) {
+        if ([firstBody.node isKindOfClass:[Peg class]]) {
+            Peg *peg = (Peg *)firstBody.node;
             
-            if ([firstBody.node isKindOfClass:[Peg class]]) {
-                Peg *peg = (Peg *)firstBody.node;
+            // Score Logic
+            if (!peg.wasHitThisRound) {
+                [iotaSE playHit];
                 
-                // Score Logic
-                if (!peg.wasHitThisRound) {
-                    [iotaSE playHit];
-                    
-                    // Turn off the multiplier after itis been hit.
-                    if (peg.multiplier == FALSE) {
-                        self.multiplier = [self.multiplier decimalNumberByAdding:[NSDecimalNumber decimalNumberWithString:@"1.0"]];
-                        peg.multiplier = TRUE;
+                // Turn off the multiplier after itis been hit.
+                if (peg.multiplier == FALSE) {
+                    self.multiplier = [self.multiplier decimalNumberByAdding:[NSDecimalNumber decimalNumberWithString:@"1.0"]];
+                    peg.multiplier = TRUE;
                 }
-                
+            
                 Ball *ball = (Ball *)secondBody.node;
                 peg.wasHitThisRound = YES;
                 peg.colorCount = ball.currentColor;
+                
+                [self.stats incrementPegsLitUpCount];
             }
         }
     }
@@ -554,7 +445,7 @@
     self.ballIsOnScreen = NO;
     self.multiplier = [NSDecimalNumber decimalNumberWithString:@"0"];
     
-    [self enumerateChildNodesWithName:@"peg" usingBlock:^(SKNode *node, BOOL *stop) {
+    [self enumerateChildNodesWithName:kIOPegName usingBlock:^(SKNode *node, BOOL *stop) {
         Peg *peg = (Peg *)node;
         peg.multiplier = NO;
         peg.wasHitThisRound = NO;
@@ -564,11 +455,11 @@
     [self.scorezone clearBallLivesSprites];
     [self.scorezone setupBallLivesSprites];
     
-    [self removeNodesForNames:@[@"pointsEarned", @"ball"]];
+    [self removeNodesForNames:@[kIOBallName]];
     
     [scoreIndicators clearAllIndicators];
     
-    // The scene's X gravity changes on each round.
+    // The scene's X gravity changes slightly each round.
     self.physicsWorld.gravity = CGVectorMake(skRand(-0.02, 0.02), self.physicsWorld.gravity.dy);
 }
 
@@ -577,21 +468,16 @@
     _multiplier = multiplier;
     
     [self.scorezone setScoreLabel:self.scorezone.scoreLabel withMultiplier:[_multiplier intValue] withScore:self.score];
+    
+    if ([_multiplier intValue] > [[self.stats highestMultiplier] intValue]) {
+        self.stats.highestMultiplier = [NSNumber numberWithLongLong:[_multiplier longLongValue]];
+    }
 }
 
 - (void)setScore:(int)score {
     _score = score;
     
     [self.scorezone setScoreLabel:self.scorezone.scoreLabel withMultiplier:[_multiplier intValue] withScore:self.score];
-}
-
-- (void)setCachedLocalHighScore:(int64_t)cachedLocalHighScore {
-    _cachedLocalHighScore = cachedLocalHighScore;
-    
-    if (_cachedLocalHighScore > _cachedLocalHighScore > 0) {
-        [gameCenterManager reportScore:_cachedLocalHighScore forCategory:kIotaMainLeaderboard];
-        NSLog(@"reporting score");
-    }
 }
 
 #pragma mark - Game Center Manager Delegate methods
@@ -618,10 +504,9 @@
         self.currentLeaderboard = leaderBoard;
 		int64_t personalBest= leaderBoard.localPlayerScore.value;
 		if([leaderBoard.scores count] >0) {
-            self.cachedRemoteHighScore = personalBest;
-            if (self.cachedRemoteHighScore > self.cachedLocalHighScore) {
-                self.cachedLocalHighScore = self.cachedRemoteHighScore;
-                [[HighScoreHelper sharedInstance] updateHighScoreWithScore:self.cachedLocalHighScore];
+            self.stats.remoteHighScore = [NSNumber numberWithLongLong:personalBest];
+            if ([self.stats.remoteHighScore longLongValue] > [self.stats.localHighScore longLongValue]) {
+                self.stats.localHighScore = self.stats.remoteHighScore;
             }
         }
 	}

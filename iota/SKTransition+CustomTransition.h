@@ -10,6 +10,10 @@
 
 @interface SKTransition (CustomTransition)
 
+/*
+ * Returns a one second black fade transition.
+ * Use this transition between all scenes to stay consistent.
+ */
 + (SKTransition *)fadeToBlackOneSecondDuration;
 
 @end

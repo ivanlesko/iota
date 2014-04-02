@@ -34,7 +34,7 @@
                                                     ]];
         [self runAction: [SKAction repeatActionForever:dropBalls]];
         
-        [self createLetterBoxes];
+        [self createLetterPhysicsBox];
     }
     
     return self;
@@ -76,7 +76,7 @@
 
 - (SKSpriteNode *)boxAtPosition:(CGPoint)position withSize:(CGSize)size {
     SKSpriteNode *box = [SKSpriteNode spriteNodeWithColor:[SKColor clearColor] size:size];
-    box.position = CGPointMake(position.x + size.width / 2.0, position.y + size.height / 2.0);
+    box.position    = CGPointMake(position.x + size.width / 2.0, position.y + size.height / 2.0);
     box.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:box.size];
     box.physicsBody.affectedByGravity = NO;
     box.physicsBody.dynamic = NO;
@@ -87,7 +87,7 @@
 
 - (SKSpriteNode *)circleAtPosition:(CGPoint)position withSize:(CGSize)size {
     SKSpriteNode *circle = [SKSpriteNode spriteNodeWithColor:[SKColor clearColor] size:size];
-    circle.position = CGPointMake(position.x + size.width / 2.0, position.y + size.height / 3.0);
+    circle.position    = CGPointMake(position.x + size.width / 2.0, position.y + size.height / 3.0);
     circle.physicsBody = [SKPhysicsBody bodyWithCircleOfRadius:circle.size.width / 2.0];
     circle.physicsBody.affectedByGravity = NO;
     circle.physicsBody.dynamic = NO;
@@ -96,13 +96,13 @@
     return circle;
 }
 
-- (void)createLetterBoxes {
+- (void)createLetterPhysicsBox {
     [self addChild:[self boxAtPosition:CGPointMake(307, 556) withSize:CGSizeMake(157, 312)]];
 }
 
 -(void)didSimulatePhysics
 {
-    [self enumerateChildNodesWithName:@"ball" usingBlock:^(SKNode *node, BOOL *stop) {
+    [self enumerateChildNodesWithName:kIOBallName usingBlock:^(SKNode *node, BOOL *stop) {
         if (node.position.y < 0 || node.position.x < 0 || node.position.x > self.frame.size.width)
             [node removeFromParent];
     }];
