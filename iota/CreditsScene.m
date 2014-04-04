@@ -21,7 +21,6 @@
         SKButton *credits = [[SKButton alloc] initWithImageNamed:@"creditsScreen"];
         credits.position  = CGPointMake(size.width / 2.0, size.height / 2.0);
         [self addChild:credits];
-        [credits setTouchUpTarget:self action:@selector(presentMainMenu)];
         
         self.physicsWorld.gravity = CGVectorMake(.02, -19.0);
         self.physicsWorld.contactDelegate = self;
@@ -35,6 +34,11 @@
         [self runAction: [SKAction repeatActionForever:dropBalls]];
         
         [self createLetterPhysicsBox];
+        
+        SKButton *exitButton = [[SKButton alloc] initWithImageNamed:@"exit"];
+        exitButton.position = CGPointMake(735, 924);
+        [exitButton setTouchUpTarget:self action:@selector(presentMainMenu)];
+        [self addChild:exitButton];
     }
     
     return self;

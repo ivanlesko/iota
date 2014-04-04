@@ -11,6 +11,7 @@
 #import "YSIotaSE.h"
 #import "MainMenu.h"
 #import "UIShareAcitivityViewController.h"
+#import "NSNumberFormatter+CustomFormatters.h"
 
 @implementation Scorezone
 
@@ -120,30 +121,26 @@
 }
 
 - (void)presentGameOverButtonsWithScore:(int64_t)score andLocalHighScore:(int64_t)highScore {
-    if (!self.replayScreenPresented) {
-        SKAction *moveDown = [SKAction moveTo:CGPointMake(self.totalScoreLabel.position.x, self.totalScoreEndingY) duration:0.15];
-        SKAction *scaleUp  = [SKAction scaleBy:2 duration:0.2];
-        SKAction *moveDownScaleUp = [SKAction sequence:@[moveDown, scaleUp]];
-        moveDownScaleUp.timingMode = SKActionTimingEaseOut;
-        
-        if ([[YSIotaSE sharedSE] canPlaySound]) {
-            [self runAction:[self swoosh]];
-        }
-        
-        [self.totalScoreLabel runAction:moveDownScaleUp completion:^{
-            for (SKButton *button in @[self.shareButton, self.replayButton]) {
-                SKAction *moveDown = [SKAction moveTo:CGPointMake(button.position.x, self.buttonEndingY) duration:0.2];
-                SKAction *fadeIn   = [SKAction fadeInWithDuration:0.2];
-                SKAction *fadeInMoveDown = [SKAction group:@[moveDown, fadeIn]];
-                [button runAction:fadeInMoveDown completion:^{
-                    button.isEnabled = YES;
-                    self.replayScreenPresented = YES;
-                }];
-            }
-        }];
-    } else {
-        [self replay];
+    self.replayScreenPresented = YES;
+    SKAction *moveDown = [SKAction moveTo:CGPointMake(self.totalScoreLabel.position.x, self.totalScoreEndingY) duration:0.15];
+    SKAction *scaleUp  = [SKAction scaleBy:2 duration:0.2];
+    SKAction *moveDownScaleUp = [SKAction sequence:@[moveDown, scaleUp]];
+    moveDownScaleUp.timingMode = SKActionTimingEaseOut;
+    
+    if ([[YSIotaSE sharedSE] canPlaySound]) {
+        [self runAction:[self swoosh]];
     }
+    
+    [self.totalScoreLabel runAction:moveDownScaleUp completion:^{
+        for (SKButton *button in @[self.shareButton, self.replayButton]) {
+            SKAction *moveDown = [SKAction moveTo:CGPointMake(button.position.x, self.buttonEndingY) duration:0.2];
+            SKAction *fadeIn   = [SKAction fadeInWithDuration:0.2];
+            SKAction *fadeInMoveDown = [SKAction group:@[moveDown, fadeIn]];
+            [button runAction:fadeInMoveDown completion:^{
+                button.isEnabled = YES;
+            }];
+        }
+    }];
 }
 
 - (void)share {
@@ -285,23 +282,11 @@
 
 #pragma mark - Setter Methods
 
-- (NSNumberFormatter *)commaFormattedNumber {
-    NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
-    [numberFormatter setGroupingSeparator:@","];
-    [numberFormatter setGroupingSize:3];
-    [numberFormatter setUsesGroupingSeparator:YES];
-    [numberFormatter setDecimalSeparator:@"."];
-    [numberFormatter setNumberStyle:NSNumberFormatterNoStyle];
-    [numberFormatter setMaximumFractionDigits:2];
-    return numberFormatter;
-}
-
 - (void)setScoreLabel:(SKLabelNode *)scoreLabel withMultiplier:(int)multiplier withScore:(int)score {
     _scoreLabel = scoreLabel;
     
-    NSNumberFormatter *numberFormatter = [self commaFormattedNumber];
-    NSString *scoreString = [numberFormatter stringFromNumber:[NSNumber numberWithInt:score]];
-    NSString *totalScoreString = [numberFormatter stringFromNumber:[NSNumber numberWithInt:(multiplier * score)]];
+    NSString *scoreString = [[NSNumberFormatter commaFormattedNumber] stringFromNumber:[NSNumber numberWithInt:score]];
+    NSString *totalScoreString = [[NSNumberFormatter commaFormattedNumber] stringFromNumber:[NSNumber numberWithInt:(multiplier * score)]];
     
     _scoreLabel.text = [NSString stringWithFormat:@"%d x %@", multiplier, scoreString];
     _totalScoreLabel.text = totalScoreString;
@@ -313,17 +298,15 @@
     _highScoreLabel        = highScoreLabel;
     _highScoreLabel.hidden = NO;
     
-    NSNumberFormatter *formatter = [self commaFormattedNumber];
     NSString *scoreString;
     
-    
     if (score > highscore || highscore == 0 || !highscore) {
-        scoreString = [formatter stringFromNumber:[NSNumber numberWithLongLong:score]];
+        scoreString = [[NSNumberFormatter commaFormattedNumber] stringFromNumber:[NSNumber numberWithLongLong:score]];
         self.highScoreLabel.fontColor = [SKColor colorWithRed:223.0/255.0 green:90.0/255.0 blue:73.0/255.0 alpha:1.0]; // iota red
         self.highScoreLabel.text      = [NSString stringWithFormat:@"NEW HIGH SCORE: %@", scoreString];
         
     } else {
-        scoreString = [formatter stringFromNumber:[NSNumber numberWithLongLong:highscore]];
+        scoreString = [[NSNumberFormatter commaFormattedNumber] stringFromNumber:[NSNumber numberWithLongLong:highscore]];
         self.highScoreLabel.fontColor = [SKColor whiteColor];
         self.highScoreLabel.text      = [NSString stringWithFormat:@"HIGH SCORE: %@", scoreString];
     }

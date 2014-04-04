@@ -95,7 +95,8 @@
 		4EFC026318E3515900207A33 /* UIShareAcitivityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EFC026218E3515900207A33 /* UIShareAcitivityViewController.m */; };
 		85847E7C18ECDA70002B2F12 /* Stats.plist in Resources */ = {isa = PBXBuildFile; fileRef = 85847E7B18ECDA70002B2F12 /* Stats.plist */; };
 		85847E7F18EDE16A002B2F12 /* NSString+FilePaths.m in Sources */ = {isa = PBXBuildFile; fileRef = 85847E7E18EDE16A002B2F12 /* NSString+FilePaths.m */; };
-		85847E8518EE3A9C002B2F12 /* NSMutableDictionary+SaveDictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = 85847E8418EE3A9C002B2F12 /* NSMutableDictionary+SaveDictionary.m */; };
+		85847E8818EE6DF4002B2F12 /* StatsScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 85847E8718EE6DF4002B2F12 /* StatsScene.m */; };
+		85847E8B18EE7738002B2F12 /* NSNumberFormatter+CustomFormatters.m in Sources */ = {isa = PBXBuildFile; fileRef = 85847E8A18EE7738002B2F12 /* NSNumberFormatter+CustomFormatters.m */; };
 		8587012F18EB398D005BE5E3 /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 8587012E18EB398D005BE5E3 /* Constants.m */; };
 		85A039F118EB62FF00A0E60E /* Stats.m in Sources */ = {isa = PBXBuildFile; fileRef = 85A039F018EB62FF00A0E60E /* Stats.m */; };
 		85A039F318EBA2AE00A0E60E /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 85A039F218EBA2AE00A0E60E /* Parse.framework */; };
@@ -226,8 +227,10 @@
 		85847E7B18ECDA70002B2F12 /* Stats.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Stats.plist; sourceTree = "<group>"; };
 		85847E7D18EDE16A002B2F12 /* NSString+FilePaths.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+FilePaths.h"; sourceTree = "<group>"; };
 		85847E7E18EDE16A002B2F12 /* NSString+FilePaths.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+FilePaths.m"; sourceTree = "<group>"; };
-		85847E8318EE3A9C002B2F12 /* NSMutableDictionary+SaveDictionary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableDictionary+SaveDictionary.h"; sourceTree = "<group>"; };
-		85847E8418EE3A9C002B2F12 /* NSMutableDictionary+SaveDictionary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableDictionary+SaveDictionary.m"; sourceTree = "<group>"; };
+		85847E8618EE6DF4002B2F12 /* StatsScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StatsScene.h; sourceTree = "<group>"; };
+		85847E8718EE6DF4002B2F12 /* StatsScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StatsScene.m; sourceTree = "<group>"; };
+		85847E8918EE7738002B2F12 /* NSNumberFormatter+CustomFormatters.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSNumberFormatter+CustomFormatters.h"; sourceTree = "<group>"; };
+		85847E8A18EE7738002B2F12 /* NSNumberFormatter+CustomFormatters.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSNumberFormatter+CustomFormatters.m"; sourceTree = "<group>"; };
 		8587012D18EB398D005BE5E3 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		8587012E18EB398D005BE5E3 /* Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Constants.m; sourceTree = "<group>"; };
 		85A039EF18EB62FF00A0E60E /* Stats.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Stats.h; sourceTree = "<group>"; };
@@ -397,6 +400,8 @@
 				4E0C6AD518E5E681008919A2 /* CreditsScene.m */,
 				4E5BC24F18D3794500F7F642 /* IotaGameScene.h */,
 				4E5BC25018D3794500F7F642 /* IotaGameScene.m */,
+				85847E8618EE6DF4002B2F12 /* StatsScene.h */,
+				85847E8718EE6DF4002B2F12 /* StatsScene.m */,
 			);
 			name = Scenes;
 			sourceTree = "<group>";
@@ -508,8 +513,8 @@
 				85A039F918EBC89100A0E60E /* NSNumber+DefaultNumbers.m */,
 				85847E7D18EDE16A002B2F12 /* NSString+FilePaths.h */,
 				85847E7E18EDE16A002B2F12 /* NSString+FilePaths.m */,
-				85847E8318EE3A9C002B2F12 /* NSMutableDictionary+SaveDictionary.h */,
-				85847E8418EE3A9C002B2F12 /* NSMutableDictionary+SaveDictionary.m */,
+				85847E8918EE7738002B2F12 /* NSNumberFormatter+CustomFormatters.h */,
+				85847E8A18EE7738002B2F12 /* NSNumberFormatter+CustomFormatters.m */,
 			);
 			name = Categories;
 			sourceTree = "<group>";
@@ -683,12 +688,13 @@
 				4E5BC27018D37A2100F7F642 /* GameCenterManager.m in Sources */,
 				85A039F118EB62FF00A0E60E /* Stats.m in Sources */,
 				4E5BC24718D3790800F7F642 /* PegColors.m in Sources */,
+				85847E8818EE6DF4002B2F12 /* StatsScene.m in Sources */,
 				4E5BC24318D3790800F7F642 /* Ball.m in Sources */,
 				8587012F18EB398D005BE5E3 /* Constants.m in Sources */,
 				4E5BC26218D3795100F7F642 /* YSIotaSE.m in Sources */,
+				85847E8B18EE7738002B2F12 /* NSNumberFormatter+CustomFormatters.m in Sources */,
 				4E5BC25218D3794500F7F642 /* MainMenu.m in Sources */,
 				4E5BC24518D3790800F7F642 /* ScoreDetector.m in Sources */,
-				85847E8518EE3A9C002B2F12 /* NSMutableDictionary+SaveDictionary.m in Sources */,
 				4E5BC20618D376F300F7F642 /* AppDelegate.m in Sources */,
 				4E5BC24A18D3790800F7F642 /* Scorezone.m in Sources */,
 				4E5BC25318D3794500F7F642 /* IotaGameScene.m in Sources */,

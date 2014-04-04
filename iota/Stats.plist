@@ -20,13 +20,23 @@
 	<integer>0</integer>
 	<key>accuracy250</key>
 	<integer>0</integer>
+	<key>accuracy250Hits</key>
+	<integer>0</integer>
 	<key>accuracy75</key>
+	<integer>0</integer>
+	<key>accuracy75Hits</key>
 	<integer>0</integer>
 	<key>accuracy50</key>
 	<integer>0</integer>
+	<key>accuracy50Hits</key>
+	<integer>0</integer>
 	<key>accuracy25</key>
 	<integer>0</integer>
+	<key>accuracy25Hits</key>
+	<integer>0</integer>
 	<key>accuracy0</key>
+	<integer>0</integer>
+	<key>accuracy0Hits</key>
 	<integer>0</integer>
 	<key>totalBallsPlayed</key>
 	<integer>0</integer>

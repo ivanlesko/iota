@@ -11,6 +11,7 @@
 #import "SKButton.h"
 #import "YSIotaSE.h"
 #import "CreditsScene.h"
+#import "StatsScene.h"
 
 @interface MainMenu() {
     NSString *currentLeaderboard;
@@ -65,6 +66,12 @@
     creditsButton.position    = CGPointMake(CGRectGetMidX(self.frame), 50);
     [creditsButton setTouchDownTarget:self action:@selector(presentCreditsScreen)];
     [self addChild:creditsButton];
+    
+    SKButton *statsButton = [[SKButton alloc] initWithImageNamed:@"statsButton"];
+    statsButton.anchorPoint = CGPointMake(0.5, 0);
+    statsButton.position    = CGPointMake(CGRectGetMidX(self.frame), 400);
+    [statsButton setTouchDownTarget:self action:@selector(presentStatsScreen)];
+    [self addChild:statsButton];
 }
 
 - (void)playGame {
@@ -78,6 +85,18 @@
         [self.view.window.rootViewController presentViewController:leaderboardController animated:YES completion:nil];
     }
 }   
+
+- (void)presentCreditsScreen {
+    CreditsScene *creditsScene = [[CreditsScene alloc] initWithSize:self.frame.size];
+    creditsScene.mainMenu      = self;
+    [self.view presentScene:creditsScene transition:[SKTransition fadeToBlackOneSecondDuration]];
+}
+
+- (void)presentStatsScreen {
+    StatsScene *statsScene = [[StatsScene alloc] initWithSize:self.frame.size];
+    statsScene.mainMenu = self;
+    [self.view presentScene:statsScene transition:[SKTransition fadeToBlackOneSecondDuration]];
+}
 
 - (void)rateTheApp {
     UIAlertView *rateAlert = [[UIAlertView alloc] initWithTitle:@"Fan of iota?"
@@ -102,11 +121,6 @@
     return;
 }
 
-- (void)presentCreditsScreen {
-    CreditsScene *creditsScene = [[CreditsScene alloc] initWithSize:self.frame.size];
-    creditsScene.mainMenu      = self;
-    [self.view presentScene:creditsScene transition:[SKTransition fadeToBlackOneSecondDuration]];
-}
 
 @end
 

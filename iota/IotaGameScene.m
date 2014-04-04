@@ -341,36 +341,39 @@
                 ball.isDead = YES;
                 self.score += scoreDetector.value;
                 
-                if (scoreDetector.value == 0) {
-                    [iotaSE playEvent:YSIotaSEEventLoose];
-                } else {
-                    switch (scoreDetector.value) {
-                        case 50:
-                            [iotaSE playEvent:YSIotaSEEvent25];
-                            break;
-                            
-                        case 75:
-                            [iotaSE playEvent:YSIotaSEEvent50];
-                            break;
-                            
-                        case 250:
-                            [iotaSE playEvent:YSIotaSEEvent100];
-                            break;
-                            
-                        case 25:
-                            [iotaSE playEvent:YSIotaSEEvent5];
-                            
-                        default:
-                            break;
-                    }
+                [self.stats incrementScoreDetectorsHitCount];
+                
+                switch (scoreDetector.value) {
+                    case 50:
+                        [iotaSE playEvent:YSIotaSEEvent25];
+                        [[Stats sharedInstance] incrementAccuracyWithValue:scoreDetector.value];
+                        break;
+                        
+                    case 75:
+                        [iotaSE playEvent:YSIotaSEEvent50];
+                        [[Stats sharedInstance] incrementAccuracyWithValue:scoreDetector.value];
+                        break;
+                        
+                    case 250:
+                        [iotaSE playEvent:YSIotaSEEvent100];
+                        [[Stats sharedInstance] incrementAccuracyWithValue:scoreDetector.value];
+                        break;
+                        
+                    case 25:
+                        [iotaSE playEvent:YSIotaSEEvent5];
+                        [[Stats sharedInstance] incrementAccuracyWithValue:scoreDetector.value];
+                        break;
+                        
+                    case 0:
+                        [iotaSE playEvent:YSIotaSEEventLoose];
+                        [[Stats sharedInstance] incrementAccuracyWithValue:scoreDetector.value];
+                        break;
                 }
                 
                 NSUInteger detectorIndex = [scoreDetectors indexOfObject:scoreDetector];
                 if (detectorIndex < 9) {
                     [scoreIndicators insertIndicatorAtIndex:detectorIndex withColor:[[PegColors iotaColorValues] objectAtIndex:ball.currentColor - 1] withValue:scoreDetector.value];
                 }
-                
-                [self.stats incrementScoreDetectorsHitCount];
             }
             
             [self enumerateChildNodesWithName:kIOPegName usingBlock:^(SKNode *node, BOOL *stop) {
@@ -381,8 +384,10 @@
             // Ran out of lives, game over.
             if (self.ballLives == 0) {
                 finalScore = abs(self.score * [self.multiplier intValue]);
-                [self.scorezone presentGameOverButtonsWithScore:finalScore andLocalHighScore:[self.stats.localHighScore longLongValue]];
-                [self.scorezone setHighScoreLabel:self.scorezone.highScoreLabel withScore:finalScore andHighScore:[self.stats.localHighScore longLongValue]];
+                if (!self.scorezone.replayScreenPresented) {
+                    [self.scorezone presentGameOverButtonsWithScore:finalScore andLocalHighScore:[self.stats.localHighScore longLongValue]];
+                    [self.scorezone setHighScoreLabel:self.scorezone.highScoreLabel withScore:finalScore andHighScore:[self.stats.localHighScore longLongValue]];
+                }
                 [gameCenterManager reportScore:finalScore forCategory:kIOMainLeaderboard];
                 if (self.stats.localHighScore.longLongValue > self.stats.remoteHighScore.longLongValue) {
                     [gameCenterManager reportScore:self.stats.localHighScore.longLongValue forCategory:kIOMainLeaderboard];
@@ -392,13 +397,20 @@
                     [[ParseHelper sharedHelper] reportScoreWithTotalScore:finalScore multiplier:[self.multiplier intValue] score:self.score withValues:scoreIndicators.values];
                 }
                 
+                // Local high score check
                 if (finalScore > [self.stats.localHighScore longLongValue]) {
                     self.stats.localHighScore = [NSNumber numberWithLongLong:finalScore];
                 }
                 
+                // Low score check
+                if (self.stats.lowestScore.longLongValue == 0) {
+                    self.stats.lowestScore = [NSNumber numberWithLongLong:finalScore];
+                } else if (finalScore < self.stats.lowestScore.longLongValue && finalScore != 0) {
+                    self.stats.lowestScore = [NSNumber numberWithLong:finalScore];
+                }
+                
                 [self.stats updateTotalScoreWithScore:finalScore];
                 [self.stats incrementGamesPlayedCount];
-                NSLog(@"%@", self.stats);
             }
         }
     }

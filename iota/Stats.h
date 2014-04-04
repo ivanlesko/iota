@@ -10,7 +10,6 @@
 
 #import "NSNumber+DefaultNumbers.h"
 #import "GameCenterManager.h"
-#import "NSMutableDictionary+SaveDictionary.h"
 
 @class StatsDictionary;
 
@@ -40,11 +39,18 @@
 @property (nonatomic, strong) NSNumber *accuracy25;
 @property (nonatomic, strong) NSNumber *accuracy0;
 
+@property (nonatomic, strong) NSNumber *accuracy250Hits;
+@property (nonatomic, strong) NSNumber *accuracy75Hits;
+@property (nonatomic, strong) NSNumber *accuracy50Hits;
+@property (nonatomic, strong) NSNumber *accuracy25Hits;
+@property (nonatomic, strong) NSNumber *accuracy0Hits;
+
 - (void)incrementBallsPlayed;
 - (void)incrementPegsLitUpCount;
 - (void)incrementScoreDetectorsHitCount;
 - (void)updateTotalScoreWithScore:(int64_t)totalScore;
 - (void)incrementGamesPlayedCount;
+- (void)incrementAccuracyWithValue:(int)value;
 
 + (NSString *)statsFilePath;
 

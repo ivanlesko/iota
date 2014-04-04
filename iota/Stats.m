@@ -26,24 +26,33 @@
         if (![myFileManager fileExistsAtPath:[Stats statsFilePath]]) {
             NSString *mainBundleSourcePathString = [[NSBundle mainBundle] pathForResource:@"Stats" ofType:@"plist"];
             [myFileManager copyItemAtPath:mainBundleSourcePathString toPath:[Stats statsFilePath] error:nil];
-        } else {
-            self.statsDict         = [NSMutableDictionary dictionaryWithContentsOfFile:[Stats statsFilePath]];
-            
-            self.localHighScore    = [self.statsDict objectForKey:kIOLocalHighScoreKey];
-            self.remoteHighScore   = [self.statsDict objectForKey:kIORemoteHighScoreKey];
-            self.ballsPlayed       = [self.statsDict objectForKey:kIOTotalBallsPlayedKey];
-            self.totalPointsEarned = [self.statsDict objectForKey:kIOTotalPointsEarnedKey];
-            self.totalGamesPlayed  = [self.statsDict objectForKey:kIOTotalGamesPlayedKey];
-            self.lowestScore       = [self.statsDict objectForKey:kIOLowestScoreKey];
-            self.highestMultiplier = [self.statsDict objectForKey:kIOHighestMultiplierKey];
-            self.totalPegsLitUp    = [self.statsDict objectForKey:kIOTotalPegsLitKey];
-            self.accuracy250       = [self.statsDict objectForKey:kIOAccuracy250Key];
-            self.accuracy75        = [self.statsDict objectForKey:kIOAccuracy75Key];
-            self.accuracy50        = [self.statsDict objectForKey:kIOAccuracy50Key];
-            self.accuracy25        = [self.statsDict objectForKey:kIOAccuracy25key];
-            self.accuracy0         = [self.statsDict objectForKey:kIOAccuracy0key];
-            self.totalScoreDetectorsHit = [self.statsDict objectForKey:kIOAccuracyScoreDetectorsHit];
+            NSLog(@"creating stats plist");
         }
+        
+        self.statsDict         = [NSMutableDictionary dictionaryWithContentsOfFile:[Stats statsFilePath]];
+        
+        self.localHighScore    = [self.statsDict objectForKey:kIOLocalHighScoreKey];
+        self.remoteHighScore   = [self.statsDict objectForKey:kIORemoteHighScoreKey];
+        self.ballsPlayed       = [self.statsDict objectForKey:kIOTotalBallsPlayedKey];
+        self.totalPointsEarned = [self.statsDict objectForKey:kIOTotalPointsEarnedKey];
+        self.totalGamesPlayed  = [self.statsDict objectForKey:kIOTotalGamesPlayedKey];
+        self.lowestScore       = [self.statsDict objectForKey:kIOLowestScoreKey];
+        self.highestMultiplier = [self.statsDict objectForKey:kIOHighestMultiplierKey];
+        self.totalPegsLitUp    = [self.statsDict objectForKey:kIOTotalPegsLitKey];
+        
+        self.totalScoreDetectorsHit = [self.statsDict objectForKey:kIOAccuracyScoreDetectorsHit];
+        
+        self.accuracy250       = [self.statsDict objectForKey:kIOAccuracy250Key];
+        self.accuracy75        = [self.statsDict objectForKey:kIOAccuracy75Key];
+        self.accuracy50        = [self.statsDict objectForKey:kIOAccuracy50Key];
+        self.accuracy25        = [self.statsDict objectForKey:kIOAccuracy25key];
+        self.accuracy0         = [self.statsDict objectForKey:kIOAccuracy0key];
+        
+        self.accuracy250Hits   = [self.statsDict objectForKey:kIOAccuracy250HitsKey];
+        self.accuracy75Hits    = [self.statsDict objectForKey:kIOAccuracy75HitsKey];
+        self.accuracy50Hits    = [self.statsDict objectForKey:kIOAccuracy50HitsKey];
+        self.accuracy25Hits    = [self.statsDict objectForKey:kIOAccuracy25HitsKey];
+        self.accuracy0Hits     = [self.statsDict objectForKey:kIOAccuracy0HitsKey];
     }
     
     return self;
@@ -146,6 +155,106 @@
     self.totalScoreDetectorsHit = [NSNumber numberWithLongLong:[self.totalScoreDetectorsHit longLongValue] + 1];
     [self.statsDict setObject:self.totalScoreDetectorsHit forKey:kIOAccuracyScoreDetectorsHit];
     [self saveStatsDict];
+}
+
+#pragma mark - Accuracy Percentages
+
+- (void)setAccuracy250:(NSNumber *)accuracy250 {
+    _accuracy250 = accuracy250;
+    [self.statsDict setObject:_accuracy250 forKey:kIOAccuracy250Key];
+    [self saveStatsDict];
+}
+
+- (void)setAccuracy75:(NSNumber *)accuracy75 {
+    _accuracy75 = accuracy75;
+    [self.statsDict setObject:_accuracy75 forKey:kIOAccuracy75Key];
+    [self saveStatsDict];
+}
+
+- (void)setAccuracy50:(NSNumber *)accuracy50 {
+    _accuracy50 = accuracy50;
+    [self.statsDict setObject:_accuracy50 forKey:kIOAccuracy50Key];
+    [self saveStatsDict];
+}
+
+- (void)setAccuracy25:(NSNumber *)accuracy25 {
+    _accuracy25 = accuracy25;
+    [self.statsDict setObject:_accuracy25 forKey:kIOAccuracy25key];
+    [self saveStatsDict];
+}
+
+- (void)setAccuracy0:(NSNumber *)accuracy0 {
+    _accuracy0 = accuracy0;
+    [self.statsDict setObject:_accuracy0 forKey:kIOAccuracy0key];
+    [self saveStatsDict];
+}
+
+#pragma mark - Accuracy Hit Amounts
+
+- (void)setAccuracy250Hits:(NSNumber *)accuracy250Hits {
+    _accuracy250Hits = accuracy250Hits;
+    [self.statsDict setObject:_accuracy250Hits forKey:kIOAccuracy250HitsKey];
+    [self saveStatsDict];
+}
+
+- (void)setAccuracy75Hits:(NSNumber *)accuracy75Hits {
+    _accuracy75Hits = accuracy75Hits;
+    [self.statsDict setObject:accuracy75Hits forKey:kIOAccuracy75HitsKey];
+    [self saveStatsDict];
+}
+
+- (void)setAccuracy50Hits:(NSNumber *)accuracy50Hits {
+    _accuracy50Hits = accuracy50Hits;
+    [self.statsDict setObject:accuracy50Hits forKey:kIOAccuracy50HitsKey];
+    [self saveStatsDict];
+}
+
+- (void)setAccuracy25Hits:(NSNumber *)accuracy25Hits {
+    _accuracy25Hits = accuracy25Hits;
+    [self.statsDict setObject:accuracy25Hits forKey:kIOAccuracy25HitsKey];
+    [self saveStatsDict];
+}
+
+- (void)setAccuracy0Hits:(NSNumber *)accuracy0Hits {
+    _accuracy0Hits = accuracy0Hits;
+    [self.statsDict setObject:accuracy0Hits forKey:kIOAccuracy0HitsKey];
+    [self saveStatsDict];
+}
+
+- (void)incrementAccuracyWithValue:(int)value {
+    switch (value) {
+        case 250: {
+            self.accuracy250Hits = [NSNumber numberWithLongLong:self.accuracy250Hits.longLongValue + 1];
+            break;
+        }
+            
+        case 75: {
+            self.accuracy75Hits = [NSNumber numberWithLongLong:self.accuracy75Hits.longLongValue + 1];
+            break;
+        }
+            
+        case 50: {
+            self.accuracy50Hits = [NSNumber numberWithLongLong:self.accuracy50Hits.longLongValue + 1];
+            break;
+        }
+            
+        case 25: {
+            self.accuracy25Hits = [NSNumber numberWithLongLong:self.accuracy25Hits.longLongValue + 1];
+            break;
+        }
+            
+        case 0: {
+            self.accuracy0Hits = [NSNumber numberWithLongLong:self.accuracy0Hits.longLongValue + 1];
+            NSLog(@"accuracy 0 %%: %@", self.accuracy0);
+            break;
+        }
+    }
+    
+    self.accuracy250 = [NSNumber numberWithFloat:((self.accuracy250Hits.floatValue / self.totalScoreDetectorsHit.floatValue) * 100)];
+    self.accuracy75 = [NSNumber numberWithFloat:((self.accuracy75Hits.floatValue / self.totalScoreDetectorsHit.floatValue) * 100)];
+    self.accuracy50 = [NSNumber numberWithFloat:((self.accuracy50Hits.floatValue / self.totalScoreDetectorsHit.floatValue) * 100)];
+    self.accuracy25 = [NSNumber numberWithFloat:((self.accuracy25Hits.floatValue / self.totalScoreDetectorsHit.floatValue) * 100)];
+    self.accuracy0 = [NSNumber numberWithFloat:((self.accuracy0Hits.floatValue / self.totalScoreDetectorsHit.floatValue) * 100)];
 }
 
 - (NSString *)description {

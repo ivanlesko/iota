@@ -20,4 +20,5 @@
     #import "SKTransition+CustomTransition.h"
     #import "NSUserDefaults+MPSecureUserDefaults.h"
     #import "NSString+FilePaths.h"
+    #import "NSNumberFormatter+CustomFormatters.h"
 #endif

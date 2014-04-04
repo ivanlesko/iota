@@ -18,6 +18,7 @@ NSString *const kIOFingerName                = @"finger";
 
 NSString *const kIOMainLeaderboard           = @"iotaLeaderboard";
 
+
 NSString *const kIOScoreClassName            = @"Score";
 NSString *const kIOScoreTotalScoreKey        = @"totalScore";
 NSString *const kIOScoreMultiplierKey        = @"multiplier";
@@ -38,6 +39,13 @@ NSString *const kIOAccuracy75Key             = @"accuracy75";
 NSString *const kIOAccuracy50Key             = @"accuracy50";
 NSString *const kIOAccuracy25key             = @"accuracy25";
 NSString *const kIOAccuracy0key              = @"accuracy0";
+
+NSString *const kIOAccuracy250HitsKey        = @"accuracy250Hits";
+NSString *const kIOAccuracy75HitsKey         = @"accuracy75Hits";
+NSString *const kIOAccuracy50HitsKey         = @"accuracy50Hits";
+NSString *const kIOAccuracy25HitsKey         = @"accuracy25Hits";
+NSString *const kIOAccuracy0HitsKey          = @"accuracy0Hits";
+
 NSString *const kIOAccuracyScoreDetectorsHit = @"accuracyScoreDetectorsHit";
 
 @end

@@ -56,6 +56,12 @@ extern NSString *const kIOAccuracy50Key;
 extern NSString *const kIOAccuracy25key;
 extern NSString *const kIOAccuracy0key;
 
+extern NSString *const kIOAccuracy250HitsKey;
+extern NSString *const kIOAccuracy75HitsKey;
+extern NSString *const kIOAccuracy50HitsKey;
+extern NSString *const kIOAccuracy25HitsKey;
+extern NSString *const kIOAccuracy0HitsKey;
+
 /*
  * The total number of score detectors the user has hit.
  * We need this number to calculate the

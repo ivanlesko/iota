@@ -32,9 +32,9 @@
     
     [NSUserDefaults setSecret:@"secret"];
 
-    if (!self.stats) {
-        self.stats = [Stats sharedInstance];
-    }
+//    [[NSFileManager defaultManager] removeItemAtPath:[Stats statsFilePath] error:nil];
+    if (!self.stats) self.stats = [Stats sharedInstance];
+    
     
     return YES;
 }

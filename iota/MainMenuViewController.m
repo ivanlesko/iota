@@ -10,6 +10,7 @@
 #import "IotaGameScene.h"
 #import "MainMenu.h"
 #import "AppDelegate.h"
+#import "Stats.h"
 
 @implementation MainMenuViewController
 
@@ -39,25 +40,6 @@
     self.adView.alpha = 0.0f;
     
     self.mainMenu.gameScene = self.iotaGameScene;
-    
-    NSString *docDirPathString;
-    docDirPathString = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
-    docDirPathString = [docDirPathString stringByAppendingPathComponent:@"Stats.plist"]; // Than make it specific with your plist's name.
-    
-    // You need a NSFileManager to manage and check any files.
-    NSFileManager *myFileManager = [NSFileManager defaultManager];
-    
-    // Tell you NSFileManager to check if that plist is in your docDir.
-    if (![myFileManager fileExistsAtPath:docDirPathString]) {
-        // If not, then we need to setup the address to the Main Bundle and get the plist from there instead.
-        NSString *mainBundleSourcePathString = [[NSBundle mainBundle] pathForResource:@"Stats" ofType:@"plist"];
-        // And tell the NSFileManager to copy that file into our docDir, so we never need to look back at our Main Bundle again.
-        [myFileManager copyItemAtPath:mainBundleSourcePathString toPath:docDirPathString error:nil];
-        NSLog(@"the plist does not exist and we create it");
-    } else {
-        NSLog(@"the plist DOES exist");
-    }
-    
 }
 
 - (BOOL)shouldAutorotate
