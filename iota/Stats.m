@@ -21,93 +21,131 @@
 
 - (id)init {
     if (self = [super init]) {
-        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        NSFileManager *myFileManager = [NSFileManager defaultManager];
         
-        self.localHighScore    = [NSNumber longLongZero];
-        self.remoteHighScore   = [NSNumber longLongZero];
-        self.ballsPlayed       = [NSNumber longLongZero];
-        self.totalPointsEarned = [NSNumber longLongZero];
-        self.totalGamesPlayed  = [NSNumber longLongZero];
-        self.lowestScore       = [NSNumber longLongZero];
-        self.highestMultiplier = [NSNumber longLongZero];
-        self.accuracy250       = [NSNumber longLongZero];
-        self.totalPegsLitUp    = [NSNumber longLongZero];
-        self.accuracy75        = [NSNumber longLongZero];
-        self.accuracy50        = [NSNumber longLongZero];
-        self.accuracy25        = [NSNumber longLongZero];
-        self.accuracy0         = [NSNumber longLongZero];
-        self.totalScoreDetectorsHit = [NSNumber longLongZero];
-        
-        NSArray *values = @[self.localHighScore, self.remoteHighScore, self.ballsPlayed,
-                            self.totalPointsEarned, self.totalGamesPlayed, self.lowestScore,
-                            self.totalPegsLitUp, self.highestMultiplier, self.totalScoreDetectorsHit,
-                            self.accuracy250, self.accuracy75, self.accuracy50,
-                            self.accuracy25, self.accuracy0];
-        
-        NSArray *strings = @[kIOLocalHighScoreKey, kIORemoteHighScoreKey, kIOTotalBallsPlayedKey,
-                             kIOTotalPointsEarnedKey, kIOTotalGamesPlayedKey, kIOLowestScoreKey,
-                             kIOTotalPegsLitKey, kIOHighestMultiplierKey, kIOAccuracyScoreDetectorsHit,
-                             kIOAccuracy250Key, kIOAccuracy75Key, kIOAccuracy50Key,
-                             kIOAccuracy25key, kIOAccuracy0key];
-        
-        BOOL valid = YES;
-        int index = 0;
-        
-        for (NSObject __strong *value in values) {
-            if ([defaults secureObjectForKey:[strings objectAtIndex:index] valid:&valid]) {
-                value = [defaults secureObjectForKey:strings[index] valid:&valid];
-            } else {
-                [defaults setSecureObject:value forKey:strings[index]];
-            }
-            index++;
+        if (![myFileManager fileExistsAtPath:[Stats statsFilePath]]) {
+            NSString *mainBundleSourcePathString = [[NSBundle mainBundle] pathForResource:@"Stats" ofType:@"plist"];
+            [myFileManager copyItemAtPath:mainBundleSourcePathString toPath:[Stats statsFilePath] error:nil];
+        } else {
+            self.statsDict         = [NSMutableDictionary dictionaryWithContentsOfFile:[Stats statsFilePath]];
+            
+            self.localHighScore    = [self.statsDict objectForKey:kIOLocalHighScoreKey];
+            self.remoteHighScore   = [self.statsDict objectForKey:kIORemoteHighScoreKey];
+            self.ballsPlayed       = [self.statsDict objectForKey:kIOTotalBallsPlayedKey];
+            self.totalPointsEarned = [self.statsDict objectForKey:kIOTotalPointsEarnedKey];
+            self.totalGamesPlayed  = [self.statsDict objectForKey:kIOTotalGamesPlayedKey];
+            self.lowestScore       = [self.statsDict objectForKey:kIOLowestScoreKey];
+            self.highestMultiplier = [self.statsDict objectForKey:kIOHighestMultiplierKey];
+            self.totalPegsLitUp    = [self.statsDict objectForKey:kIOTotalPegsLitKey];
+            self.accuracy250       = [self.statsDict objectForKey:kIOAccuracy250Key];
+            self.accuracy75        = [self.statsDict objectForKey:kIOAccuracy75Key];
+            self.accuracy50        = [self.statsDict objectForKey:kIOAccuracy50Key];
+            self.accuracy25        = [self.statsDict objectForKey:kIOAccuracy25key];
+            self.accuracy0         = [self.statsDict objectForKey:kIOAccuracy0key];
+            self.totalScoreDetectorsHit = [self.statsDict objectForKey:kIOAccuracyScoreDetectorsHit];
         }
     }
     
     return self;
 }
 
-- (void)updateRemoteHighScoreWithScore:(int64_t)highScore {
-    self.remoteHighScore = [NSNumber numberWithLongLong:[self.remoteHighScore longLongValue] + highScore];
-    [[NSUserDefaults standardUserDefaults] setSecureObject:self.localHighScore forKey:kIORemoteHighScoreKey];
-}
-
-- (void)incrementBallsPlayed {
-    self.ballsPlayed = [NSNumber numberWithLongLong:[self.ballsPlayed longLongValue] + 1];
-    [[NSUserDefaults standardUserDefaults] setSecureObject:self.ballsPlayed forKey:kIOTotalBallsPlayedKey];
-}
-
-- (void)updateTotalScoreWithScore:(int64_t)totalScore {
-    self.totalPointsEarned = [NSNumber numberWithLongLong:[self.totalPointsEarned longLongValue] + totalScore];
-    [[NSUserDefaults standardUserDefaults] setSecureObject:self.totalPointsEarned forKey:kIOTotalPointsEarnedKey];
-}
-
-- (void)incrementGamesPlayedCount {
-    self.totalGamesPlayed = [NSNumber numberWithLongLong:[self.totalGamesPlayed longLongValue] + 1];
-    [[NSUserDefaults standardUserDefaults] setSecureObject:self.totalGamesPlayed forKey:kIOTotalGamesPlayedKey];
-}
-
-- (void)incrementPegsLitUpCount {
-    self.totalPegsLitUp = [NSNumber numberWithLongLong:[self.totalPegsLitUp longLongValue] + 1];
-    [[NSUserDefaults standardUserDefaults] setSecureObject:self.totalPegsLitUp forKey:kIOTotalPegsLitKey];
-}
-
-- (void)incrementScoreDetectorsHitCount {
-    self.totalScoreDetectorsHit = [NSNumber numberWithLongLong:[self.totalScoreDetectorsHit longLongValue] + 1];
-    [[NSUserDefaults standardUserDefaults] setSecureObject:self.totalScoreDetectorsHit forKey:kIOAccuracyScoreDetectorsHit];
+- (void)saveStatsDict {
+    [self.statsDict writeToFile:[Stats statsFilePath] atomically:YES];
 }
 
 - (void)setLocalHighScore:(NSNumber *)localHighScore {
     _localHighScore = localHighScore;
-    [[NSUserDefaults standardUserDefaults] setSecureObject:_localHighScore forKey:kIOLocalHighScoreKey];
+    [self.statsDict setObject:_localHighScore forKey:kIOLocalHighScoreKey];
+    [self saveStatsDict];
 }
 
 - (void)setRemoteHighScore:(NSNumber *)remoteHighScore {
     _remoteHighScore = remoteHighScore;
-    [[NSUserDefaults standardUserDefaults] setSecureObject:_remoteHighScore forKey:kIORemoteHighScoreKey];
     
     if (self.localHighScore.longLongValue < _remoteHighScore.longLongValue) {
         self.localHighScore = _remoteHighScore;
     }
+    
+    [self.statsDict setObject:_remoteHighScore forKey:kIORemoteHighScoreKey];
+    [self saveStatsDict];
+}
+
+- (void)setBallsPlayed:(NSNumber *)ballsPlayed {
+    _ballsPlayed = ballsPlayed;
+    [self.statsDict setObject:_ballsPlayed forKey:kIOTotalBallsPlayedKey];
+    [self saveStatsDict];
+}
+
+- (void)setTotalPointsEarned:(NSNumber *)totalPointsEarned {
+    _totalPointsEarned = totalPointsEarned;
+    [self.statsDict setObject:_totalPointsEarned forKey:kIOTotalPointsEarnedKey];
+    [self saveStatsDict];
+}
+
+- (void)setTotalGamesPlayed:(NSNumber *)totalGamesPlayed {
+    _totalGamesPlayed = totalGamesPlayed;
+    [self.statsDict setObject:_totalGamesPlayed forKey:kIOTotalGamesPlayedKey];
+    [self saveStatsDict];
+}
+
+- (void)setLowestScore:(NSNumber *)lowestScore {
+    _lowestScore = lowestScore;
+    [self.statsDict setObject:_lowestScore forKey:kIOLowestScoreKey];
+    [self saveStatsDict];
+}
+
+- (void)setHighestMultiplier:(NSNumber *)highestMultiplier {
+    _highestMultiplier = highestMultiplier;
+    [self.statsDict setObject:_highestMultiplier forKey:kIOHighestMultiplierKey];
+    [self saveStatsDict];
+}
+
+- (void)setTotalPegsLitUp:(NSNumber *)totalPegsLitUp {
+    _totalPegsLitUp = totalPegsLitUp;
+    [self.statsDict setObject:_totalPegsLitUp forKey:kIOTotalPegsLitKey];
+    [self saveStatsDict];
+}
+
+- (void)setTotalScoreDetectorsHit:(NSNumber *)totalScoreDetectorsHit {
+    _totalScoreDetectorsHit = totalScoreDetectorsHit;
+    [self.statsDict setObject:_totalScoreDetectorsHit forKey:kIOAccuracyScoreDetectorsHit];
+    [self saveStatsDict];
+}
+
+- (void)updateRemoteHighScoreWithScore:(int64_t)highScore {
+    self.remoteHighScore = [NSNumber numberWithLongLong:[self.remoteHighScore longLongValue] + highScore];
+    [self.statsDict setObject:self.remoteHighScore forKey:kIORemoteHighScoreKey];
+    [self saveStatsDict];
+}
+
+- (void)incrementBallsPlayed {
+    self.ballsPlayed = [NSNumber numberWithLongLong:[self.ballsPlayed longLongValue] + 1];
+    [self.statsDict setObject:self.ballsPlayed forKey:kIOTotalBallsPlayedKey];
+    [self saveStatsDict];
+}
+
+- (void)updateTotalScoreWithScore:(int64_t)totalScore {
+    self.totalPointsEarned = [NSNumber numberWithLongLong:[self.totalPointsEarned longLongValue] + totalScore];
+    [self.statsDict setObject:self.totalPointsEarned forKey:kIOTotalPointsEarnedKey];
+    [self saveStatsDict];
+}
+
+- (void)incrementGamesPlayedCount {
+    self.totalGamesPlayed = [NSNumber numberWithLongLong:[self.totalGamesPlayed longLongValue] + 1];
+    [self.statsDict setObject:self.totalGamesPlayed forKey:kIOTotalGamesPlayedKey];
+    [self saveStatsDict];
+}
+
+- (void)incrementPegsLitUpCount {
+    self.totalPegsLitUp = [NSNumber numberWithLongLong:[self.totalPegsLitUp longLongValue] + 1];
+    [self.statsDict setObject:self.totalPegsLitUp forKey:kIOTotalPegsLitKey];
+    [self saveStatsDict];
+}
+
+- (void)incrementScoreDetectorsHitCount {
+    self.totalScoreDetectorsHit = [NSNumber numberWithLongLong:[self.totalScoreDetectorsHit longLongValue] + 1];
+    [self.statsDict setObject:self.totalScoreDetectorsHit forKey:kIOAccuracyScoreDetectorsHit];
+    [self saveStatsDict];
 }
 
 - (NSString *)description {
@@ -121,6 +159,10 @@
             self.totalPegsLitUp,
             self.highestMultiplier,
             self.totalScoreDetectorsHit];
+}
+
++ (NSString *)statsFilePath {
+    return [[NSString documentsDirectory] stringByAppendingPathComponent:@"Stats.plist"];
 }
 
 @end

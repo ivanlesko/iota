@@ -36,10 +36,9 @@
         self.stats = [Stats sharedInstance];
     }
     
-    NSLog(@"%@", self.stats);
-    
     return YES;
 }
+
 							
 - (void)applicationWillResignActive:(UIApplication *)application
 {

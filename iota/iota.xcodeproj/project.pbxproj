@@ -93,6 +93,9 @@
 		4ECC177418D4E9660046134D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4ECC177318D4E9660046134D /* Main.storyboard */; };
 		4ECC177818D51F1E0046134D /* swoosh.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 4ECC177718D51F1E0046134D /* swoosh.mp3 */; };
 		4EFC026318E3515900207A33 /* UIShareAcitivityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EFC026218E3515900207A33 /* UIShareAcitivityViewController.m */; };
+		85847E7C18ECDA70002B2F12 /* Stats.plist in Resources */ = {isa = PBXBuildFile; fileRef = 85847E7B18ECDA70002B2F12 /* Stats.plist */; };
+		85847E7F18EDE16A002B2F12 /* NSString+FilePaths.m in Sources */ = {isa = PBXBuildFile; fileRef = 85847E7E18EDE16A002B2F12 /* NSString+FilePaths.m */; };
+		85847E8518EE3A9C002B2F12 /* NSMutableDictionary+SaveDictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = 85847E8418EE3A9C002B2F12 /* NSMutableDictionary+SaveDictionary.m */; };
 		8587012F18EB398D005BE5E3 /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 8587012E18EB398D005BE5E3 /* Constants.m */; };
 		85A039F118EB62FF00A0E60E /* Stats.m in Sources */ = {isa = PBXBuildFile; fileRef = 85A039F018EB62FF00A0E60E /* Stats.m */; };
 		85A039F318EBA2AE00A0E60E /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 85A039F218EBA2AE00A0E60E /* Parse.framework */; };
@@ -220,6 +223,11 @@
 		4ECC177718D51F1E0046134D /* swoosh.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = swoosh.mp3; sourceTree = "<group>"; };
 		4EFC026118E3515900207A33 /* UIShareAcitivityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIShareAcitivityViewController.h; sourceTree = "<group>"; };
 		4EFC026218E3515900207A33 /* UIShareAcitivityViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIShareAcitivityViewController.m; sourceTree = "<group>"; };
+		85847E7B18ECDA70002B2F12 /* Stats.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Stats.plist; sourceTree = "<group>"; };
+		85847E7D18EDE16A002B2F12 /* NSString+FilePaths.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+FilePaths.h"; sourceTree = "<group>"; };
+		85847E7E18EDE16A002B2F12 /* NSString+FilePaths.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+FilePaths.m"; sourceTree = "<group>"; };
+		85847E8318EE3A9C002B2F12 /* NSMutableDictionary+SaveDictionary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableDictionary+SaveDictionary.h"; sourceTree = "<group>"; };
+		85847E8418EE3A9C002B2F12 /* NSMutableDictionary+SaveDictionary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableDictionary+SaveDictionary.m"; sourceTree = "<group>"; };
 		8587012D18EB398D005BE5E3 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		8587012E18EB398D005BE5E3 /* Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Constants.m; sourceTree = "<group>"; };
 		85A039EF18EB62FF00A0E60E /* Stats.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Stats.h; sourceTree = "<group>"; };
@@ -484,6 +492,7 @@
 				85A039F018EB62FF00A0E60E /* Stats.m */,
 				4E5BC23B18D3790800F7F642 /* PegColors.h */,
 				4E5BC23C18D3790800F7F642 /* PegColors.m */,
+				85847E7B18ECDA70002B2F12 /* Stats.plist */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -497,6 +506,10 @@
 				4E0C6ADB18E7EDA1008919A2 /* NSUserDefaults+MPSecureUserDefaults.m */,
 				85A039F818EBC89100A0E60E /* NSNumber+DefaultNumbers.h */,
 				85A039F918EBC89100A0E60E /* NSNumber+DefaultNumbers.m */,
+				85847E7D18EDE16A002B2F12 /* NSString+FilePaths.h */,
+				85847E7E18EDE16A002B2F12 /* NSString+FilePaths.m */,
+				85847E8318EE3A9C002B2F12 /* NSMutableDictionary+SaveDictionary.h */,
+				85847E8418EE3A9C002B2F12 /* NSMutableDictionary+SaveDictionary.m */,
 			);
 			name = Categories;
 			sourceTree = "<group>";
@@ -618,6 +631,7 @@
 				4E5BC25E18D3795100F7F642 /* 50Points__dly.mp3 in Resources */,
 				4E5BC2B418D389B300F7F642 /* F4_dly.mp3 in Resources */,
 				4E5BC2AA18D389B300F7F642 /* D4_dly.mp3 in Resources */,
+				85847E7C18ECDA70002B2F12 /* Stats.plist in Resources */,
 				4E5BC25F18D3795100F7F642 /* 100Points__dly.mp3 in Resources */,
 				4E5BC25C18D3795100F7F642 /* 5Points__dly.mp3 in Resources */,
 				4E5BC2A018D389B300F7F642 /* B5_dly.mp3 in Resources */,
@@ -656,6 +670,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				85A039FA18EBC89100A0E60E /* NSNumber+DefaultNumbers.m in Sources */,
+				85847E7F18EDE16A002B2F12 /* NSString+FilePaths.m in Sources */,
 				4E5BC24618D3790800F7F642 /* ScoreIndicators.m in Sources */,
 				4E5BC24418D3790800F7F642 /* Peg.m in Sources */,
 				85A03A0218ECB8CE00A0E60E /* FingerSprite.m in Sources */,
@@ -673,6 +688,7 @@
 				4E5BC26218D3795100F7F642 /* YSIotaSE.m in Sources */,
 				4E5BC25218D3794500F7F642 /* MainMenu.m in Sources */,
 				4E5BC24518D3790800F7F642 /* ScoreDetector.m in Sources */,
+				85847E8518EE3A9C002B2F12 /* NSMutableDictionary+SaveDictionary.m in Sources */,
 				4E5BC20618D376F300F7F642 /* AppDelegate.m in Sources */,
 				4E5BC24A18D3790800F7F642 /* Scorezone.m in Sources */,
 				4E5BC25318D3794500F7F642 /* IotaGameScene.m in Sources */,

@@ -10,6 +10,9 @@
 
 #import "NSNumber+DefaultNumbers.h"
 #import "GameCenterManager.h"
+#import "NSMutableDictionary+SaveDictionary.h"
+
+@class StatsDictionary;
 
 @interface Stats : NSObject
 
@@ -18,6 +21,8 @@
  * There only needs to be one instance of the stats at any given time.
  */
 + (Stats *)sharedInstance;
+
+@property (nonatomic, strong) NSMutableDictionary *statsDict;
 
 @property (nonatomic, strong) NSNumber *localHighScore;
 @property (nonatomic, strong) NSNumber *remoteHighScore;
@@ -40,5 +45,7 @@
 - (void)incrementScoreDetectorsHitCount;
 - (void)updateTotalScoreWithScore:(int64_t)totalScore;
 - (void)incrementGamesPlayedCount;
+
++ (NSString *)statsFilePath;
 
 @end

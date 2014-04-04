@@ -24,20 +24,20 @@ NSString *const kIOScoreMultiplierKey        = @"multiplier";
 NSString *const kIOScoreScoreKey             = @"score";
 NSString *const kIOScoreValuesKey            = @"values";
 
-NSString *const kIOLocalHighScoreKey         = @"kIOHighScoreKey";
-NSString *const kIORemoteHighScoreKey        = @"kIORemoteHighScoreKey";
-NSString *const kIOTotalBallsPlayedKey       = @"kIOBallsPlayedKey";
-NSString *const kIOTotalPointsEarnedKey      = @"kIOTotalPointsEarnedKey";
-NSString *const kIOTotalGamesPlayedKey       = @"kIOTotalGamesPlayedKey";
-NSString *const kIOLowestScoreKey            = @"kIOLowestScoreKey";
-NSString *const kIOHighestMultiplierKey      = @"kIOHighestMultiplierKey";
-NSString *const kIOTotalPegsLitKey           = @"kIOTotalPegsLitKey";
+NSString *const kIOLocalHighScoreKey         = @"localHighScore";
+NSString *const kIORemoteHighScoreKey        = @"remoteHighScore";
+NSString *const kIOTotalBallsPlayedKey       = @"totalBallsPlayed";
+NSString *const kIOTotalPointsEarnedKey      = @"totalPointsEarned";
+NSString *const kIOTotalGamesPlayedKey       = @"totalGamesPlayed";
+NSString *const kIOLowestScoreKey            = @"lowestScore";
+NSString *const kIOHighestMultiplierKey      = @"highestMultiplier";
+NSString *const kIOTotalPegsLitKey           = @"totalPegsLit";
 
-NSString *const kIOAccuracy250Key            = @"kIOAccuracy250Key";
-NSString *const kIOAccuracy75Key             = @"kIOAccuracy75Key";
-NSString *const kIOAccuracy50Key             = @"kIOAccuracy50Key";
-NSString *const kIOAccuracy25key             = @"kIOAccuracy25Key";
-NSString *const kIOAccuracy0key              = @"kIOAccuracy0Key";
-NSString *const kIOAccuracyScoreDetectorsHit = @"kIOAccuracyScoreDetectorsHit";
+NSString *const kIOAccuracy250Key            = @"accuracy250";
+NSString *const kIOAccuracy75Key             = @"accuracy75";
+NSString *const kIOAccuracy50Key             = @"accuracy50";
+NSString *const kIOAccuracy25key             = @"accuracy25";
+NSString *const kIOAccuracy0key              = @"accuracy0";
+NSString *const kIOAccuracyScoreDetectorsHit = @"accuracyScoreDetectorsHit";
 
 @end

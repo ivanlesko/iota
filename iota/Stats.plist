@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>localHighScore</key>
+	<integer>0</integer>
+	<key>highestMultiplier</key>
+	<integer>0</integer>
+	<key>remoteHighScore</key>
+	<integer>0</integer>
+	<key>totalPointsEarned</key>
+	<integer>0</integer>
+	<key>totalGamesPlayed</key>
+	<integer>0</integer>
+	<key>lowestScore</key>
+	<integer>0</integer>
+	<key>totalPegsLit</key>
+	<integer>0</integer>
+	<key>accuracyScoreDetectorsHit</key>
+	<integer>0</integer>
+	<key>accuracy250</key>
+	<integer>0</integer>
+	<key>accuracy75</key>
+	<integer>0</integer>
+	<key>accuracy50</key>
+	<integer>0</integer>
+	<key>accuracy25</key>
+	<integer>0</integer>
+	<key>accuracy0</key>
+	<integer>0</integer>
+	<key>totalBallsPlayed</key>
+	<integer>0</integer>
+</dict>
+</plist>

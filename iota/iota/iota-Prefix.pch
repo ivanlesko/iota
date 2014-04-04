@@ -19,4 +19,5 @@
     #import "Constants.h"
     #import "SKTransition+CustomTransition.h"
     #import "NSUserDefaults+MPSecureUserDefaults.h"
+    #import "NSString+FilePaths.h"
 #endif
