@@ -245,7 +245,6 @@
             
         case 0: {
             self.accuracy0Hits = [NSNumber numberWithLongLong:self.accuracy0Hits.longLongValue + 1];
-            NSLog(@"accuracy 0 %%: %@", self.accuracy0);
             break;
         }
     }

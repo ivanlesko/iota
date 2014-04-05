@@ -388,7 +388,7 @@
                     [self.scorezone presentGameOverButtonsWithScore:finalScore andLocalHighScore:[self.stats.localHighScore longLongValue]];
                     [self.scorezone setHighScoreLabel:self.scorezone.highScoreLabel withScore:finalScore andHighScore:[self.stats.localHighScore longLongValue]];
                 }
-                [gameCenterManager reportScore:finalScore forCategory:kIOMainLeaderboard];
+                
                 if (self.stats.localHighScore.longLongValue > self.stats.remoteHighScore.longLongValue) {
                     [gameCenterManager reportScore:self.stats.localHighScore.longLongValue forCategory:kIOMainLeaderboard];
                 }
@@ -411,6 +411,8 @@
                 
                 [self.stats updateTotalScoreWithScore:finalScore];
                 [self.stats incrementGamesPlayedCount];
+                
+                [self reportScores];
             }
         }
     }
@@ -448,6 +450,14 @@
             [node removeFromParent];
         }];
     }
+}
+
+- (void)reportScores {
+    [gameCenterManager reportScore:finalScore forCategory:kIOMainLeaderboard];
+    [gameCenterManager reportScore:self.stats.totalPointsEarned.longLongValue forCategory:kIOTotalPointsEarnedLeaderboard];
+    [gameCenterManager reportScore:self.stats.lowestScore.longLongValue forCategory:kIOLowestScoreLeaderboard];
+    [gameCenterManager reportScore:self.stats.highestMultiplier.longLongValue forCategory:kIOHighestMultiplierLeaderboard];
+    [gameCenterManager reportScore:self.stats.totalGamesPlayed.longLongValue forCategory:kIOTotalGamesPlayedLeaderboard];
 }
 
 - (void)resetGame {

@@ -16,8 +16,11 @@ NSString *const kIODividerName               = @"dividerBar";
 NSString *const kIOScoreDetectorName         = @"scoreDetector";
 NSString *const kIOFingerName                = @"finger";
 
-NSString *const kIOMainLeaderboard           = @"iotaLeaderboard";
-
+NSString *const kIOMainLeaderboard              = @"iotaLeaderboard";
+NSString *const kIOTotalPointsEarnedLeaderboard = @"iotaTotalPointsEarned";
+NSString *const kIOLowestScoreLeaderboard       = @"iotaLowestScore";
+NSString *const kIOHighestMultiplierLeaderboard = @"iotaHighestMultiplier";
+NSString *const kIOTotalGamesPlayedLeaderboard  = @"iotaTotalGamesPlayed";
 
 NSString *const kIOScoreClassName            = @"Score";
 NSString *const kIOScoreTotalScoreKey        = @"totalScore";

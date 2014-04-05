@@ -23,6 +23,10 @@ extern NSString *const kIOFingerName;
  * Gamcenter leaderboard names
  */
 extern NSString *const kIOMainLeaderboard;
+extern NSString *const kIOTotalPointsEarnedLeaderboard;
+extern NSString *const kIOLowestScoreLeaderboard;
+extern NSString *const kIOHighestMultiplierLeaderboard;
+extern NSString *const kIOTotalGamesPlayedLeaderboard;
 
 /*
  * Parse constants
