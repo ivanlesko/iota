@@ -98,8 +98,8 @@
 		85847E8818EE6DF4002B2F12 /* StatsScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 85847E8718EE6DF4002B2F12 /* StatsScene.m */; };
 		85847E8B18EE7738002B2F12 /* NSNumberFormatter+CustomFormatters.m in Sources */ = {isa = PBXBuildFile; fileRef = 85847E8A18EE7738002B2F12 /* NSNumberFormatter+CustomFormatters.m */; };
 		8587012F18EB398D005BE5E3 /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 8587012E18EB398D005BE5E3 /* Constants.m */; };
+		859DB61818F311AA00BF5571 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 859DB61718F311AA00BF5571 /* Parse.framework */; };
 		85A039F118EB62FF00A0E60E /* Stats.m in Sources */ = {isa = PBXBuildFile; fileRef = 85A039F018EB62FF00A0E60E /* Stats.m */; };
-		85A039F318EBA2AE00A0E60E /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 85A039F218EBA2AE00A0E60E /* Parse.framework */; };
 		85A039FA18EBC89100A0E60E /* NSNumber+DefaultNumbers.m in Sources */ = {isa = PBXBuildFile; fileRef = 85A039F918EBC89100A0E60E /* NSNumber+DefaultNumbers.m */; };
 		85A03A0218ECB8CE00A0E60E /* FingerSprite.m in Sources */ = {isa = PBXBuildFile; fileRef = 85A03A0118ECB8CE00A0E60E /* FingerSprite.m */; };
 /* End PBXBuildFile section */
@@ -233,9 +233,9 @@
 		85847E8A18EE7738002B2F12 /* NSNumberFormatter+CustomFormatters.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSNumberFormatter+CustomFormatters.m"; sourceTree = "<group>"; };
 		8587012D18EB398D005BE5E3 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		8587012E18EB398D005BE5E3 /* Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Constants.m; sourceTree = "<group>"; };
+		859DB61718F311AA00BF5571 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Parse.framework; path = ../../../../Desktop/Parse.framework; sourceTree = "<group>"; };
 		85A039EF18EB62FF00A0E60E /* Stats.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Stats.h; sourceTree = "<group>"; };
 		85A039F018EB62FF00A0E60E /* Stats.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Stats.m; sourceTree = "<group>"; };
-		85A039F218EBA2AE00A0E60E /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Parse.framework; path = ../../../../Desktop/Parse.framework; sourceTree = "<group>"; };
 		85A039F818EBC89100A0E60E /* NSNumber+DefaultNumbers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSNumber+DefaultNumbers.h"; sourceTree = "<group>"; };
 		85A039F918EBC89100A0E60E /* NSNumber+DefaultNumbers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSNumber+DefaultNumbers.m"; sourceTree = "<group>"; };
 		85A03A0018ECB8CE00A0E60E /* FingerSprite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FingerSprite.h; sourceTree = "<group>"; };
@@ -247,7 +247,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				85A039F318EBA2AE00A0E60E /* Parse.framework in Frameworks */,
+				859DB61818F311AA00BF5571 /* Parse.framework in Frameworks */,
 				4E40333E18E5058D009567F0 /* SystemConfiguration.framework in Frameworks */,
 				4E40333C18E50587009567F0 /* StoreKit.framework in Frameworks */,
 				4E40333A18E50579009567F0 /* Security.framework in Frameworks */,
@@ -308,7 +308,7 @@
 		4E5BC1F218D376F300F7F642 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				85A039F218EBA2AE00A0E60E /* Parse.framework */,
+				859DB61718F311AA00BF5571 /* Parse.framework */,
 				4E40333D18E5058D009567F0 /* SystemConfiguration.framework */,
 				4E40333B18E50587009567F0 /* StoreKit.framework */,
 				4E40333918E50579009567F0 /* Security.framework */,
@@ -824,6 +824,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					/Users/luda/Desktop,
+					"/Users/luda/Documents/Xcode\\ projects/iota/iota",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "iota/iota-Prefix.pch";
@@ -849,6 +850,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					/Users/luda/Desktop,
+					"/Users/luda/Documents/Xcode\\ projects/iota/iota",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "iota/iota-Prefix.pch";
