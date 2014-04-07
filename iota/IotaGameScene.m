@@ -389,14 +389,6 @@
                     [self.scorezone setHighScoreLabel:self.scorezone.highScoreLabel withScore:finalScore andHighScore:[self.stats.localHighScore longLongValue]];
                 }
                 
-                if (self.stats.localHighScore.longLongValue > self.stats.remoteHighScore.longLongValue) {
-                    [gameCenterManager reportScore:self.stats.localHighScore.longLongValue forCategory:kIOMainLeaderboard];
-                }
-                
-                if ([self connected]) {
-                    [[ParseHelper sharedHelper] reportScoreWithTotalScore:finalScore multiplier:[self.multiplier intValue] score:self.score withValues:scoreIndicators.values];
-                }
-                
                 // Local high score check
                 if (finalScore > [self.stats.localHighScore longLongValue]) {
                     self.stats.localHighScore = [NSNumber numberWithLongLong:finalScore];
@@ -409,10 +401,12 @@
                     self.stats.lowestScore = [NSNumber numberWithLong:finalScore];
                 }
                 
+                self.stats.canReportScores = YES;
+                
                 [self.stats updateTotalScoreWithScore:finalScore];
                 [self.stats incrementGamesPlayedCount];
                 
-                [self reportScores];
+                [self performSelector:@selector(reportScores) withObject:self afterDelay:1.0];
             }
         }
     }
@@ -458,6 +452,14 @@
     [gameCenterManager reportScore:self.stats.lowestScore.longLongValue forCategory:kIOLowestScoreLeaderboard];
     [gameCenterManager reportScore:self.stats.highestMultiplier.longLongValue forCategory:kIOHighestMultiplierLeaderboard];
     [gameCenterManager reportScore:self.stats.totalGamesPlayed.longLongValue forCategory:kIOTotalGamesPlayedLeaderboard];
+    
+    if (self.stats.localHighScore.longLongValue > self.stats.remoteHighScore.longLongValue) {
+        [gameCenterManager reportScore:self.stats.localHighScore.longLongValue forCategory:kIOMainLeaderboard];
+    }
+    
+    if ([self connected]) {
+        [[ParseHelper sharedHelper] reportScoreWithTotalScore:finalScore multiplier:[self.multiplier intValue] score:self.score withValues:scoreIndicators.values];
+    }
 }
 
 - (void)resetGame {

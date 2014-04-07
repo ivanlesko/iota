@@ -10,6 +10,7 @@
 
 #import "NSNumber+DefaultNumbers.h"
 #import "GameCenterManager.h"
+#import "IotaGameScene.h"
 
 @class StatsDictionary;
 
@@ -44,6 +45,10 @@
 @property (nonatomic, strong) NSNumber *accuracy50Hits;
 @property (nonatomic, strong) NSNumber *accuracy25Hits;
 @property (nonatomic, strong) NSNumber *accuracy0Hits;
+
+@property (nonatomic, strong)IotaGameScene *gameScene;
+
+@property (nonatomic) BOOL canReportScores;
 
 - (void)incrementBallsPlayed;
 - (void)incrementPegsLitUpCount;

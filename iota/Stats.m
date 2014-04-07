@@ -52,13 +52,18 @@
         self.accuracy50Hits    = [self.statsDict objectForKey:kIOAccuracy50HitsKey];
         self.accuracy25Hits    = [self.statsDict objectForKey:kIOAccuracy25HitsKey];
         self.accuracy0Hits     = [self.statsDict objectForKey:kIOAccuracy0HitsKey];
+        
+        self.canReportScores   = NO;
     }
     
     return self;
 }
 
 - (void)saveStatsDict {
-    [self.statsDict writeToFile:[Stats statsFilePath] atomically:YES];
+    NSData *data = [NSData dataWithContentsOfFile:[Stats statsFilePath]];
+    NSError *error;
+    
+    [data writeToFile:[Stats statsFilePath] options:NSDataWritingAtomic error:&error];
 }
 
 - (void)setLocalHighScore:(NSNumber *)localHighScore {
