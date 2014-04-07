@@ -48,8 +48,6 @@
 
 @property (nonatomic, strong)IotaGameScene *gameScene;
 
-@property (nonatomic) BOOL canReportScores;
-
 - (void)incrementBallsPlayed;
 - (void)incrementPegsLitUpCount;
 - (void)incrementScoreDetectorsHitCount;

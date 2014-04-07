@@ -401,8 +401,6 @@
                     self.stats.lowestScore = [NSNumber numberWithLong:finalScore];
                 }
                 
-                self.stats.canReportScores = YES;
-                
                 [self.stats updateTotalScoreWithScore:finalScore];
                 [self.stats incrementGamesPlayedCount];
                 

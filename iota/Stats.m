@@ -52,8 +52,6 @@
         self.accuracy50Hits    = [self.statsDict objectForKey:kIOAccuracy50HitsKey];
         self.accuracy25Hits    = [self.statsDict objectForKey:kIOAccuracy25HitsKey];
         self.accuracy0Hits     = [self.statsDict objectForKey:kIOAccuracy0HitsKey];
-        
-        self.canReportScores   = NO;
     }
     
     return self;

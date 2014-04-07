@@ -143,7 +143,11 @@
 	scoreReporter.value = score;
     
     [GKScore reportScores:@[scoreReporter] withCompletionHandler:^(NSError *error) {
-        
+        if (!error) {
+            NSLog(@"reported score: %@", scoreReporter);
+        } else {
+            NSLog(@"error: %@", error.localizedDescription);
+        }
     }];
 }
 
