@@ -26,7 +26,6 @@
         if (![myFileManager fileExistsAtPath:[Stats statsFilePath]]) {
             NSString *mainBundleSourcePathString = [[NSBundle mainBundle] pathForResource:@"Stats" ofType:@"plist"];
             [myFileManager copyItemAtPath:mainBundleSourcePathString toPath:[Stats statsFilePath] error:nil];
-            NSLog(@"creating stats plist");
         }
         
         self.statsDict         = [NSMutableDictionary dictionaryWithContentsOfFile:[Stats statsFilePath]];

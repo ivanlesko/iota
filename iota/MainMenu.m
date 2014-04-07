@@ -43,42 +43,56 @@
     logo.position      = CGPointMake(CGRectGetMidX(self.frame), 727);
     [self addChild:logo];
     
-    SKButton *playButton   = [[SKButton alloc] initWithImageNamedNormal:@"play" selected:@"play"];
-    playButton.anchorPoint = CGPointZero;
-    playButton.position    = CGPointMake(269, 570);
-    [playButton setTouchUpInsideTarget:self action:@selector(playGame)];
-    [self addChild:playButton];
+    SKNode *buttonsContainer = [SKNode node];
+    buttonsContainer.position = CGPointMake(CGRectGetMidX(self.frame), 603);
+    [self addChild:buttonsContainer];
     
-    SKButton *leaderboardButton   = [[SKButton alloc] initWithImageNamedNormal:@"leaderboard" selected:@"leaderboard"];
-    leaderboardButton.anchorPoint = CGPointZero;
-    leaderboardButton.position    = CGPointMake(435, 570);
-    [leaderboardButton setTouchUpInsideTarget:self action:@selector(showLeaderboard)];
-    [self addChild:leaderboardButton];
+    NSArray *buttons = @[
+                         @"mainMenu_play",
+                         @"mainMenu_stats",
+                         @"mainMenu_leaderboard",
+                         @"mainMenu_rate",
+                         @"mainMenu_credits"
+                         ];
     
-    SKButton *rateButton   = [[SKButton alloc] initWithImageNamed:@"rate"];
-    rateButton.anchorPoint = CGPointMake(0.5, 0);
-    rateButton.position    = CGPointMake(CGRectGetMidX(self.frame), 250);
-    [rateButton setTouchUpInsideTarget:self action:@selector(rateTheApp)];
-    [self addChild:rateButton];
+    SEL selectors[] = {
+                        @selector(playGame),
+                        @selector(presentStatsScreen),
+                        @selector(presentLeaderboard),
+                        @selector(rateTheApp),
+                        @selector(presentCreditsScreen),
+                      };
     
-    SKButton *creditsButton   = [[SKButton alloc] initWithImageNamed:@"creditsButton"];
-    creditsButton.anchorPoint = CGPointMake(0.5, 0);
-    creditsButton.position    = CGPointMake(CGRectGetMidX(self.frame), 50);
-    [creditsButton setTouchDownTarget:self action:@selector(presentCreditsScreen)];
-    [self addChild:creditsButton];
+    CGFloat spacing = 65.0f;
     
-    SKButton *statsButton = [[SKButton alloc] initWithImageNamed:@"statsButton"];
-    statsButton.anchorPoint = CGPointMake(0.5, 0);
-    statsButton.position    = CGPointMake(CGRectGetMidX(self.frame), 400);
-    [statsButton setTouchDownTarget:self action:@selector(presentStatsScreen)];
-    [self addChild:statsButton];
+    for (int i = 0; i < buttons.count; i++) {
+        SKButton *button = [[SKButton alloc] initWithImageNamed:buttons[i]];
+        button.anchorPoint = CGPointMake(0.5, 1);
+        button.position    = CGPointMake(0, -(spacing * i));
+        [button setTouchDownTarget:self action:selectors[i]];
+        [buttonsContainer addChild:button];
+    }
+    
+    SKNode *socialContainer = [SKNode node];
+    socialContainer.position = CGPointMake(CGRectGetMidX(self.frame), 110);
+    [self addChild:socialContainer];
+    
+    SKButton *twitter = [[SKButton alloc] initWithImageNamed:@"twitter"];
+    twitter.position  = CGPointMake(-48.0, 0);
+    [twitter setTouchDownTarget:self action:@selector(goToTwitter)];
+    [socialContainer addChild:twitter];
+    
+    SKButton *facebook = [[SKButton alloc] initWithImageNamed:@"facebook"];
+    facebook.position  = CGPointMake(48.0, 0);
+    [facebook setTouchDownTarget:self action:@selector(goToFacebook)];
+    [socialContainer addChild:facebook];
 }
 
 - (void)playGame {
     [self.view presentScene:self.gameScene transition:[SKTransition fadeToBlackOneSecondDuration]];
 }
 
-- (void)showLeaderboard {
+- (void)presentLeaderboard {
     GKGameCenterViewController *leaderboardController = [[GKGameCenterViewController alloc] init];
     if (leaderboardController != NULL) {
         leaderboardController.gameCenterDelegate = self.mainMenuViewController;
@@ -106,6 +120,14 @@
                                               otherButtonTitles:@"Rate iota!", nil];
     
     [rateAlert show];
+}
+
+- (void)goToTwitter {
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://www.twitter.com/HumbleCorp"]];
+}
+
+- (void)goToFacebook {
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://www.facebook.com/pages/Humble-Corp/502261386544587?code=62238"]];
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {

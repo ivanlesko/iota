@@ -27,13 +27,8 @@
                                   @"games played",
                                   @"balls played",
                                   @"highest multiplier",
-                                  @"total pegs lit",
-                                  @"accuracy",
-                                  @"250",
-                                  @"75",
-                                  @"50",
-                                  @"25",
-                                  @"0"];
+                                  @"total pegs lit"
+                                  ];
         
         NSArray *statKeys     = @[kIOLocalHighScoreKey,
                                   kIOLowestScoreKey,
@@ -41,13 +36,7 @@
                                   kIOTotalGamesPlayedKey,
                                   kIOTotalBallsPlayedKey,
                                   kIOHighestMultiplierKey,
-                                  kIOTotalPegsLitKey,
-                                  @"", // Leave a blank string for the accuracy
-                                  kIOAccuracy250Key,
-                                  kIOAccuracy75Key,
-                                  kIOAccuracy50Key,
-                                  kIOAccuracy25key,
-                                  kIOAccuracy0key];
+                                  kIOTotalPegsLitKey];
         
         CGFloat spacing = 60.0f;
         
@@ -55,25 +44,11 @@
         
         for (int i = 0; i < stringValues.count; i++) {
             NSNumber *value = [stats objectForKey:statKeys[i]];
-            if (i < 7) {
-                [container addChild:[self createStatRowAtPosition:CGPointMake(0, -(spacing * i))
-                                                        withTitle:stringValues[i]
-                                                   withTitleColor:[SKColor whiteColor]
-                                                        withValue:[[NSNumberFormatter commaFormattedNumber] stringFromNumber:value]
-                                                      withDivider:YES]];
-            } else if (i == 7) {
-                [container addChild:[self createStatRowAtPosition:CGPointMake(0, -(spacing * i))
-                                                        withTitle:stringValues[i]
-                                                   withTitleColor:[SKColor whiteColor]
-                                                        withValue:@""
-                                                      withDivider:YES]];
-            } else {
-                [container addChild:[self createStatRowAtPosition:CGPointMake(0, -(spacing * i))
-                                                        withTitle:stringValues[i]
-                                                   withTitleColor:[SKColor lightGrayColor]
-                                                        withValue:[NSString stringWithFormat:@"%.1f%%", value.floatValue]
-                                                      withDivider:NO]];
-            }
+            [container addChild:[self createStatRowAtPosition:CGPointMake(0, -(spacing * i))
+                                                    withTitle:stringValues[i]
+                                               withTitleColor:[SKColor whiteColor]
+                                                    withValue:[[NSNumberFormatter commaFormattedNumber] stringFromNumber:value]
+                                                  withDivider:YES]];
         }
         
         SKButton *exitButton = [[SKButton alloc] initWithImageNamed:@"exit"];

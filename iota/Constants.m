@@ -27,6 +27,8 @@ NSString *const kIOScoreTotalScoreKey        = @"totalScore";
 NSString *const kIOScoreMultiplierKey        = @"multiplier";
 NSString *const kIOScoreScoreKey             = @"score";
 NSString *const kIOScoreValuesKey            = @"values";
+NSString *const kIOScoreGamesPlayedKey       = @"gamesPlayed";
+NSString *const kIOScoreTotalPointsKey       = @"pointsEarned";
 
 NSString *const kIOLocalHighScoreKey         = @"localHighScore";
 NSString *const kIORemoteHighScoreKey        = @"remoteHighScore";

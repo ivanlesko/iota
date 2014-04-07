@@ -36,6 +36,8 @@ extern NSString *const kIOScoreTotalScoreKey;
 extern NSString *const kIOScoreMultiplierKey;
 extern NSString *const kIOScoreScoreKey;
 extern NSString *const kIOScoreValuesKey;
+extern NSString *const kIOScoreGamesPlayedKey;
+extern NSString *const kIOScoreTotalPointsKey;
 
 /*
  * High score tracker constants
