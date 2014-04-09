@@ -464,6 +464,7 @@
 
 - (void)checkHighScoreAndTotalPointsAchievements {
     __block NSString *identifier = NULL;
+    __block double percent = 0.0f;
     
     NSDictionary *highScoreValues = @{
                                      iotaAchievementHighScore40k:    @40000,
@@ -493,10 +494,11 @@
     
     [totalPointvalues enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
         NSNumber *num = obj;
+        percent = self.stats.totalPointsEarned.doubleValue / num.doubleValue * 100;
         if (self.stats.totalPointsEarned.longLongValue > num.longLongValue) {
             identifier = key;
             if (identifier != NULL) {
-                [self.gameCenterManager submitAchievement:identifier percentComplete:100.0];
+                [self.gameCenterManager submitAchievement:identifier percentComplete:percent];
             }
         }
     }];
