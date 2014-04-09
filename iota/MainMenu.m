@@ -16,7 +16,6 @@
 
 @interface MainMenu() {
     NSString *currentLeaderboard;
-    GameCenterManager *gcManager;
 }
 
 @property (nonatomic) BOOL contentCreated;
@@ -93,13 +92,10 @@
     submitAchievement.position = CGPointMake(200, 200);
     [submitAchievement setTouchDownTarget:self action:@selector(submitAchievement)];
     [self addChild:submitAchievement];
-    
-    gcManager = [[GameCenterManager alloc] init];
 }
 
 - (void)submitAchievement {
-    NSLog(@"hit da button");
-    [gcManager submitAchievement:@"iotaAchievementHighScore60k" percentComplete:100.0];
+    [self.gcm submitAchievement:iotaAchievementTotalPoints1m percentComplete:100.0];
 }
 
 - (void)playGame {
@@ -138,10 +134,12 @@
 
 - (void)goToTwitter {
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://www.twitter.com/HumbleCorp"]];
+    [self.gcm submitAchievement:iotaAchievementTwitter percentComplete:100.0];
 }
 
 - (void)goToFacebook {
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://www.facebook.com/pages/Humble-Corp/502261386544587?code=62238"]];
+    [self.gcm submitAchievement:iotaAchievementFacebook percentComplete:100.0];
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {

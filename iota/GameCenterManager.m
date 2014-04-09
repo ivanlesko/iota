@@ -206,6 +206,15 @@
 	}
 }
 
+- (void) resetAchievements
+{
+	self.earnedAchievementCache= NULL;
+	[GKAchievement resetAchievementsWithCompletionHandler: ^(NSError *error)
+     {
+		 [self callDelegateOnMainThread: @selector(achievementResetResult:) withArg: NULL error: error];
+     }];
+}
+
 @end
 
 

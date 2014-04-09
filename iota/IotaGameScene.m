@@ -23,8 +23,6 @@
     NSMutableArray  *scoreValues;     // Values for each score detector.
     NSMutableArray  *pegs;
     NSMutableArray  *dividerBars;
-    
-    GameCenterManager *gameCenterManager;
     int64_t finalScore;
     
     YSIotaSE *iotaSE;
@@ -49,7 +47,7 @@
         peg.colorCount = pegColorReset;
     }];
     
-    [gameCenterManager reloadHighScoresForCategory:self.currentLeaderboardIdentifier];
+    [self.gameCenterManager reloadHighScoresForCategory:self.currentLeaderboardIdentifier];
 }
 
 #pragma mark - Setup
@@ -74,15 +72,15 @@
     AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
     self.stats = appDelegate.stats;
     self.stats.gameScene = self;
-    gameCenterManager    = appDelegate.gameCenterManager;
+    self.gameCenterManager    = appDelegate.gameCenterManager;
     iotaSE               = appDelegate.iotaSE;
     
     if ([GameCenterManager isGameCenterAvailable]) {
-        gameCenterManager.delegate = self;
+        self.gameCenterManager.delegate = self;
     }
     
     if ([self.stats.localHighScore longLongValue] > [self.stats.remoteHighScore longLongValue]) {
-        [gameCenterManager reportScore:[self.stats.localHighScore longLongValue] forCategory:kIOMainLeaderboard];
+        [self.gameCenterManager reportScore:[self.stats.localHighScore longLongValue] forCategory:kIOMainLeaderboard];
     }
     
     [self setupPhysicsWorld];
@@ -446,26 +444,22 @@
 }
 
 - (void)reportScores {
-    [gameCenterManager reportScore:finalScore forCategory:kIOMainLeaderboard];
-    [gameCenterManager reportScore:self.stats.totalPointsEarned.longLongValue forCategory:kIOTotalPointsEarnedLeaderboard];
-    [gameCenterManager reportScore:self.stats.lowestScore.longLongValue forCategory:kIOLowestScoreLeaderboard];
-    [gameCenterManager reportScore:self.stats.highestMultiplier.longLongValue forCategory:kIOHighestMultiplierLeaderboard];
-    [gameCenterManager reportScore:self.stats.totalGamesPlayed.longLongValue forCategory:kIOTotalGamesPlayedLeaderboard];
+    [self.gameCenterManager reportScore:finalScore forCategory:kIOMainLeaderboard];
+    [self.gameCenterManager reportScore:self.stats.totalPointsEarned.longLongValue forCategory:kIOTotalPointsEarnedLeaderboard];
+    [self.gameCenterManager reportScore:self.stats.lowestScore.longLongValue forCategory:kIOLowestScoreLeaderboard];
+    [self.gameCenterManager reportScore:self.stats.highestMultiplier.longLongValue forCategory:kIOHighestMultiplierLeaderboard];
+    [self.gameCenterManager reportScore:self.stats.totalGamesPlayed.longLongValue forCategory:kIOTotalGamesPlayedLeaderboard];
     
     if (self.stats.localHighScore.longLongValue > self.stats.remoteHighScore.longLongValue) {
-        [gameCenterManager reportScore:self.stats.localHighScore.longLongValue forCategory:kIOMainLeaderboard];
+        [self.gameCenterManager reportScore:self.stats.localHighScore.longLongValue forCategory:kIOMainLeaderboard];
     }
     
     if ([self connected]) {
         [[ParseHelper sharedHelper] reportScoreWithTotalScore:finalScore multiplier:[self.multiplier intValue] score:self.score withValues:scoreIndicators.values];
     }
-}
-
-- (void) checkAchievements
-{
+    
     [self checkHighScoreAchievements];
     [self checkTotalPointsAchievements];
-    [self checkMultiplierAchievements];
 }
 
 - (void)checkHighScoreAchievements {
@@ -493,36 +487,39 @@
     
 	if(identifier!= NULL)
 	{
-		[gameCenterManager submitAchievement: identifier percentComplete: 100.0];
+		[self.gameCenterManager submitAchievement: identifier percentComplete: 100.0];
 	}
 }
 
 - (void)checkTotalPointsAchievements {
     NSString *identifier = NULL;
+    double percent = 0.0;
+
+    double values[] = {
+                        1000000,
+                        5000000,
+                        10000000,
+                        25000000,
+                        100000000
+                      };
     
-    if (self.stats.totalPointsEarned.longLongValue >= 1000000) {
-        identifier = iotaAchievementTotalPoints1m;
+    NSArray *strings = @[
+                         iotaAchievementTotalPoints1m,
+                         iotaAchievementTotalPoints5m,
+                         iotaAchievementTotalPoints10m,
+                         iotaAchievementTotalPoints25m,
+                         iotaAchievementTotalPoints100m
+                         ];
+    
+    for (int i = 0; i < strings.count; i++) {
+        identifier = strings[i];
+        percent = self.stats.totalPointsEarned.doubleValue / values[i] * 100;
+        NSLog(@"percent: %.2f, identifier: %@", percent, identifier);
+        if (identifier != NULL) {
+            [self.gameCenterManager submitAchievement:identifier percentComplete:percent];
+        }
     }
     
-    if (self.stats.totalPointsEarned.longLongValue >= 5000000) {
-        identifier = iotaAchievementTotalPoints5m;
-    }
-    
-    if (self.stats.totalPointsEarned.longLongValue >= 10000000) {
-        identifier = iotaAchievementTotalPoints10m;
-    }
-    
-    if (self.stats.totalPointsEarned.longLongValue >= 25000000) {
-        identifier = iotaAchievementTotalPoints25m;
-    }
-    
-    if (self.stats.totalPointsEarned.longLongValue >= 100000000) {
-        identifier = iotaAchievementTotalPoints100m;
-    }
-    
-    if (identifier != NULL) {
-        [gameCenterManager submitAchievement:identifier percentComplete:100.0];
-    }
 }
 
 - (void)checkMultiplierAchievements {
@@ -549,7 +546,7 @@
     }
     
     if (identifer != NULL) {
-        [gameCenterManager submitAchievement:identifer percentComplete:100.0];
+        [self.gameCenterManager submitAchievement:identifer percentComplete:100.0];
     }
 }
 
@@ -601,7 +598,7 @@
 {
 	if(error == NULL)
 	{
-		[gameCenterManager reloadHighScoresForCategory: self.currentLeaderboardIdentifier];
+		[self.gameCenterManager reloadHighScoresForCategory: self.currentLeaderboardIdentifier];
 	}
 	else
 	{
@@ -635,6 +632,10 @@
 		{
             [GKNotificationBanner showBannerWithTitle:@"Achievement unlocked!" message:ach.identifier completionHandler:^{
             }];
+            
+            if (iotaSE.canPlaySound) {
+                [iotaSE playEvent:YSIotaSEEventPowerUp];
+            }
 		}
 	}
 	else

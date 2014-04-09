@@ -32,6 +32,9 @@
     self.iotaGameScene.mainMenuViewController = self;
     [self.iotaGameScene createContent];
     
+    self.gcm = self.iotaGameScene.gameCenterManager;
+    self.mainMenu.gcm = self.gcm;
+    
     AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
     appDelegate.iotaGameScene = self.iotaGameScene;
     appDelegate.gameCenterManager.delegate = self.iotaGameScene;
@@ -93,6 +96,12 @@
                              self.bannerIsVisible = NO;
                          }];
     }
+}
+
+- (BOOL)bannerViewActionShouldBegin:(ADBannerView *)banner willLeaveApplication:(BOOL)willLeave {
+    [self.gcm submitAchievement:iotaAchievementFeedDeveloper percentComplete:100.0];
+    
+    return YES;
 }
 
 @end

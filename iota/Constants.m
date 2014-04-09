@@ -39,7 +39,7 @@ NSString *const iotaAchievementMultiplier95     = @"iotaAchievementMultiplier95"
 NSString *const iotaAchievementMultiplier100    = @"iotaAchievementMultiplier100";
 NSString *const iotaAchievementFeedDeveloper    = @"iotaAchievementFeedDeveloper";
 NSString *const iotaAchievementTwitter          = @"iotaAchievementTwitter";
-NSString *const iotaAchievementFacebook         = @"iotaAchievementTwitter";
+NSString *const iotaAchievementFacebook         = @"iotaAchievementFacebook";
 
 NSString *const kIOScoreClassName            = @"Score";
 NSString *const kIOScoreTotalScoreKey        = @"totalScore";

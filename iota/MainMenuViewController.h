@@ -11,6 +11,7 @@
 #import <GameKit/GameKit.h>
 #import <iAd/iAd.h>
 #import "MainMenu.h"
+#import "GameCenterManager.h"
 
 @class IotaGameScene;
 
@@ -19,6 +20,7 @@
 @property (weak, nonatomic) IBOutlet ADBannerView *adView;
 @property (nonatomic, strong) IotaGameScene *iotaGameScene;
 @property (nonatomic, strong) MainMenu *mainMenu;
+@property (nonatomic, strong) GameCenterManager *gcm;
 @property (nonatomic) BOOL bannerIsVisible;
 
 @end

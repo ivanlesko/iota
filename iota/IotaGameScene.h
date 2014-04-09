@@ -32,6 +32,8 @@
 /// Determine's whether or not the scene has created content or not.
 @property (nonatomic) BOOL contentCreated;
 
+@property (nonatomic, strong) GameCenterManager *gameCenterManager;
+
 /// How many lives the user has left.
 @property (nonatomic) int ballLives;
 
@@ -55,7 +57,7 @@
 - (void)presentTheFingerSprite;
 
 - (void)reportScores;
-- (void)checkAchievements;
+- (void)checkMultiplierAchievements;
 
 /// Reloads the user's high score from Game Center.  
 - (void)reloadScoresComplete:(GKLeaderboard *)leaderBoard error:(NSError *)error;

@@ -63,7 +63,7 @@
     
     [data writeToFile:[Stats statsFilePath] options:NSDataWritingAtomic error:&error];
     if (!error) {
-        [self.gameScene checkAchievements];
+        [self.gameScene checkMultiplierAchievements];
     }
 }
 

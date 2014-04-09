@@ -21,5 +21,6 @@
 
 @property (nonatomic, strong) MainMenuViewController *mainMenuViewController;
 @property (nonatomic) IotaGameScene *gameScene;
+@property (nonatomic, strong) GameCenterManager *gcm;
 
 @end
