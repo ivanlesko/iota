@@ -9,6 +9,7 @@
 #import <SystemConfiguration/SystemConfiguration.h>
 #import <AVFoundation/AVFoundation.h>
 #import "IotaGameScene.h"
+#import "AchievementMessages.h"
 
 #define STARTING_BALL_LIVES 5
 #define PEG_COLUMNS 12
@@ -419,7 +420,7 @@
                 
                 // Turn off the multiplier after itis been hit.
                 if (peg.multiplier == FALSE) {
-                    self.multiplier = [self.multiplier decimalNumberByAdding:[NSDecimalNumber decimalNumberWithString:@"2.0"]];
+                    self.multiplier = [self.multiplier decimalNumberByAdding:[NSDecimalNumber decimalNumberWithString:@"1.0"]];
                     peg.multiplier = TRUE;
                 }
             
@@ -458,68 +459,47 @@
         [[ParseHelper sharedHelper] reportScoreWithTotalScore:finalScore multiplier:[self.multiplier intValue] score:self.score withValues:scoreIndicators.values];
     }
     
-    [self checkHighScoreAchievements];
-    [self checkTotalPointsAchievements];
+    [self checkHighScoreAndTotalPointsAchievements];
 }
 
-- (void)checkHighScoreAchievements {
-    NSString *identifier = NULL;
+- (void)checkHighScoreAndTotalPointsAchievements {
+    __block NSString *identifier = NULL;
     
-    if (self.stats.localHighScore.longLongValue >= 40000) {
-        identifier = iotaAchievementHighScore40k;
-    }
+    NSDictionary *highScoreValues = @{
+                                     iotaAchievementHighScore40k:    @40000,
+                                     iotaAchievementHighScore50k:    @50000,
+                                     iotaAchievementHighScore60k:    @60000,
+                                     iotaAchievementHighScore65k:    @65000,
+                                     iotaAchievementHighScore70k:    @70000,
+                                     };
     
-    if (self.stats.localHighScore.longLongValue >= 50000) {
-        identifier = iotaAchievementHighScore50k;
-    }
+    NSDictionary *totalPointvalues = @{
+                                       iotaAchievementTotalPoints1m:   @1000000,
+                                       iotaAchievementTotalPoints5m:   @5000000,
+                                       iotaAchievementTotalPoints10m:  @10000000,
+                                       iotaAchievementTotalPoints25m:  @25000000,
+                                       iotaAchievementTotalPoints100m: @100000000
+                                       };
     
-    if (self.stats.localHighScore.longLongValue >= 60000) {
-        identifier = iotaAchievementHighScore60k;
-    }
-    
-    if (self.stats.localHighScore.longLongValue >= 65000) {
-        identifier = iotaAchievementHighScore65k;
-    }
-    
-    if (self.stats.localHighScore.longLongValue >= 70000) {
-        identifier = iotaAchievementHighScore70k;
-    }
-    
-	if(identifier!= NULL)
-	{
-		[self.gameCenterManager submitAchievement: identifier percentComplete: 100.0];
-	}
-}
-
-- (void)checkTotalPointsAchievements {
-    NSString *identifier = NULL;
-    double percent = 0.0;
-
-    double values[] = {
-                        1000000,
-                        5000000,
-                        10000000,
-                        25000000,
-                        100000000
-                      };
-    
-    NSArray *strings = @[
-                         iotaAchievementTotalPoints1m,
-                         iotaAchievementTotalPoints5m,
-                         iotaAchievementTotalPoints10m,
-                         iotaAchievementTotalPoints25m,
-                         iotaAchievementTotalPoints100m
-                         ];
-    
-    for (int i = 0; i < strings.count; i++) {
-        identifier = strings[i];
-        percent = self.stats.totalPointsEarned.doubleValue / values[i] * 100;
-        NSLog(@"percent: %.2f, identifier: %@", percent, identifier);
-        if (identifier != NULL) {
-            [self.gameCenterManager submitAchievement:identifier percentComplete:percent];
+    [highScoreValues enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
+        NSNumber *num = obj;
+        if (self.stats.localHighScore.longLongValue > num.longLongValue) {
+            identifier = key;
+            if (identifier != NULL) {
+                [self.gameCenterManager submitAchievement:identifier percentComplete:100.0];
+            }
         }
-    }
+    }];
     
+    [totalPointvalues enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
+        NSNumber *num = obj;
+        if (self.stats.totalPointsEarned.longLongValue > num.longLongValue) {
+            identifier = key;
+            if (identifier != NULL) {
+                [self.gameCenterManager submitAchievement:identifier percentComplete:100.0];
+            }
+        }
+    }];
 }
 
 - (void)checkMultiplierAchievements {
@@ -630,7 +610,7 @@
 	{
 		if(ach.percentComplete == 100.0)
 		{
-            [GKNotificationBanner showBannerWithTitle:@"Achievement unlocked!" message:ach.identifier completionHandler:^{
+            [GKNotificationBanner showBannerWithTitle:@"Achievement unlocked!" message:[[[AchievementMessages sharedInstances] messages] objectForKey:ach.identifier] completionHandler:^{
             }];
             
             if (iotaSE.canPlaySound) {

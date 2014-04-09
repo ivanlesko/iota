@@ -93,6 +93,7 @@
 		4ECC177418D4E9660046134D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4ECC177318D4E9660046134D /* Main.storyboard */; };
 		4ECC177818D51F1E0046134D /* swoosh.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 4ECC177718D51F1E0046134D /* swoosh.mp3 */; };
 		4EFC026318E3515900207A33 /* UIShareAcitivityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EFC026218E3515900207A33 /* UIShareAcitivityViewController.m */; };
+		85783F3818F5A8BC00473030 /* AchievementMessages.m in Sources */ = {isa = PBXBuildFile; fileRef = 85783F3718F5A8BC00473030 /* AchievementMessages.m */; };
 		85847E7C18ECDA70002B2F12 /* Stats.plist in Resources */ = {isa = PBXBuildFile; fileRef = 85847E7B18ECDA70002B2F12 /* Stats.plist */; };
 		85847E7F18EDE16A002B2F12 /* NSString+FilePaths.m in Sources */ = {isa = PBXBuildFile; fileRef = 85847E7E18EDE16A002B2F12 /* NSString+FilePaths.m */; };
 		85847E8818EE6DF4002B2F12 /* StatsScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 85847E8718EE6DF4002B2F12 /* StatsScene.m */; };
@@ -224,6 +225,8 @@
 		4ECC177718D51F1E0046134D /* swoosh.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = swoosh.mp3; sourceTree = "<group>"; };
 		4EFC026118E3515900207A33 /* UIShareAcitivityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIShareAcitivityViewController.h; sourceTree = "<group>"; };
 		4EFC026218E3515900207A33 /* UIShareAcitivityViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIShareAcitivityViewController.m; sourceTree = "<group>"; };
+		85783F3618F5A8BC00473030 /* AchievementMessages.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AchievementMessages.h; sourceTree = "<group>"; };
+		85783F3718F5A8BC00473030 /* AchievementMessages.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AchievementMessages.m; sourceTree = "<group>"; };
 		85847E7B18ECDA70002B2F12 /* Stats.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Stats.plist; sourceTree = "<group>"; };
 		85847E7D18EDE16A002B2F12 /* NSString+FilePaths.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+FilePaths.h"; sourceTree = "<group>"; };
 		85847E7E18EDE16A002B2F12 /* NSString+FilePaths.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+FilePaths.m"; sourceTree = "<group>"; };
@@ -436,6 +439,8 @@
 				4E40332518E4FCC2009567F0 /* ParseHelper.m */,
 				4E40333F18E5072D009567F0 /* Reachability.h */,
 				4E40334018E5072D009567F0 /* Reachability.m */,
+				85783F3618F5A8BC00473030 /* AchievementMessages.h */,
+				85783F3718F5A8BC00473030 /* AchievementMessages.m */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
@@ -679,6 +684,7 @@
 				4E5BC24618D3790800F7F642 /* ScoreIndicators.m in Sources */,
 				4E5BC24418D3790800F7F642 /* Peg.m in Sources */,
 				85A03A0218ECB8CE00A0E60E /* FingerSprite.m in Sources */,
+				85783F3818F5A8BC00473030 /* AchievementMessages.m in Sources */,
 				4EFC026318E3515900207A33 /* UIShareAcitivityViewController.m in Sources */,
 				4E40332618E4FCC2009567F0 /* ParseHelper.m in Sources */,
 				4E0C6AD918E621D9008919A2 /* SKTransition+CustomTransition.m in Sources */,

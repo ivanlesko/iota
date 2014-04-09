@@ -87,15 +87,6 @@
     facebook.position  = CGPointMake(48.0, 0);
     [facebook setTouchDownTarget:self action:@selector(goToFacebook)];
     [socialContainer addChild:facebook];
-    
-    SKButton *submitAchievement = [[SKButton alloc] initWithImageNamed:@"facebook"];
-    submitAchievement.position = CGPointMake(200, 200);
-    [submitAchievement setTouchDownTarget:self action:@selector(submitAchievement)];
-    [self addChild:submitAchievement];
-}
-
-- (void)submitAchievement {
-    [self.gcm submitAchievement:iotaAchievementTotalPoints1m percentComplete:100.0];
 }
 
 - (void)playGame {
@@ -133,12 +124,12 @@
 }
 
 - (void)goToTwitter {
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://www.twitter.com/HumbleCorp"]];
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://twitter.com/_ivonski"]];
     [self.gcm submitAchievement:iotaAchievementTwitter percentComplete:100.0];
 }
 
 - (void)goToFacebook {
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://www.facebook.com/pages/Humble-Corp/502261386544587?code=62238"]];
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://www.facebook.com/pages/Ivonski/630399290365944"]];
     [self.gcm submitAchievement:iotaAchievementFacebook percentComplete:100.0];
 }
 

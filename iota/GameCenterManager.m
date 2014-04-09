@@ -192,7 +192,6 @@
 		{
 			achievement= [[GKAchievement alloc] initWithIdentifier: identifier];
 			achievement.percentComplete= percentComplete;
-            achievement.showsCompletionBanner = YES;
 			//Add achievement to achievement cache...
 			[self.earnedAchievementCache setObject: achievement forKey: achievement.identifier];
 		}
