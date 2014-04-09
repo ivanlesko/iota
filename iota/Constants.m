@@ -22,6 +22,25 @@ NSString *const kIOLowestScoreLeaderboard       = @"iotaLowestScore";
 NSString *const kIOHighestMultiplierLeaderboard = @"iotaHighestMultiplier";
 NSString *const kIOTotalGamesPlayedLeaderboard  = @"iotaTotalGamesPlayed";
 
+NSString *const iotaAchievementHighScore40k     = @"iotaAchievementHighScore40k";
+NSString *const iotaAchievementHighScore50k     = @"iotaAchievementHighScore50k";
+NSString *const iotaAchievementHighScore60k     = @"iotaAchievementHighScore60k";
+NSString *const iotaAchievementHighScore65k     = @"iotaAchievementHighScore65k";
+NSString *const iotaAchievementHighScore70k     = @"iotaAchievementHighScore70k";
+NSString *const iotaAchievementTotalPoints1m    = @"iotaAchievementTotalPoints1m";
+NSString *const iotaAchievementTotalPoints5m    = @"iotaAchievementTotalPoints5m";
+NSString *const iotaAchievementTotalPoints10m   = @"iotaAchievementTotalPoints10m";
+NSString *const iotaAchievementTotalPoints25m   = @"iotaAchievementTotalPoints25m";
+NSString *const iotaAchievementTotalPoints100m  = @"iotaAchievementTotalPoints100m";
+NSString *const iotaAchievementMultiplier80     = @"iotaAchievementMultiplier80";
+NSString *const iotaAchievementMultiplier85     = @"iotaAchievementMultiplier85";
+NSString *const iotaAchievementMultiplier90     = @"iotaAchievementMultiplier90";
+NSString *const iotaAchievementMultiplier95     = @"iotaAchievementMultiplier95";
+NSString *const iotaAchievementMultiplier100    = @"iotaAchievementMultiplier100";
+NSString *const iotaAchievementFeedDeveloper    = @"iotaAchievementFeedDeveloper";
+NSString *const iotaAchievementTwitter          = @"iotaAchievementTwitter";
+NSString *const iotaAchievementFacebook         = @"iotaAchievementTwitter";
+
 NSString *const kIOScoreClassName            = @"Score";
 NSString *const kIOScoreTotalScoreKey        = @"totalScore";
 NSString *const kIOScoreMultiplierKey        = @"multiplier";

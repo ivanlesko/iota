@@ -73,6 +73,7 @@
     
     AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
     self.stats = appDelegate.stats;
+    self.stats.gameScene = self;
     gameCenterManager    = appDelegate.gameCenterManager;
     iotaSE               = appDelegate.iotaSE;
     
@@ -420,7 +421,7 @@
                 
                 // Turn off the multiplier after itis been hit.
                 if (peg.multiplier == FALSE) {
-                    self.multiplier = [self.multiplier decimalNumberByAdding:[NSDecimalNumber decimalNumberWithString:@"1.0"]];
+                    self.multiplier = [self.multiplier decimalNumberByAdding:[NSDecimalNumber decimalNumberWithString:@"2.0"]];
                     peg.multiplier = TRUE;
                 }
             
@@ -457,6 +458,98 @@
     
     if ([self connected]) {
         [[ParseHelper sharedHelper] reportScoreWithTotalScore:finalScore multiplier:[self.multiplier intValue] score:self.score withValues:scoreIndicators.values];
+    }
+}
+
+- (void) checkAchievements
+{
+    [self checkHighScoreAchievements];
+    [self checkTotalPointsAchievements];
+    [self checkMultiplierAchievements];
+}
+
+- (void)checkHighScoreAchievements {
+    NSString *identifier = NULL;
+    
+    if (self.stats.localHighScore.longLongValue >= 40000) {
+        identifier = iotaAchievementHighScore40k;
+    }
+    
+    if (self.stats.localHighScore.longLongValue >= 50000) {
+        identifier = iotaAchievementHighScore50k;
+    }
+    
+    if (self.stats.localHighScore.longLongValue >= 60000) {
+        identifier = iotaAchievementHighScore60k;
+    }
+    
+    if (self.stats.localHighScore.longLongValue >= 65000) {
+        identifier = iotaAchievementHighScore65k;
+    }
+    
+    if (self.stats.localHighScore.longLongValue >= 70000) {
+        identifier = iotaAchievementHighScore70k;
+    }
+    
+	if(identifier!= NULL)
+	{
+		[gameCenterManager submitAchievement: identifier percentComplete: 100.0];
+	}
+}
+
+- (void)checkTotalPointsAchievements {
+    NSString *identifier = NULL;
+    
+    if (self.stats.totalPointsEarned.longLongValue >= 1000000) {
+        identifier = iotaAchievementTotalPoints1m;
+    }
+    
+    if (self.stats.totalPointsEarned.longLongValue >= 5000000) {
+        identifier = iotaAchievementTotalPoints5m;
+    }
+    
+    if (self.stats.totalPointsEarned.longLongValue >= 10000000) {
+        identifier = iotaAchievementTotalPoints10m;
+    }
+    
+    if (self.stats.totalPointsEarned.longLongValue >= 25000000) {
+        identifier = iotaAchievementTotalPoints25m;
+    }
+    
+    if (self.stats.totalPointsEarned.longLongValue >= 100000000) {
+        identifier = iotaAchievementTotalPoints100m;
+    }
+    
+    if (identifier != NULL) {
+        [gameCenterManager submitAchievement:identifier percentComplete:100.0];
+    }
+}
+
+- (void)checkMultiplierAchievements {
+    NSString *identifer = NULL;
+    
+    if (self.stats.highestMultiplier.longLongValue >= 80) {
+        identifer = iotaAchievementMultiplier80;
+    }
+    
+    if (self.stats.highestMultiplier.longLongValue >= 85) {
+        identifer = iotaAchievementMultiplier85;
+    }
+    
+    if (self.stats.highestMultiplier.longLongValue >= 90) {
+        identifer = iotaAchievementMultiplier90;
+    }
+    
+    if (self.stats.highestMultiplier.longLongValue >= 95) {
+        identifer = iotaAchievementMultiplier95;
+    }
+    
+    if (self.stats.highestMultiplier.longLongValue >= 100) {
+        identifer = iotaAchievementMultiplier100;
+    }
+    
+    if (identifer != NULL) {
+        [gameCenterManager submitAchievement:identifer percentComplete:100.0];
     }
 }
 
@@ -532,6 +625,31 @@
             }
         }
 	}
+}
+
+- (void) achievementSubmitted: (GKAchievement*) ach error:(NSError*) error;
+{
+	if((error == NULL) && (ach != NULL))
+	{
+		if(ach.percentComplete == 100.0)
+		{
+            [GKNotificationBanner showBannerWithTitle:@"Achievement unlocked!" message:ach.identifier completionHandler:^{
+            }];
+		}
+	}
+	else
+	{
+		[self showAlertWithTitle: @"Achievement Submission Failed!"
+                         message: [NSString stringWithFormat: @"Reason: %@", [error localizedDescription]]];
+	}
+}
+
+- (void) showAlertWithTitle: (NSString*) title message: (NSString*) message
+{
+	UIAlertView* alert= [[UIAlertView alloc] initWithTitle: title message: message
+                                                   delegate: NULL cancelButtonTitle: @"OK" otherButtonTitles: NULL];
+	[alert show];
+	
 }
 
 #pragma mark - Reachability Method

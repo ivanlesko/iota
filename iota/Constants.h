@@ -69,6 +69,31 @@ extern NSString *const kIOAccuracy25HitsKey;
 extern NSString *const kIOAccuracy0HitsKey;
 
 /*
+ * GameCenter Achievements
+ */
+extern NSString *const iotaAchievementHighScore40k;
+extern NSString *const iotaAchievementHighScore50k;
+extern NSString *const iotaAchievementHighScore60k;
+extern NSString *const iotaAchievementHighScore65k;
+extern NSString *const iotaAchievementHighScore70k;
+
+extern NSString *const iotaAchievementTotalPoints1m;
+extern NSString *const iotaAchievementTotalPoints5m;
+extern NSString *const iotaAchievementTotalPoints10m;
+extern NSString *const iotaAchievementTotalPoints25m;
+extern NSString *const iotaAchievementTotalPoints100m;
+
+extern NSString *const iotaAchievementMultiplier80;
+extern NSString *const iotaAchievementMultiplier85;
+extern NSString *const iotaAchievementMultiplier90;
+extern NSString *const iotaAchievementMultiplier95;
+extern NSString *const iotaAchievementMultiplier100;
+
+extern NSString *const iotaAchievementFeedDeveloper;
+extern NSString *const iotaAchievementTwitter;
+extern NSString *const iotaAchievementFacebook;
+
+/*
  * The total number of score detectors the user has hit.
  * We need this number to calculate the
  */

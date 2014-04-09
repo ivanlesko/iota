@@ -53,6 +53,7 @@
 @optional
 - (void)reloadScoresComplete: (GKLeaderboard*)leaderBoard error: (NSError*) error;
 - (void)processGameCenterAuth: (NSError*) error;
+- (void) achievementSubmitted: (GKAchievement*) ach error:(NSError*) error;
 @end
 
 @interface GameCenterManager : NSObject
@@ -73,6 +74,8 @@
 
 - (void)reportScore:(int64_t)score forCategory:(NSString*)category;
 - (void)reloadHighScoresForCategory:(NSString*)category;
+
+- (void) submitAchievement: (NSString*) identifier percentComplete: (double) percentComplete;
 
 @end
 

@@ -12,9 +12,11 @@
 #import "YSIotaSE.h"
 #import "CreditsScene.h"
 #import "StatsScene.h"
+#import "GameCenterManager.h"
 
 @interface MainMenu() {
     NSString *currentLeaderboard;
+    GameCenterManager *gcManager;
 }
 
 @property (nonatomic) BOOL contentCreated;
@@ -86,6 +88,18 @@
     facebook.position  = CGPointMake(48.0, 0);
     [facebook setTouchDownTarget:self action:@selector(goToFacebook)];
     [socialContainer addChild:facebook];
+    
+    SKButton *submitAchievement = [[SKButton alloc] initWithImageNamed:@"facebook"];
+    submitAchievement.position = CGPointMake(200, 200);
+    [submitAchievement setTouchDownTarget:self action:@selector(submitAchievement)];
+    [self addChild:submitAchievement];
+    
+    gcManager = [[GameCenterManager alloc] init];
+}
+
+- (void)submitAchievement {
+    NSLog(@"hit da button");
+    [gcManager submitAchievement:@"iotaAchievementHighScore60k" percentComplete:100.0];
 }
 
 - (void)playGame {

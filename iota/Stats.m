@@ -62,6 +62,9 @@
     NSError *error;
     
     [data writeToFile:[Stats statsFilePath] options:NSDataWritingAtomic error:&error];
+    if (!error) {
+        [self.gameScene checkAchievements];
+    }
 }
 
 - (void)setLocalHighScore:(NSNumber *)localHighScore {

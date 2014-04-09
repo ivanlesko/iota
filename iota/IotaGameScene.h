@@ -55,6 +55,7 @@
 - (void)presentTheFingerSprite;
 
 - (void)reportScores;
+- (void)checkAchievements;
 
 /// Reloads the user's high score from Game Center.  
 - (void)reloadScoresComplete:(GKLeaderboard *)leaderBoard error:(NSError *)error;
